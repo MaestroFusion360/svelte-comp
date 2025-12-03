@@ -78,7 +78,7 @@
         label: L.pageLabels[id as keyof typeof L.pageLabels],
       }))
   );
-  let active = $state<PageId>("form");
+  let active = $state<PageId>("about");
 
   // Handle sidebar navigation
   function setActive(id: string) {
