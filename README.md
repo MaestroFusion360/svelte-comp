@@ -1779,5 +1779,5 @@ MIT License - See [LICENSE](LICENSE.md) for details.
 </p>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=MaestroFusion360-SmartPost&label=Project+Views&color=blue" alt="Project Views" />
+  <img src="https://komarev.com/ghpvc/?username=MaestroFusion360-svelte-comp&label=Project+Views&color=blue" alt="Project Views" />
 </p>
