@@ -55,7 +55,7 @@
 
   let container: HTMLElement;
 
-  let size = $state(initialSize);
+  let size = $derived(initialSize);
   let isDragging = $state(false);
   let startSize = 0;
   let startPos = 0;

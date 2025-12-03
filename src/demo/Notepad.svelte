@@ -580,7 +580,9 @@
 <svelte:window onkeydown={handleHotkeys} />
 
 <div class="w-full {externalClass}">
-  <Menu {menus} onSelect={handleSelect} {sz} />
+  <div class="overflow-x-auto">
+    <Menu {menus} onSelect={handleSelect} {sz} />
+  </div>
 
   <CodeView
     title=""

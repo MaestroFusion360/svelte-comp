@@ -83,7 +83,7 @@
 
   const contentClass = $derived(cx(contentSize[sz], TEXT[sz]));
 
-  let open = $state<number[]>(defaultOpen);
+  let open = $derived(defaultOpen);
 
   const isOpen = (i: number) => open.includes(i);
 

@@ -78,7 +78,7 @@
         label: L.pageLabels[id as keyof typeof L.pageLabels],
       }))
   );
-  let active = $state<PageId>("form");
+  let active = $state<PageId>("about");
 
   // Handle sidebar navigation
   function setActive(id: string) {
@@ -553,7 +553,9 @@
           {/snippet}
         </PlayCard>
       {:else if active === "notepad"}
-        <Notepad {L} />
+        <div class="overflow-x-auto">
+          <Notepad {L} />
+        </div>
       {:else if active === "progressBar"}
         <PlayCard
           component="ProgressBar"
