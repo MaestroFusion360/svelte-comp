@@ -553,9 +553,10 @@
           {/snippet}
         </PlayCard>
       {:else if active === "notepad"}
-        <div class="overflow-x-auto">
-          <Notepad {L} />
-        </div>
+      <div class="overflow-x-auto">
+<Notepad {L} />
+      </div>
+        
       {:else if active === "progressBar"}
         <PlayCard
           component="ProgressBar"
@@ -706,7 +707,7 @@
           subtitle="Paginated data table"
         >
           {#snippet children(sz: SizeKey, variant: string)}
-            {@render tableSnippet(sz, variant)}
+            {@render tableSnippet(sz, variant as TableVariant)}
           {/snippet}
         </PlayCard>
       {:else if active === "tabs"}
@@ -716,7 +717,7 @@
           subtitle={L.snippets.tabs.subtitle}
         >
           {#snippet children(sz: SizeKey, variant: string)}
-            {@render tabsSnippet(sz, variant)}
+            {@render tabsSnippet(sz, variant as TabsVariant)}
           {/snippet}
         </PlayCard>
       {:else if active === "themeToggle"}

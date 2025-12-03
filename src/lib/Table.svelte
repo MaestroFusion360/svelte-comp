@@ -177,7 +177,7 @@
   const isCompact = $derived(
     currentVariant === "list" || currentVariant === "dense"
   );
-  const variantStyles = $derived(variants[currentVariant]);
+  const variantStyles = $derived(variants[currentVariant] ?? variants.default);
 
   const tableClass = $derived(
     cx(
