@@ -40,12 +40,12 @@ export default defineConfig({
           // NOTE: if your icons live in /public/assets/* this is fine.
           // On GH Pages base is applied at runtime, so prefixing with basePath works.
           {
-            src: `${basePath}assets/icon-192.png`,
+            src: `${basePath}assets/icon-192x192.png`,
             sizes: "192x192",
             type: "image/png",
           },
           {
-            src: `${basePath}assets/icon-512.png`,
+            src: `${basePath}assets/icon-512x512.png`,
             sizes: "512x512",
             type: "image/png",
             purpose: "any maskable",
