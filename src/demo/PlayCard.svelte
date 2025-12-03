@@ -46,7 +46,7 @@
   const lang = getContext<{ value: keyof typeof TEXTS }>("lang");
   const L = $derived(TEXTS[lang.value].playground.controls);
 
-  const meta = componentMeta[component];
+  const meta = $derived.by(() => componentMeta[component]);
 
   const fieldTypeOptions = $derived(
     fieldTypes.map((t) => ({
@@ -55,12 +55,19 @@
     }))
   );
 
-  let curSize = $state(sz);
-  let curVariant = $state(meta.variants[0] ?? "");
-  let curLabel = $state(label);
-  let curDisabled = $state(disabled);
+  let curSize = $state<SizeKey>("md");
+  let curVariant = $state("");
+  let curLabel = $state("");
+  let curDisabled = $state(false);
   let curType = $state("input");
   let curValue = $state(false);
+
+  $effect(() => {
+    curSize = sz;
+    curLabel = label;
+    curDisabled = disabled;
+    curVariant = meta.variants[0] ?? "";
+  });
 
   const rootClass = $derived(cx("w-full flex flex-col", externalClass));
 </script>

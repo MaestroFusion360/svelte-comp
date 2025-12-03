@@ -120,13 +120,7 @@
 
   const toStr = (v: unknown) => (v == null ? "" : String(v));
 
-  const form = $state<FormValues>(
-    schema.reduce((a, f) => {
-      a[f.name] =
-        value[f.name] ?? f.default ?? (f.type === "checkbox" ? false : "");
-      return a;
-    }, {} as FormValues)
-  );
+  let form = $state<FormValues>({});
 
   const touched = $state<Record<string, boolean>>({});
   const errors = $state<Record<string, string[]>>({});

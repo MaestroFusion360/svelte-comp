@@ -1771,9 +1771,13 @@ MIT License - See [LICENSE](LICENSE.md) for details.
 <!-- markdownlint-disable MD033 -->
 <p align="center">
   <a href="https://github.com/MaestroFusion360/svelte-comp/issues">
-    <img src="https://img.shields.io/github/issues/MaestroFusion360/svelte-comp" alt="Issues">
+    <img src="https://img.shields.io/github/issues/MaestroFusion360/svelte-comp" alt="Issues" />
   </a>
   <a href="https://github.com/MaestroFusion360/svelte-comp/stargazers">
-    <img src="https://img.shields.io/github/stars/MaestroFusion360/svelte-comp" alt="Stars">
+    <img src="https://img.shields.io/github/stars/MaestroFusion360/svelte-comp" alt="Stars" />
   </a>
+</p>
+
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=MaestroFusion360-SmartPost&label=Project+Views&color=blue" alt="Project Views" />
 </p>

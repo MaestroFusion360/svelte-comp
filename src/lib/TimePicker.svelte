@@ -75,7 +75,7 @@
 
   const pickerClass = $derived(cx("inline-block w-full", externalClass));
 
-  let timeSystem = $state(initialSystem);
+  let timeSystem = $derived(initialSystem);
 
   let hour = $state("00");
   let minute = $state("00");

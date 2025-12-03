@@ -75,7 +75,7 @@
   const placeholderFinal = $derived(placeholder ?? L.placeholder);
 
   let inputEl: HTMLInputElement;
-  let internalValue: FileList | null = $state(propValue);
+  let internalValue: FileList | null = $derived(propValue);
   let isDragOver = $state(false);
 
   const base = "inline-block w-full";
