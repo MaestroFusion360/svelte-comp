@@ -16,15 +16,15 @@ if (!self.define) {
       })
   );
   self.define = (n, r) => {
-    const o =
+    const c =
       e ||
       ("document" in self ? document.currentScript.src : "") ||
       location.href;
-    if (i[o]) return;
-    let c = {};
-    const t = (e) => s(e, o),
-      l = { module: { uri: o }, exports: c, require: t };
-    i[o] = Promise.all(n.map((e) => l[e] || t(e))).then((e) => (r(...e), c));
+    if (i[c]) return;
+    let o = {};
+    const t = (e) => s(e, c),
+      l = { module: { uri: c }, exports: o, require: t };
+    i[c] = Promise.all(n.map((e) => l[e] || t(e))).then((e) => (r(...e), o));
   };
 }
 define(["./workbox-8c29f6e4"], function (e) {
@@ -38,9 +38,9 @@ define(["./workbox-8c29f6e4"], function (e) {
           url: "manifest.webmanifest",
           revision: "caf5c32711f8f765a3063eb70c7cc155",
         },
-        { url: "index.js", revision: "0c47b515a2dc3eeedd078e6e7a94b305" },
+        { url: "index.js", revision: "5d87bfcfad7271b3d93660da28ebaf6f" },
         { url: "index.html", revision: "0b5e838ed95b7de5c1dd352649a32adf" },
-        { url: "index.css", revision: "9a7ade589ff0431e64a9baa72d8d148e" },
+        { url: "index.css", revision: "d608d08a47dcd3071a62ddaa8cecbbc1" },
         { url: "assets/icon.svg", revision: null },
         { url: "assets/icon-512x512.png", revision: null },
         { url: "assets/icon-192x192.png", revision: null },
