@@ -74,7 +74,7 @@
   const subMenuGutter = 8;
 
   const topButtonBase =
-    "px-4 rounded-xs leading-none transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-color-focus)] focus-visible:outline-offset-2";
+    "px-4 rounded-xs leading-none transition-colors outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]";
 
   const topButtonActive =
     "bg-[var(--color-bg-muted)] text-[var(--color-text-default)]";
@@ -503,6 +503,7 @@
                 class={cx(
                   "relative text-left rounded-xs transition-colors outline-none px-1.5 py-0.5 my-1 mr-1 min-w-full flex items-center",
                   "gap-3 hover:bg-[var(--color-bg-muted)] focus-visible:bg-[var(--color-bg-muted)]",
+                  "focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]",
                   textCls
                 )}
                 onmousedown={(e) => e.preventDefault()}
@@ -585,8 +586,7 @@
                           "relative text-left rounded-xs transition-colors outline-none px-1.5 py-0.5",
                           "my-1 mr-1 w-full flex items-center justify-between gap-3",
                           "hover:bg-[var(--color-bg-muted)] focus-visible:bg-[var(--color-bg-muted)]",
-                          "focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)]",
-                          "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-surface)]",
+                          "focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]",
                           "decoration-[var(--color-text-default)]",
                           textCls
                         )}
