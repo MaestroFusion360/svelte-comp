@@ -579,9 +579,16 @@
 
 <svelte:window onkeydown={handleHotkeys} />
 
-<div class="w-full {externalClass}">
-  <div class="overflow-x-auto">
-    <Menu {menus} onSelect={handleSelect} {sz} />
+<div class={cx("block w-full min-w-full", externalClass)}>
+  <div
+    class="overflow-x-auto overflow-y-visible w-full min-w-full bg-[var(--color-bg-surface)] border-b border-[var(--border-color-default)]"
+  >
+    <Menu
+      class="block min-w-full bg-transparent border-0"
+      {menus}
+      onSelect={handleSelect}
+      {sz}
+    />
   </div>
 
   <CodeView

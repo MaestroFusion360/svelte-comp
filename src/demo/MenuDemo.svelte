@@ -111,7 +111,7 @@
 
 <div class="flex flex-col w-full {externalClass}">
   <div
-    class="w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]"
+    class="w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] overflow-x-auto"
   >
     <Menu sz={currentSz} {menus} onSelect={handleSelect} />
   </div>

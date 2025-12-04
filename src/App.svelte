@@ -553,9 +553,9 @@
           {/snippet}
         </PlayCard>
       {:else if active === "notepad"}
-      <div class="overflow-x-auto">
-<Notepad {L} />
-      </div>
+        <div class="overflow-x-auto w-full min-w-full">
+          <Notepad {L} />
+        </div>
         
       {:else if active === "progressBar"}
         <PlayCard
