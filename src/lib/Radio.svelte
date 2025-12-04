@@ -96,16 +96,15 @@
   };
 
   const variants = $derived(
-    {
-      default: {
-        checked: "bg-transparent border-[var(--color-bg-primary)]",
-        unchecked: "bg-transparent border-[var(--border-color-default)]",
-      },
-      neutral: {
-        checked: "bg-transparent border-[var(--border-color-strong)]",
-        unchecked: "bg-transparent border-[var(--border-color-default)]",
-      },
-    }[variant]
+    variant === "neutral"
+      ? {
+          checked: "bg-transparent border-[var(--border-color-strong)]",
+          unchecked: "bg-transparent border-[var(--border-color-default)]",
+        }
+      : {
+          checked: "bg-transparent border-[var(--color-bg-primary)]",
+          unchecked: "bg-transparent border-[var(--border-color-default)]",
+        }
   );
 
   const baseCircle =

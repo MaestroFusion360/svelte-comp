@@ -85,23 +85,22 @@
   };
 
   const variants = $derived(
-    {
-      default: {
-        checked:
-          "bg-[var(--color-bg-primary)] border-[var(--color-bg-primary)]",
-        unchecked:
-          "bg-[var(--color-bg-surface)] border-[var(--border-color-default)]",
-        mixed:
-          "bg-[var(--color-bg-secondary)] border-[var(--border-color-default)]",
-      },
-      neutral: {
-        checked: "bg-transparent border-[var(--border-color-strong)]",
-        unchecked: "bg-transparent border-[var(--border-color-default)]",
-        mixed: "bg-transparent border-[var(--border-color-strong)]",
-      },
-    }[variant]
+    variant === "neutral"
+      ? {
+          checked: "bg-transparent border-[var(--border-color-strong)]",
+          unchecked: "bg-transparent border-[var(--border-color-default)]",
+          mixed: "bg-transparent border-[var(--border-color-strong)]",
+        }
+      : {
+          checked:
+            "bg-[var(--color-bg-primary)] border-[var(--color-bg-primary)]",
+          unchecked:
+            "bg-[var(--color-bg-surface)] border-[var(--border-color-default)]",
+          mixed:
+            "bg-[var(--color-bg-secondary)] border-[var(--border-color-default)]",
+        }
   );
-
+  
   const boxBase =
     "rounded-[var(--radius-sm)] border border-solid cursor-pointer transition-all duration-[var(--transition-fast)] ease-[var(--timing-default)] flex items-center justify-center";
 
