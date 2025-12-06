@@ -13,6 +13,7 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
 - [UI Components Library (Svelte 5 + TailwindCSS)](#ui-components-library-svelte-5--tailwindcss)
   - [✨ Features](#-features)
   - [🚀 Quick Start](#-quick-start)
+    - [📦 Install as a package](#-install-as-a-package)
   - [📁 Project Structure](#-project-structure)
   - [🎨 Global Styles (Theme Tokens)](#-global-styles-theme-tokens)
     - [Theme Tokens - Text Colors](#theme-tokens---text-colors)
@@ -164,19 +165,26 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
 ## 🚀 Quick Start
 
 ```bash
-# clone
+# clone (for development)
 git clone https://github.com/MaestroFusion360/svelte-comp.git
 cd svelte-comp
 
-# install
+# install dependencies
 npm i
 
 # dev / build / preview
 npm run dev
 npm run build
 npm run preview
-
 ```
+
+### 📦 Install as a package
+
+```bash
+npm install svelte-comp
+```
+
+---
 
 ## 📁 Project Structure
 
@@ -1779,5 +1787,5 @@ MIT License - See [LICENSE](LICENSE.md) for details.
 </p>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=MaestroFusion360-SmartPost&label=Project+Views&color=blue" alt="Project Views" />
+  <img src="https://komarev.com/ghpvc/?username=MaestroFusion360-svelte-comp&label=Project+Views&color=blue" alt="Project Views" />
 </p>

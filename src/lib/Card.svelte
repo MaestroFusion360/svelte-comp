@@ -1,4 +1,4 @@
-<!-- src/lib/Card.svelte -->
+﻿<!-- src/lib/Card.svelte -->
 <script lang="ts">
   /**
    * @component Card
@@ -29,8 +29,8 @@
    * @note Uses `{@render}` snippets instead of legacy `slots`.
    */
   import type { Snippet } from "svelte";
-  import { type SizeKey, TEXT } from "$lib/types";
-  import { cx } from "$utils";
+  import { type SizeKey, TEXT } from "./types";
+  import { cx } from "../utils";
 
   type Props = {
     header?: Snippet;

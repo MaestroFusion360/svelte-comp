@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.svelte-kit
 
 # Editor directories and files
 .vscode/*
@@ -23,11 +24,4 @@ dist-ssr
 *.sln
 *.sw?
 
-*storybook.log
-storybook-static
 
-# Scripts
-scripts/get_tree_files.py
-scripts/find_cyrylic_words.py
-scripts/batch_archive_files.py
-scripts/get_text_from_files.py

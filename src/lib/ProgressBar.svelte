@@ -1,4 +1,4 @@
-<!-- src/lib/ProgressBar.svelte -->
+﻿<!-- src/lib/ProgressBar.svelte -->
 <script lang="ts">
   /**
    * @component ProgressBar
@@ -35,8 +35,8 @@
    * @note No invalid ARIA attributes.
    */
   import type { HTMLAttributes } from "svelte/elements";
-  import { type SizeKey, type ComponentVariant, TEXT } from "$lib/types";
-  import { cx, clamp } from "$utils";
+  import { type SizeKey, type ComponentVariant, TEXT } from "./types";
+  import { cx, clamp } from "../utils";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     value?: number;

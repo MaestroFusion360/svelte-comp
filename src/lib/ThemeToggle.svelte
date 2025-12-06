@@ -1,4 +1,4 @@
-<!-- src/lib/ThemeToggle.svelte -->
+﻿<!-- src/lib/ThemeToggle.svelte -->
 <script lang="ts">
   /**
    * @component ThemeToggle
@@ -22,8 +22,8 @@
    * @note Smooth transition between sun and moon icons.
    */
   import type { HTMLButtonAttributes } from "svelte/elements";
-  import { type SizeKey, TEXT } from "$lib/types";
-  import { cx, storage } from "$utils";
+  import { type SizeKey, TEXT } from "./types";
+  import { cx, storage } from "../utils";
 
   type Props = HTMLButtonAttributes & {
     disabled?: boolean;

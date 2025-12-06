@@ -1,4 +1,4 @@
-<!-- src/lib/Splitter.svelte -->
+﻿<!-- src/lib/Splitter.svelte -->
 <script lang="ts">
   /**
    * @component Splitter

@@ -1,4 +1,4 @@
-<!-- src/lib/Carousel.svelte -->
+﻿<!-- src/lib/Carousel.svelte -->
 <script lang="ts">
   /**
    * @component Carousel
@@ -29,13 +29,13 @@
    * @note Supports touch gestures (swipe left/right).
    * @note Autoplay pauses automatically when unmounted.
    * @note Uses `Card.svelte` internally for slide structure.
-   * @note Navigation dots and arrows appear only if there’s more than one item.
+   * @note Navigation dots and arrows appear only if thereвЂ™s more than one item.
    * @note Accessible via `aria-label`, `aria-current`, and keyboard focus on controls.
    */
   import Card from "./Card.svelte";
   import type { HTMLAttributes } from "svelte/elements";
-  import type { SizeKey, CarouselItem } from "$lib/types";
-  import { cx } from "$utils";
+  import type { SizeKey, CarouselItem } from "./types";
+  import { cx } from "../utils";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     items?: CarouselItem[];

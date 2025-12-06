@@ -1,4 +1,4 @@
-<!-- src/lib/Button.svelte -->
+﻿<!-- src/lib/Button.svelte -->
 <script lang="ts">
   /**
    * @component Button
@@ -38,8 +38,8 @@
    */
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import { type SizeKey, type ButtonVariant, TEXT } from "$lib/types";
-  import { cx } from "$utils";
+  import { type SizeKey, type ButtonVariant, TEXT } from "./types";
+  import { cx } from "../utils";
 
   type Props = HTMLButtonAttributes & {
     disabled?: boolean;

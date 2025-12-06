@@ -1,4 +1,4 @@
-<!-- src/lib/FilePicker.svelte -->
+﻿<!-- src/lib/FilePicker.svelte -->
 <script lang="ts">
   /**
    * @component FilePicker
@@ -39,7 +39,7 @@
   import type { HTMLAttributes } from "svelte/elements";
   import { getContext } from "svelte";
   import Button from "./Button.svelte";
-  import { cx } from "$utils";
+  import { cx } from "../utils";
   import { TEXTS } from "./lang";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
@@ -226,7 +226,7 @@
         {L.fileCount.replace("{n}", String(internalValue.length))}
 
         {#if multiple && internalValue.length > 1}
-          • {L.totalSize}: {(
+          вЂў {L.totalSize}: {(
             Array.from(internalValue).reduce(
               (acc, file) => acc + file.size,
               0

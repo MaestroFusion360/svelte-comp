@@ -1,4 +1,4 @@
-<!-- src/lib/DatePicker.svelte -->
+﻿<!-- src/lib/DatePicker.svelte -->
 <script lang="ts">
   /**
    * @component DatePicker
@@ -39,7 +39,7 @@
   import type { HTMLAttributes } from "svelte/elements";
   import { getContext } from "svelte";
   import Button from "./Button.svelte";
-  import { cx, formatDate } from "$utils";
+  import { cx, formatDate } from "../utils";
   import { TEXTS } from "./lang";
 
   type Props = HTMLAttributes<HTMLDivElement> & {

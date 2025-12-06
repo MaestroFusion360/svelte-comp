@@ -1,4 +1,4 @@
-<!-- src/lib/Field.svelte -->
+﻿<!-- src/lib/Field.svelte -->
 <script lang="ts">
   /**
    * @component Field
@@ -57,9 +57,9 @@
     HTMLInputAttributes,
     HTMLTextareaAttributes,
   } from "svelte/elements";
-  import type { SizeKey, FieldVariant, FieldType } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { uid, cx } from "$utils";
+  import type { SizeKey, FieldVariant, FieldType } from "./types";
+  import { TEXT } from "./types";
+  import { uid, cx } from "../utils";
 
   type Props = (HTMLInputAttributes & HTMLTextareaAttributes & FieldType) & {
     value?: string | number;

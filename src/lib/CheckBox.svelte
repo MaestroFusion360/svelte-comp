@@ -1,4 +1,4 @@
-<!-- src/lib/CheckBox.svelte -->
+﻿<!-- src/lib/CheckBox.svelte -->
 <script lang="ts">
   /**
    * @component CheckBox
@@ -35,11 +35,11 @@
    * @note Clicking the custom box while `indeterminate` clears it and sets `checked=true`.
    * @note `invalid` maps to `aria-invalid`; `describedBy` maps to `aria-describedby`.
    * @note SVG check and dash are inline; colors adapt per `variant` (`neutral` uses border color).
-   * @note Sizes scale the control box (`xs → xl`).
+   * @note Sizes scale the control box (`xs в†’ xl`).
    */
   import type { HTMLInputAttributes } from "svelte/elements";
-  import { type SizeKey, type ComponentVariant, TEXT } from "$lib/types";
-  import { cx, uid } from "$utils";
+  import { type SizeKey, type ComponentVariant, TEXT } from "./types";
+  import { cx, uid } from "../utils";
 
   type Props = HTMLInputAttributes & {
     label?: string;
@@ -85,23 +85,22 @@
   };
 
   const variants = $derived(
-    {
-      default: {
-        checked:
-          "bg-[var(--color-bg-primary)] border-[var(--color-bg-primary)]",
-        unchecked:
-          "bg-[var(--color-bg-surface)] border-[var(--border-color-default)]",
-        mixed:
-          "bg-[var(--color-bg-secondary)] border-[var(--border-color-default)]",
-      },
-      neutral: {
-        checked: "bg-transparent border-[var(--border-color-strong)]",
-        unchecked: "bg-transparent border-[var(--border-color-default)]",
-        mixed: "bg-transparent border-[var(--border-color-strong)]",
-      },
-    }[variant]
+    variant === "neutral"
+      ? {
+          checked: "bg-transparent border-[var(--border-color-strong)]",
+          unchecked: "bg-transparent border-[var(--border-color-default)]",
+          mixed: "bg-transparent border-[var(--border-color-strong)]",
+        }
+      : {
+          checked:
+            "bg-[var(--color-bg-primary)] border-[var(--color-bg-primary)]",
+          unchecked:
+            "bg-[var(--color-bg-surface)] border-[var(--border-color-default)]",
+          mixed:
+            "bg-[var(--color-bg-secondary)] border-[var(--border-color-default)]",
+        }
   );
-
+  
   const boxBase =
     "rounded-[var(--radius-sm)] border border-solid cursor-pointer transition-all duration-[var(--transition-fast)] ease-[var(--timing-default)] flex items-center justify-center";
 

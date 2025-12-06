@@ -1,4 +1,4 @@
-<!-- src/lib/CodeView.svelte -->
+﻿<!-- src/lib/CodeView.svelte -->
 <script lang="ts">
   /**
    * @component CodeView
@@ -40,7 +40,7 @@
    * @note Supports dark/light themes via existing design-token colors.
    * @note Designed as a low-level editor component, not a full IDE replacement.
    */
-  import { type SizeKey, type Language, TEXT } from "$lib/types";
+  import { type SizeKey, type Language, TEXT } from "./types";
   import * as Prism from "prismjs";
   import "prismjs/components/prism-markup";
   import "prismjs/components/prism-css";

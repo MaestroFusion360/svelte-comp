@@ -1,4 +1,4 @@
-<!-- src/lib/Radio.svelte -->
+﻿<!-- src/lib/Radio.svelte -->
 <script lang="ts">
   /**
    * @component Radio
@@ -40,8 +40,8 @@
    */
   import type { Snippet } from "svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
-  import { type SizeKey, type ComponentVariant, TEXT } from "$lib/types";
-  import { cx, uid } from "$utils";
+  import { type SizeKey, type ComponentVariant, TEXT } from "./types";
+  import { cx, uid } from "../utils";
 
   type Props = HTMLInputAttributes & {
     label?: string;
@@ -96,16 +96,15 @@
   };
 
   const variants = $derived(
-    {
-      default: {
-        checked: "bg-transparent border-[var(--color-bg-primary)]",
-        unchecked: "bg-transparent border-[var(--border-color-default)]",
-      },
-      neutral: {
-        checked: "bg-transparent border-[var(--border-color-strong)]",
-        unchecked: "bg-transparent border-[var(--border-color-default)]",
-      },
-    }[variant]
+    variant === "neutral"
+      ? {
+          checked: "bg-transparent border-[var(--border-color-strong)]",
+          unchecked: "bg-transparent border-[var(--border-color-default)]",
+        }
+      : {
+          checked: "bg-transparent border-[var(--color-bg-primary)]",
+          unchecked: "bg-transparent border-[var(--border-color-default)]",
+        }
   );
 
   const baseCircle =

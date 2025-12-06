@@ -1,4 +1,4 @@
-<!-- src/lib/Menu.svelte -->
+﻿<!-- src/lib/Menu.svelte -->
 <script lang="ts">
   /**
    * @component Menu
@@ -23,9 +23,9 @@
    * @note Uses the same CSS variable architecture as Tabs for consistent look across components.
    * @note No slots; fully controlled via the `menus` structure and `onSelect`.
    */
-  import type { SizeKey, MenuItem, MenuAction } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { cx } from "$utils";
+  import type { SizeKey, MenuItem, MenuAction } from "./types";
+  import { TEXT } from "./types";
+  import { cx } from "../utils";
 
   type Props = {
     menus?: MenuItem[];

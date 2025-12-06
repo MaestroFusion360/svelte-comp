@@ -1,4 +1,4 @@
-// src/utils/index.ts
+﻿// src/lib/utils/index.ts
 
 // -------------------------------------------------------------------------------
 //                                     UID
@@ -103,7 +103,7 @@ export function debounce<Args extends unknown[]>(
   fn: (...args: Args) => void,
   delay: number,
 ): (...args: Args) => void {
-  let timeoutId: NodeJS.Timeout;
+  let timeoutId: ReturnType<typeof setTimeout>;
   return (...args: Args) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => fn(...args), delay);
@@ -173,7 +173,7 @@ export const storage = {
 //                                   TOAST HELPERS
 // -------------------------------------------------------------------------------
 
-import type { ToastVariant } from "$lib/types";
+import type { ToastVariant } from "../types";
 
 export const TOAST_CONFIG: Record<
   ToastVariant,

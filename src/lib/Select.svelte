@@ -1,4 +1,4 @@
-<!-- src/lib/Select.svelte -->
+﻿<!-- src/lib/Select.svelte -->
 <script lang="ts">
   /**
    * @component Select
@@ -49,9 +49,9 @@
    */
   import { getContext } from "svelte";
   import type { HTMLSelectAttributes } from "svelte/elements";
-  import type { SizeKey, FieldVariant, SelectOption } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { uid, cx } from "$utils";
+  import type { SizeKey, FieldVariant, SelectOption } from "./types";
+  import { TEXT } from "./types";
+  import { uid, cx } from "../utils";
 
   type Props = HTMLSelectAttributes & {
     label?: string;

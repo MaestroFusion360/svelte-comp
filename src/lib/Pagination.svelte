@@ -1,4 +1,4 @@
-<!-- src/lib/Pagination.svelte -->
+﻿<!-- src/lib/Pagination.svelte -->
 <script lang="ts">
   /**
    * @component Pagination
@@ -13,13 +13,13 @@
    * @prop class {string} - Custom classes applied to the pagination wrapper
    * @default ""
    *
-   * @note Displays “Page X of Y” and numbered page buttons.
+   * @note Displays вЂњPage X of YвЂќ and numbered page buttons.
    * @note Prev/next buttons are disabled at the edges.
    * @note Shows up to 3 numbered buttons centered around the current page.
    * @note Uses `aria-current=\"page\"` on the active page for accessibility.
    * @note Buttons are native `<button>` elements for keyboard support.
    */
-  import { cx, times } from "$utils";
+  import { cx, times } from "../utils";
   import Button from "./Button.svelte";
 
   type Props = {

@@ -1,4 +1,4 @@
-// tsconfig.app.json
+﻿// tsconfig.app.json
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
@@ -11,12 +11,6 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "baseUrl": ".",
-    "paths": {
-      "$lib": ["src/lib"],
-      "$lib/*": ["src/lib/*"],
-      "$utils": ["./src/utils"],
-      "$utils/*": ["./src/utils/*"]
-    },
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]

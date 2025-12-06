@@ -1,69 +1,38 @@
 {
   "name": "svelte-comp",
-  "private": true,
-  "version": "1.0.2",
+  "version": "1.0.0",
   "type": "module",
+  "svelte": "./dist/lib/index.js",
+  "types": "./dist/lib/index.d.ts",
+  "exports": {
+    ".": {
+      "svelte": "./dist/lib/index.js",
+      "types": "./dist/lib/index.d.ts"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist",
+    "dist/styles.css"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json",
-    "test": "vitest",
-    "test:watch": "vitest --watch",
-    "test:ui": "vitest --ui",
-    "format": "prettier --write .",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "md": "tsx scripts/gen-md.ts"
+    "build": "svelte-package --input src",
+    "prepare": "npm run build"
   },
-  "devDependencies": {
-    "@chromatic-com/storybook": "^4.1.2",
-    "@eslint/js": "^9.39.1",
-    "@storybook/addon-a11y": "^10.0.5",
-    "@storybook/addon-docs": "^10.0.5",
-    "@storybook/addon-svelte-csf": "^5.0.10",
-    "@storybook/addon-vitest": "^10.0.5",
-    "@storybook/svelte-vite": "^10.0.5",
-    "@sveltejs/vite-plugin-svelte": "^6.2.1",
-    "@testing-library/jest-dom": "^6.8.0",
-    "@testing-library/svelte": "^5.2.8",
-    "@tsconfig/svelte": "^5.0.4",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^24.5.2",
-    "@types/prismjs": "^1.26.5",
-    "@types/testing-library__jest-dom": "^5.14.9",
-    "@vitest/browser": "^4.0.7",
-    "@vitest/coverage-v8": "^4.0.7",
-    "@vitest/ui": "^4.0.7",
-    "eslint": "^9.39.1",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-storybook": "^10.0.5",
-    "eslint-plugin-svelte": "^3.12.4",
-    "globals": "^16.5.0",
-    "jiti": "^2.6.1",
-    "jsdom": "^27.0.0",
-    "playwright": "^1.56.1",
-    "prettier": "^3.6.2",
-    "storybook": "^10.0.5",
-    "svelte": "^5.39.6",
-    "svelte-check": "^4.1.6",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.3",
-    "vite": "^7.2.1",
-    "vitest": "^4.0.7"
+  "peerDependencies": {
+    "svelte": "^5.0.0"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.16",
-    "prismjs": "^1.30.0",
-    "tailwindcss": "^4.1.16",
-    "vite-plugin-pwa": "^1.0.3"
+    "prismjs": "^1.30.0"
   },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
+  "devDependencies": {
+    "@sveltejs/package": "^2.5.7",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^24.5.2",
+    "svelte": "^5.39.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.1"
   }
 }
