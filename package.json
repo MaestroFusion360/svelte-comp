@@ -1,6 +1,6 @@
 {
   "name": "svelte-comp",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "svelte": "./dist/lib/index.js",
   "types": "./dist/lib/index.d.ts",
@@ -35,5 +35,12 @@
     "svelte": "^5.39.6",
     "typescript": "^5.9.3",
     "vite": "^7.2.1"
-  }
+  },
+  "keywords": [
+    "svelte",
+    "svelte5",
+    "svelte-components",
+    "tailwind",
+    "ui-library"
+  ]
 }
