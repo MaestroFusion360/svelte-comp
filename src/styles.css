@@ -1,4 +1,5 @@
 /* src/app.css */
+@source "../node_modules/svelte-comp/**/*";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {

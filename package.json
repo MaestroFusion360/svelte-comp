@@ -1,6 +1,6 @@
 {
   "name": "svelte-comp",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "type": "module",
   "svelte": "./dist/lib/index.js",
   "types": "./dist/lib/index.d.ts",
@@ -15,6 +15,7 @@
     "dist",
     "dist/styles.css"
   ],
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "svelte-package --input src",
