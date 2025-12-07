@@ -56,6 +56,12 @@ Full component list in repository.
 
 ---
 
+## 📄 License
+
+MIT License - See [LICENSE](LICENSE.md) for details.
+
+---
+
 ## 🔗 Links
 
 GitHub: [https://github.com/MaestroFusion360/svelte-comp](https://github.com/MaestroFusion360/svelte-comp)

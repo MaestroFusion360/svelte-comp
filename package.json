@@ -1,9 +1,17 @@
 {
-  "name": "svelte-comp",
-  "version": "1.0.5",
-  "type": "module",
-  "svelte": "./dist/lib/index.js",
-  "types": "./dist/lib/index.d.ts",
+  "dependencies": {
+    "prismjs": "^1.30.0"
+  },
+  "description": "A comprehensive component library built on Svelte 5 (runes) with design tokens (tailwind), accessibility focus, and TypeScript support",
+  "devDependencies": {
+    "@sveltejs/package": "^2.5.7",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^24.5.2",
+    "svelte": "^5.39.6",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.1"
+  },
   "exports": {
     ".": {
       "svelte": "./dist/lib/index.js",
@@ -15,32 +23,25 @@
     "dist",
     "dist/styles.css"
   ],
-  "license": "MIT",
-  "scripts": {
-    "dev": "vite",
-    "build": "svelte-package --input src",
-    "prepare": "npm run build"
-  },
-  "peerDependencies": {
-    "svelte": "^5.0.0"
-  },
-  "dependencies": {
-    "prismjs": "^1.30.0"
-  },
-  "devDependencies": {
-    "@sveltejs/package": "^2.5.7",
-    "@sveltejs/vite-plugin-svelte": "^6.2.1",
-    "@tsconfig/svelte": "^5.0.4",
-    "@types/node": "^24.5.2",
-    "svelte": "^5.39.6",
-    "typescript": "^5.9.3",
-    "vite": "^7.2.1"
-  },
   "keywords": [
     "svelte",
     "svelte5",
     "svelte-components",
     "tailwind",
     "ui-library"
-  ]
+  ],
+  "license": "MIT",
+  "name": "svelte-comp",
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "scripts": {
+    "build": "svelte-package --input src",
+    "dev": "vite",
+    "prepare": "npm run build"
+  },
+  "svelte": "./dist/lib/index.js",
+  "type": "module",
+  "types": "./dist/lib/index.d.ts",
+  "version": "1.0.6"
 }

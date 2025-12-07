@@ -173,7 +173,7 @@ export const storage = {
 //                                   TOAST HELPERS
 // -------------------------------------------------------------------------------
 
-import type { ToastVariant } from "../types";
+import type { ToastVariant } from "../lib/types";
 
 export const TOAST_CONFIG: Record<
   ToastVariant,
