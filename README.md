@@ -15,17 +15,15 @@ npm install svelte-comp
 
 ## 🔧 Setup TailwindCSS
 
-Install Tailwind and the Vite plugin:
-
 ```bash
 npm install tailwindcss @tailwindcss/vite
 ```
 
-Enable it in `vite.config.ts` / `vite.config.js`:
+`vite.config.ts`:
 
 ```ts
 import { defineConfig } from "vite";
-import svelte from "@vitejs/plugin-svelte";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
@@ -36,7 +34,7 @@ export default defineConfig({
 });
 ```
 
-Add global styles in `src/app.css` (or main stylesheet):
+Add to `src/app.css`:
 
 ```css
 @import "tailwindcss";
@@ -47,18 +45,43 @@ Add global styles in `src/app.css` (or main stylesheet):
 
 ## 📁 Components included
 
-Buttons • Cards • Tabs • Dialog • Menu • Form • Inputs
-Select • Checkbox • Radio • Slider • Splitter • Date/Time Pickers
-ColorPicker • Toast • Tooltip • Carousel • Pagination • Table
-ThemeToggle • CodeView • and more…
+Accordion • Button • Card • Carousel • CheckBox • CodeView • ColorPicker
+DatePicker • Dialog • Field • FilePicker • Form • Hamburger • Menu
+PaginatedCard • Pagination • ProgressBar • Radio • Select • Slider
+Splitter • Switch • Tabs • Table • ThemeToggle • TimePicker
+Toast • Tooltip
 
 Full component list in repository.
 
 ---
 
+## 🚀 Quick example
+
+Accordion usage:
+
+```svelte
+<script lang="ts">
+  import { Accordion } from "svelte-comp";
+
+  const items = [
+    { title: "First", content: "This is the first item" },
+    { title: "Second", content: "This is the second item" },
+    { title: "Third", content: "This is the third item" }
+  ];
+
+  const handleToggle = (index: number, open: boolean) => {
+    console.log(index, open);
+  };
+</script>
+
+<Accordion {items} multiple defaultOpen={[0]} sz="md" onToggle={handleToggle} />
+```
+
+---
+
 ## 📄 License
 
-MIT License - See [LICENSE](LICENSE.md) for details.
+MIT License
 
 ---
 
