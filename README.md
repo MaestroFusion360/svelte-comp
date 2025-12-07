@@ -198,7 +198,7 @@ Enable it in `vite.config.ts` / `vite.config.js`:
 
 ```ts
 import { defineConfig } from "vite";
-import svelte from "@vitejs/plugin-svelte";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
