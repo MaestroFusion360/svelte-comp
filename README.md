@@ -13,6 +13,8 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
 - [UI Components Library (Svelte 5 + TailwindCSS)](#ui-components-library-svelte-5--tailwindcss)
   - [✨ Features](#-features)
   - [🚀 Quick Start](#-quick-start)
+  - [📦 Package](#-package)
+    - [🔧 Setup TailwindCSS](#-setup-tailwindcss)
   - [📁 Project Structure](#-project-structure)
   - [🎨 Global Styles (Theme Tokens)](#-global-styles-theme-tokens)
     - [Theme Tokens - Text Colors](#theme-tokens---text-colors)
@@ -177,6 +179,44 @@ npm run build
 npm run preview
 
 ```
+
+## 📦 Package
+
+```bash
+npm i svelte-comp
+```
+
+### 🔧 Setup TailwindCSS
+
+Install Tailwind and the Vite plugin:
+
+```bash
+npm i tailwindcss @tailwindcss/vite
+```
+
+Enable it in `vite.config.ts` / `vite.config.js`:
+
+```ts
+import { defineConfig } from "vite";
+import svelte from "@vitejs/plugin-svelte";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    svelte() // Must be after tailwindcss()
+  ],
+});
+```
+
+Add global styles in `src/app.css` (or main stylesheet):
+
+```css
+@import "tailwindcss";
+@import "svelte-comp/styles.css";
+```
+
+---
 
 ## 📁 Project Structure
 
