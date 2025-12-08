@@ -1,9 +1,10 @@
 // src/lang.ts
+import { ProgressCircle } from "$lib";
 import type { SelectOption } from "$lib/types";
 
 const enTexts = {
   app: {
-    version: "v1.0.4",
+    version: "v1.0.8",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -33,6 +34,7 @@ const enTexts = {
     menu: "Menu",
     notepad: "Notepad",
     progressBar: "ProgressBar",
+    progressCircle: "ProgressCircle",
     radio: "Radio",
     select: "Select",
     slider: "Slider",
@@ -320,6 +322,9 @@ const enTexts = {
     progressBar: {
       subtitle: "Sizes and variants",
     },
+    progressCircle: {
+      subtitle: "Sizes and variants",
+    },
     radio: {
       subtitle: "Sizes and variants",
       apple: "Apple",
@@ -358,7 +363,7 @@ const enTexts = {
 
 const ruTexts = {
   app: {
-    version: "v1.0.4",
+    version: "v1.0.8",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -388,6 +393,7 @@ const ruTexts = {
     menu: "Меню",
     notepad: "Блокнот",
     progressBar: "Прогресс-бар",
+    progressCircle: "Прогресс-круг",
     radio: "Радио-кнопки",
     select: "Выпадающий список",
     slider: "Ползунок",
@@ -677,6 +683,9 @@ const ruTexts = {
     progressBar: {
       subtitle: "Размеры и варианты",
     },
+    progressCircle: {
+      subtitle: "Размеры и варианты",
+    },
     radio: {
       subtitle: "Размеры и варианты",
       apple: "Яблоко",
@@ -715,7 +724,7 @@ const ruTexts = {
 
 const esTexts = {
   app: {
-    version: "v1.0.4",
+    version: "v1.0.8",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -745,6 +754,7 @@ const esTexts = {
     menu: "Menú",
     notepad: "Bloc de notas",
     progressBar: "Barra de progreso",
+    progressCircle: "Círculo de progreso",
     radio: "Botones de opción",
     select: "Lista desplegable",
     slider: "Control deslizante",
@@ -1032,6 +1042,9 @@ const esTexts = {
       subtitle: "Paneles redimensionables",
     },
     progressBar: {
+      subtitle: "Tamaños y variantes",
+    },
+    progressCircle: {
       subtitle: "Tamaños y variantes",
     },
     radio: {

@@ -9,6 +9,9 @@ Svelte 5 gives the library a clean execution model: state is explicit, updates a
 The toolkit is built for engineers: no hidden behavior, no opaque abstractions, no vendor lock–just straightforward components you can read, modify and trust. Everything plays nicely with Vite, Storybook, strict TypeScript, unit tests and real-world SPA workflows where clarity and maintainability matter more than magic.
 
 ---
+<!-- markdownlint-disable MD033 -->
+<details>
+  <summary><h2>Table of Contents</h2></summary>
 
 - [UI Components Library (Svelte 5 + TailwindCSS)](#ui-components-library-svelte-5--tailwindcss)
   - [✨ Features](#-features)
@@ -100,6 +103,10 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (ProgressBar)](#props-progressbar)
       - [Notes (ProgressBar)](#notes-progressbar)
       - [Usage (ProgressBar)](#usage-progressbar)
+    - [ProgressCircle.svelte](#progresscirclesvelte)
+      - [Props (ProgressCircle)](#props-progresscircle)
+      - [Notes (ProgressCircle)](#notes-progresscircle)
+      - [Usage (ProgressCircle)](#usage-progresscircle)
     - [Radio.svelte](#radiosvelte)
       - [Props (Radio)](#props-radio)
       - [Notes (Radio)](#notes-radio)
@@ -147,6 +154,8 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
   - [🎯 Design Principles](#-design-principles)
   - [🧪 Testing \& Development](#-testing--development)
   - [📄 License](#-license)
+
+</details>
 
 ---
 
@@ -204,7 +213,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    svelte() // Must be after tailwindcss()
+    svelte(), // Must be after tailwindcss()
   ],
 });
 ```
@@ -378,6 +387,9 @@ All tables below stay unchanged - verified against app.css.
 ---
 
 ## 🧱 Components
+
+<details>
+  <summary>Expand on</summary>
 
 ### Accordion.svelte
 
@@ -1198,6 +1210,43 @@ A simple and accessible progress bar component that visually represents task com
 
 ---
 
+### ProgressCircle.svelte
+
+Circular progress indicator for visualizing completion or load state (0-100). Supports indeterminate mode.
+
+#### Props (ProgressCircle)
+
+- `value?: number` - Current progress value (default: `0`)
+- `indeterminate?: boolean` - Enables spinning infinite mode (default: `false`)
+- `size?: number` - Diameter in px (default: `48`)
+- `stroke?: number` - Stroke width in px (default: `4`)
+- `variant?: ComponentVariant` - Color/style variant (default|neutral|success|warning|error) (default: `default`)
+- `label?: string` - Optional text shown in center (default: `""`)
+- `max?: number` - Max progress value for normalization (default: `100`)
+- `class?: string` - Extra wrapper classes (default: `""`)
+
+#### Notes (ProgressCircle)
+
+- Clamps value between 0-max
+- Uses SVG stroke-dashoffset animation
+- Accessible role=progressbar with aria-valuenow
+- Works in both determinate/indeterminate modes
+
+#### Usage (ProgressCircle)
+
+```svelte
+<script lang="ts">
+  import ProgressCircle from '$lib/ProgressCircle.svelte';
+  let value = 45;
+</script>
+
+<ProgressCircle value={value} label="Loading..." />
+<ProgressCircle value={value} variant="neutral" disabled />
+<ProgressCircle indeterminate label="..." />
+```
+
+---
+
 ### Radio.svelte
 
 Single choice input with optional label, custom sizing and theme variants.
@@ -1751,6 +1800,8 @@ Context-aware hint for inline controls and labels.
 </Tooltip>
 ```
 
+</details>
+
 ---
 
 ## 🎯 Design Principles
@@ -1808,7 +1859,6 @@ MIT License - See [LICENSE](LICENSE.md) for details.
 
 ---
 
-<!-- markdownlint-disable MD033 -->
 <p align="center">
   <a href="https://github.com/MaestroFusion360/svelte-comp/issues">
     <img src="https://img.shields.io/github/issues/MaestroFusion360/svelte-comp" alt="Issues" />

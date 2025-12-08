@@ -32,6 +32,7 @@ export const pageIds = [
   "menu",
   "notepad",
   "progressBar",
+  "progressCircle",
   "radio",
   "select",
   "slider",
@@ -123,6 +124,11 @@ export const componentMeta = {
     supports: { label: false, disabled: false },
   },
   ProgressBar: {
+    variants: ["default", "neutral"],
+    sizes: ["xs", "sm", "md", "lg", "xl"],
+    supports: { label: true, disabled: true },
+  },
+  ProgressCircle: {
     variants: ["default", "neutral"],
     sizes: ["xs", "sm", "md", "lg", "xl"],
     supports: { label: true, disabled: true },

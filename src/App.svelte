@@ -38,6 +38,7 @@
     Hamburger,
     Pagination,
     ProgressBar,
+    ProgressCircle,
     Radio,
     Select,
     Slider,
@@ -553,7 +554,7 @@
           {/snippet}
         </PlayCard>
       {:else if active === "notepad"}
-        <div class="overflow-x-auto w-full min-w-full">
+        <div class="overflow-x-auto w-full min-w-full min-h-[400px]">
           <Notepad {L} />
         </div>
         
@@ -570,6 +571,28 @@
             disabled: boolean
           )}
             <ProgressBar
+              value={75}
+              {sz}
+              variant={variant as ComponentVariant}
+              {label}
+              {disabled}
+              indeterminate
+            />
+          {/snippet}
+        </PlayCard>
+      {:else if active === "progressCircle"}
+        <PlayCard
+          component="ProgressCircle"
+          title={L.pageLabels.progressCircle}
+          subtitle={L.snippets.progressCircle.subtitle}
+        >
+          {#snippet children(
+            sz: SizeKey,
+            variant: string,
+            label: string,
+            disabled: boolean
+          )}
+            <ProgressCircle
               value={75}
               {sz}
               variant={variant as ComponentVariant}

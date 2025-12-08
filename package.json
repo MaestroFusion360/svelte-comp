@@ -1,7 +1,7 @@
 {
   "name": "svelte-comp",
   "private": true,
-  "version": "1.0.4",
+  "version": "1.0.8",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -50,6 +50,7 @@
     "storybook": "^10.0.5",
     "svelte": "^5.39.6",
     "svelte-check": "^4.1.6",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.1",
@@ -61,6 +62,15 @@
     "tailwindcss": "^4.1.16",
     "vite-plugin-pwa": "^1.0.3"
   },
+  "keywords": [
+    "svelte",
+    "svelte5",
+    "svelte-components",
+    "tailwind",
+    "ui-library"
+  ],
+  "license": "MIT",
+  "description": "A comprehensive component library built on Svelte 5 (runes) with design tokens (tailwind), accessibility focus, and TypeScript support",
   "eslintConfig": {
     "extends": [
       "plugin:storybook/recommended"
