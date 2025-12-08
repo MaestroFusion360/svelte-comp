@@ -45,9 +45,9 @@ Add to `src/app.css`:
 
 ## 📁 Components included
 
-Accordion • Button • Card • Carousel • CheckBox • CodeView • ColorPicker
-DatePicker • Dialog • Field • FilePicker • Form • Hamburger • Menu
-PaginatedCard • Pagination • ProgressBar • ProgressBar • Radio • Select
+Accordion • Button • Card • Carousel • CheckBox • CodeView • ColorPicker •
+DatePicker • Dialog • Field • FilePicker • Form • Hamburger • Menu •
+PaginatedCard • Pagination • ProgressBar • ProgressCircle • Radio • Select
 • Slider • Splitter • Switch • Tabs • Table • ThemeToggle • TimePicker
 Toast • Tooltip
 
@@ -88,3 +88,5 @@ MIT License
 ## 🔗 Links
 
 GitHub: [https://github.com/MaestroFusion360/svelte-comp](https://github.com/MaestroFusion360/svelte-comp)
+
+Demo: [https://maestrofusion360.github.io/svelte-comp/](https://maestrofusion360.github.io/svelte-comp/)
