@@ -37,6 +37,7 @@
     Field,
     Hamburger,
     Pagination,
+    PrimaryColorSelect,
     ProgressBar,
     ProgressCircle,
     Radio,
@@ -179,9 +180,10 @@
 
 {#snippet burgerFooter()}
   <div class={cx("text-center p-2 flex flex-col items-center gap-4")}>
+    <PrimaryColorSelect class="w-fit"/>
     <Select
       sz="sm"
-      label="Language"
+      label={L.app.language.label}
       options={L.app.language.options}
       bind:value={lang.value}
     />

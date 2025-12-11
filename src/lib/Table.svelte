@@ -203,7 +203,7 @@
     String(col.key ?? idx);
 </script>
 
-<div class={wrapperClass}>
+<div class={wrapperClass} tabindex="-1">
   <table class={tableClass}>
     <thead class={variantStyles.header}>
       {#if currentVariant !== "noTitle" && currentVariant !== "list"}

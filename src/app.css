@@ -17,6 +17,7 @@
   --color-bg-page: oklch(98% 0 0deg);
   --color-bg-surface: oklch(100% 0 0deg);
   --color-bg-primary: oklch(62.3% 0.214 259.8deg);
+  --color-primary: var(--color-bg-primary);
   --color-bg-secondary: oklch(80% 0 0deg);
   --color-bg-danger: oklch(60% 0.25 30deg);
   --color-bg-success: oklch(55% 0.2 150deg);
@@ -109,6 +110,7 @@
   --color-bg-page: oklch(15% 0 0deg);
   --color-bg-surface: oklch(26% 0 0deg);
   --color-bg-primary: oklch(42% 0.19 259.8deg);
+  --color-primary: var(--color-bg-primary);
   --color-bg-secondary: oklch(45% 0 0deg);
   --color-bg-danger: oklch(50% 0.25 30deg);
   --color-bg-success: oklch(45% 0.2 150deg);
@@ -167,4 +169,64 @@
 
 .dark ::-webkit-scrollbar-thumb {
   background: oklch(from var(--color-bg-secondary) l c h / 0.7);
+}
+
+/* ----------------------------- */
+/* 🎨 Primary color palettes     */
+/* ----------------------------- */
+
+[data-primary="default"] {
+  --color-primary: oklch(71.5% 0.143 215.221);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="cyan"] {
+  --color-primary: oklch(86.5% 0.127 207.078);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="red"] {
+  --color-primary: oklch(58% 0.24 30deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="green"] {
+  --color-primary: oklch(65% 0.22 140deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="yellow"] {
+  --color-primary: oklch(75% 0.18 90deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="pink"] {
+  --color-primary: oklch(70% 0.25 350deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="orange"] {
+  --color-primary: oklch(72% 0.22 60deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="purple"] {
+  --color-primary: oklch(55% 0.22 290deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
 }

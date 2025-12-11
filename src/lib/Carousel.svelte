@@ -123,12 +123,12 @@
   const arrowClass = $derived(
     cx(
       arrowSize[sz],
-      "rounded-full bg-[var(--color-bg-surface)] shadow-lg flex items-center justify-center [color:var(--color-text-default)] hover:bg-[var(--color-bg-hover)] transition-colors"
+      "rounded-full bg-[var(--color-bg-surface)] shadow-lg flex items-center justify-center [color:var(--color-text-default)] hover:bg-[var(--color-bg-hover)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none"
     )
   );
 
   const dotClass = $derived(
-    cx(dotSize[sz], "rounded-full transition-all duration-200")
+    cx(dotSize[sz], "rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none")
   );
 
   $effect(() => {

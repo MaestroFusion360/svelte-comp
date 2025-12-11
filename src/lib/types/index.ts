@@ -105,7 +105,7 @@ export interface FieldSchema {
   when?: (form: Record<string, unknown>) => boolean;
   validators?: ((
     v: unknown,
-    form?: Record<string, unknown>,
+    form?: Record<string, unknown>
   ) => string | null | Promise<string | null>)[];
   sz?: "xs" | "sm" | "md" | "lg" | "xl";
   variant?: "default" | "filled" | "neutral";
@@ -168,7 +168,12 @@ export type TabsVariant = "default" | "pills" | "underline";
 // -------------------------------------------------------------------------------
 //                                     SELECT
 // -------------------------------------------------------------------------------
-export type SelectOption = { label: string; value: string; disabled?: boolean };
+export type SelectOption = {
+  label: string;
+  value: string;
+  disabled?: boolean;
+  swatch?: string;
+};
 
 // -------------------------------------------------------------------------------
 //                                     TOOLTIP
@@ -201,4 +206,24 @@ export type FieldType = {
   invalid?: boolean;
   describedBy?: string;
 };
+
+// -------------------------------------------------------------------------------
+//                               PRIMARY COLOR TOGGLE
+// -------------------------------------------------------------------------------
+export type PrimaryKey =
+  | "default"
+  | "cyan"
+  | "red"
+  | "green"
+  | "yellow"
+  | "pink"
+  | "orange"
+  | "purple";
+
+export type PaletteOption = {
+  value: PrimaryKey;
+  label: string;
+  swatch: string;
+};
+
 // -------------------------------------------------------------------------------

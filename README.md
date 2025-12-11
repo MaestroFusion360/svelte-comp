@@ -99,6 +99,10 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (Pagination)](#props-pagination)
       - [Notes (Pagination)](#notes-pagination)
       - [Usage (Pagination)](#usage-pagination)
+    - [PrimaryColorSelect.svelte](#primarycolorselectsvelte)
+      - [Props (PrimaryColorSelect)](#props-primarycolorselect)
+      - [Notes (PrimaryColorSelect)](#notes-primarycolorselect)
+      - [Usage (PrimaryColorSelect)](#usage-primarycolorselect)
     - [ProgressBar.svelte](#progressbarsvelte)
       - [Props (ProgressBar)](#props-progressbar)
       - [Notes (ProgressBar)](#notes-progressbar)
@@ -1168,6 +1172,35 @@ Compact pagination component for table or list navigation.
   {totalPages}
   onPageChange={handlePageChange}
 />
+```
+
+---
+
+### PrimaryColorSelect.svelte
+
+Theme primary-color selector built on top of Select. Provides a fixed palette,
+
+#### Props (PrimaryColorSelect)
+
+- `sz?: SizeKey` - Sizing preset passed directly to Select (xs|sm|md|lg|xl) (default: `sm`)
+- `label?: string` - Custom label text. Falls back to localized copy when omitted.
+- `class?: string` - Extra classes forwarded to the underlying Select component (default: `""`)
+
+#### Notes (PrimaryColorSelect)
+
+- The palette is predefined internally (`{ value, label, swatch }`).
+- Selected value is stored in localStorage under "primary".
+- The `html` element receives `data-primary="{value}"` for theme styling.
+- Uses the same onChange contract as Select and forwards palette options as-is.
+
+#### Usage (PrimaryColorSelect)
+
+```svelte
+<script lang="ts">
+  import PrimaryColorSelect from "$lib/PrimaryColorSelect.svelte"
+</script>
+
+<PrimaryColorSelect />
 ```
 
 ---

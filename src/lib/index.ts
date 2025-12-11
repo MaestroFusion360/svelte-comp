@@ -15,6 +15,7 @@ export { default as Hamburger } from "./Hamburger.svelte";
 export { default as Menu } from "./Menu.svelte";
 export { default as PaginatedCard } from "./PaginatedCard.svelte";
 export { default as Pagination } from "./Pagination.svelte";
+export { default as PrimaryColorSelect } from "./PrimaryColorSelect.svelte";
 export { default as ProgressBar } from "./ProgressBar.svelte";
 export { default as ProgressCircle } from "./ProgressCircle.svelte";
 export { default as Radio } from "./Radio.svelte";
