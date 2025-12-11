@@ -67,6 +67,13 @@
       activeTab = tabs[0].id;
     }
   });
+  function focusActiveButton() {
+    if (!activeTab) return;
+    const btn = document.getElementById(
+      `tab-${activeTab}`
+    ) as HTMLButtonElement | null;
+    btn?.focus();
+  }
 
   function handleTabClick(tab: TabItem) {
     if (tab.disabled) return;
@@ -95,12 +102,7 @@
     const nextId = enabled[next].id;
     activeTab = nextId;
     onChange?.(nextId);
-    queueMicrotask(() => {
-      const btn = document.getElementById(
-        `tab-${nextId}`
-      ) as HTMLButtonElement | null;
-      btn?.focus();
-    });
+    queueMicrotask(focusActiveButton);
   }
 
   const sizes: Record<SizeKey, string> = {
@@ -112,7 +114,7 @@
   };
 
   const base =
-    "inline-flex items-center justify-center font-medium transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-color-focus)] focus-visible:outline-offset-2 disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center font-medium transition-colors duration-150 focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:ring-offset-0 focus:outline-none disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed";
 
   const variants = $derived({
     default: {
@@ -160,6 +162,7 @@
     aria-orientation="horizontal"
     class={tablistClass}
     onkeydown={handleKeyDown}
+    onfocus={focusActiveButton}
   >
     {#each tabs as tab (tab.id)}
       <button
@@ -200,7 +203,7 @@
   <div
     id={`panel-${activeTab}`}
     role="tabpanel"
-    tabindex="0"
+    tabindex="-1"
     aria-labelledby={`tab-${activeTab}`}
     class="w-full min-w-0 relative z-0 border-t border-[var(--border-color-default)] bg-[var(--color-bg-surface)] p-[var(--spacing-md)] rounded-b-[var(--radius-sm)] shadow-[0_1px_2px_0_var(--shadow-color)]"
   >

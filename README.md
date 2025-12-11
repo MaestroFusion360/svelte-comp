@@ -47,11 +47,11 @@ Add to `src/app.css`:
 
 Accordion • Button • Card • Carousel • CheckBox • CodeView • ColorPicker •
 DatePicker • Dialog • Field • FilePicker • Form • Hamburger • Menu •
-PaginatedCard • Pagination • ProgressBar • ProgressCircle • Radio • Select
-• Slider • Splitter • Switch • Tabs • Table • ThemeToggle • TimePicker
-Toast • Tooltip
+PaginatedCard • Pagination • PrimaryColorSelect • ProgressBar • ProgressCircle •
+Radio • Select • Slider • Splitter • Switch • Tabs • Table • ThemeToggle •
+TimePicker • Toast • Tooltip
 
-Full component list in repository.
+Full component list in repository
 
 ---
 

@@ -48,6 +48,7 @@
   import "prismjs/components/prism-json";
   import "prismjs/components/prism-python";
   import "prismjs/themes/prism.css";
+  import { cx } from "../utils";
 
   type Props = {
     code?: string;
@@ -140,20 +141,27 @@
 </script>
 
 <div
-  class="w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] text-[var(--color-text-default)]"
+  class={cx(
+    "w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]",
+    "text-[var(--color-text-default)]"
+  )}
 >
   {#if title}
     <div
-      class="px-3 py-1 bg-[var(--color-bg-muted)] font-semibold uppercase flex items-center justify-between {TEXT[
-        sz
-      ]}"
+      class={cx(
+        "px-3 py-1 bg-[var(--color-bg-muted)] font-semibold uppercase flex items-center justify-between",
+        TEXT[sz]
+      )}
     >
       <div>{title}</div>
 
       {#if showCopyButton}
         <button
           onclick={copyToClipboard}
-          class="px-3 py-0.5 text-xs rounded bg-[var(--color-primary)] text-white hover:opacity-[var(--opacity-hover)] transition"
+          class={cx(
+            "px-3 py-0.5 text-xs rounded bg-[var(--color-primary)] text-white hover:opacity-[var(--opacity-hover)]",
+            "transition focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none"
+          )}
           class:!bg-green-600={copied}
         >
           {copied ? "Copied" : "Copy"}
@@ -166,9 +174,11 @@
     {#if showLineNumbers}
       <div
         bind:this={gutterEl}
-        class="select-none px-3 py-[12px] border-r border-[var(--border-color-default)]
-               text-[var(--color-text-muted)] text-right overflow-hidden
-               bg-[var(--color-bg-surface)] tabular-nums min-h-[180px] max-h-[480px]"
+        class={cx(
+          "select-none px-3 py-[12px] border-r border-[var(--border-color-default)]",
+          "text-[var(--color-text-muted)] text-right overflow-hidden",
+          "bg-[var(--color-bg-surface)] tabular-nums min-h-[180px] max-h-[480px]"
+        )}
       >
         {#each lines as _, i (i)}
           <div class={LINE_HEIGHT[sz]}>{i + 1}</div>
@@ -250,6 +260,14 @@
     overflow: auto;
     border: none;
     box-sizing: border-box;
+  }
+
+  .cv-input:focus {
+    outline: none;
+  }
+
+  .cv-input:focus-visible {
+    outline: none !important;
   }
 
   /* Prism */

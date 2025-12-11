@@ -1,4 +1,4 @@
-﻿<!-- src/lib/Select.svelte -->
+<!-- src/lib/Select.svelte -->
 <script lang="ts">
   /**
    * @component Select
@@ -166,6 +166,8 @@
   const listStyle = $derived(
     `position:fixed;top:${menuTop}px;left:${menuLeft}px;min-width:${menuWidth}px;max-height:${menuMaxHeight}px;`
   );
+
+  const selectedOption = $derived(options.find((o) => o.value === value));
 
   $effect(() => {
     const currentTriggerEl = triggerEl;
@@ -409,14 +411,25 @@
       onkeydown={onTriggerKeydown}
     >
       <span class="min-w-0 grow truncate">
-        {#if value}
-          {options.find((o) => o.value === value)?.label}
+        {#if selectedOption}
+          <span class="inline-flex items-center gap-2 min-w-0">
+            {#if selectedOption.swatch}
+              <span
+                aria-hidden="true"
+                class="block w-3 h-3 rounded-[var(--radius-xs)] border border-[var(--border-color-default)] shadow-sm shrink-0"
+                style={`background:${selectedOption.swatch}`}
+              ></span>
+            {/if}
+            <span class="truncate">{selectedOption.label}</span>
+          </span>
         {:else}
           <span class="[color:var(--color-text-muted)]">{placeholder}</span>
         {/if}
       </span>
       <span
-        class={cx("pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [color:var(--color-text-default)]")}
+        class={cx(
+          "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [color:var(--color-text-default)]"
+        )}
       >
         <svg
           class={iconsSizes[sz]}
@@ -470,13 +483,22 @@
           <button
             type="button"
             tabindex="0"
-            class={cx("w-full text-left focus:outline-[3px] focus:outline-offset-3 focus:outline-[var(--border-color-focus)] rounded")}
+            class={cx(
+              "w-full text-left focus:outline-[3px] focus:outline-offset-3 focus:outline-[var(--border-color-focus)] rounded flex items-center gap-2"
+            )}
             disabled={opt.disabled}
             onclick={() => choose(i)}
             onfocus={() => (highlighted = i)}
             onmouseenter={() => (highlighted = i)}
           >
-            {opt.label}
+            {#if opt.swatch}
+              <span
+                aria-hidden="true"
+                class="block w-3 h-3 rounded-[var(--radius-xs)] border border-[var(--border-color-default)] shadow-sm shrink-0"
+                style={`background:${opt.swatch}`}
+              ></span>
+            {/if}
+            <span class="truncate">{opt.label}</span>
           </button>
         </li>
       {/each}
