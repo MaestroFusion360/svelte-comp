@@ -2445,7 +2445,7 @@
   background: oklch(from var(--color-bg-secondary) l c h/.7);
 }
 [data-primary="default"] {
-  --color-primary: oklch(71.5% 0.143 215.221);
+  --color-primary: oklch(62.3% 0.214 259.8);
   --color-bg-primary: var(--color-primary);
   --border-color-primary: var(--color-primary);
   --border-color-focus: var(--color-primary);
