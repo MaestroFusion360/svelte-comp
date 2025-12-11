@@ -121,6 +121,7 @@
     --color-bg-page: oklch(98% 0 0);
     --color-bg-surface: oklch(100% 0 0);
     --color-bg-primary: oklch(62.3% 0.214 259.8);
+    --color-primary: var(--color-bg-primary);
     --color-bg-secondary: oklch(80% 0 0);
     --color-bg-danger: oklch(60% 0.25 30);
     --color-bg-success: oklch(55% 0.2 150);
@@ -2107,23 +2108,17 @@
   .focus-visible\:ring-\[var\(--border-color-focus\)\]:focus-visible {
     --tw-ring-color: var(--border-color-focus);
   }
-  .focus-visible\:outline:focus-visible {
-    outline-style: var(--tw-outline-style);
-    outline-width: 1px;
-  }
-  .focus-visible\:outline-2:focus-visible {
-    outline-style: var(--tw-outline-style);
-    outline-width: 2px;
-  }
-  .focus-visible\:outline-offset-2:focus-visible {
-    outline-offset: 2px;
-  }
-  .focus-visible\:outline-\[var\(--border-color-focus\)\]:focus-visible {
-    outline-color: var(--border-color-focus);
+  .focus-visible\:ring-offset-0:focus-visible {
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-shadow: var(--tw-ring-inset,) 0 0 0
+      var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   }
   .focus-visible\:outline-none:focus-visible {
     --tw-outline-style: none;
     outline-style: none;
+  }
+  .focus-visible\:ring-inset:focus-visible {
+    --tw-ring-inset: inset;
   }
   .active\:scale-95:active {
     --tw-scale-x: 95%;
@@ -2406,6 +2401,7 @@
   --color-bg-page: oklch(15% 0 0);
   --color-bg-surface: oklch(26% 0 0);
   --color-bg-primary: oklch(42% 0.19 259.8);
+  --color-primary: var(--color-bg-primary);
   --color-bg-secondary: oklch(45% 0 0);
   --color-bg-danger: oklch(50% 0.25 30);
   --color-bg-success: oklch(45% 0.2 150);
@@ -2447,6 +2443,54 @@
 }
 .dark ::-webkit-scrollbar-thumb {
   background: oklch(from var(--color-bg-secondary) l c h/.7);
+}
+[data-primary="default"] {
+  --color-primary: oklch(71.5% 0.143 215.221);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+[data-primary="cyan"] {
+  --color-primary: oklch(86.5% 0.127 207.078);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+[data-primary="red"] {
+  --color-primary: oklch(58% 0.24 30);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+[data-primary="green"] {
+  --color-primary: oklch(65% 0.22 140);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+[data-primary="yellow"] {
+  --color-primary: oklch(75% 0.18 90);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+[data-primary="pink"] {
+  --color-primary: oklch(70% 0.25 350);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+[data-primary="orange"] {
+  --color-primary: oklch(72% 0.22 60);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+[data-primary="purple"] {
+  --color-primary: oklch(55% 0.22 290);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
 }
 @property --tw-translate-x {
   syntax: "*";
@@ -2872,6 +2916,12 @@ pre[class*="language-"] {
   overflow: auto;
   border: none;
   box-sizing: border-box;
+}
+.cv-input.svelte-dvc4kn:focus {
+  outline: none;
+}
+.cv-input.svelte-dvc4kn:focus-visible {
+  outline: none !important;
 }
 .token.comment.svelte-dvc4kn {
   color: #e2ebf773;
