@@ -35,7 +35,7 @@
    * @note Clicking the custom box while `indeterminate` clears it and sets `checked=true`.
    * @note `invalid` maps to `aria-invalid`; `describedBy` maps to `aria-describedby`.
    * @note SVG check and dash are inline; colors adapt per `variant` (`neutral` uses border color).
-   * @note Sizes scale the control box (`xs в†’ xl`).
+   * @note Sizes scale the control box (`xs → xl`).
    */
   import type { HTMLInputAttributes } from "svelte/elements";
   import { type SizeKey, type ComponentVariant, TEXT } from "./types";

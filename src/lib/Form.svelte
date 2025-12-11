@@ -38,13 +38,13 @@
    * @prop compact {boolean} - Enables denser sizing across controls
    * @default false
    *
-   * @note Initial value for each field: `value[name]` в†’ `schema.default` в†’ `''` (or `false` for checkboxes).
+   * @note Initial value for each field: `value[name]` → `schema.default` → `''` (or `false` for checkboxes).
    * @note `validateOn='input'|'blur'|'submit'` controls when validators run; built-in checks: `required`, `number`, and `email` regex.
    * @note `when(form)` hides a field dynamically; hidden fields are skipped during validation.
    * @note `Select` options are coerced to strings for the underlying control; provide string values if you rely on strict equality.
    * @note Errors are rendered with stable `id`s and wired via `aria-describedby`; `invalid` flags are passed to inputs.
    * @note `expose` provides `{ reset, submit, validate, getData }`; `validate` returns `Promise<boolean>`.
-   * @note `compact` reduces control sizes (`xsв†’xs`, `smв†’xs`, `mdв†’sm`, `lgв†’md`, `xlв†’lg`) and centers labels where applicable.
+   * @note `compact` reduces control sizes (`xs→xs`, `sm→xs`, `md→sm`, `lg→md`, `xl→lg`) and centers labels where applicable.
    */
   import Field from "./Field.svelte";
   import Select from "./Select.svelte";

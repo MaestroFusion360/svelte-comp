@@ -6,8 +6,12 @@
     "@tailwindcss/vite": "^4.1.17",
     "@tsconfig/svelte": "^5.0.4",
     "@types/node": "^24.5.2",
+    "@types/prismjs": "^1.26.5",
+    "prettier": "^3.7.4",
+    "prettier-plugin-svelte": "^3.4.0",
     "prismjs": "^1.30.0",
     "svelte": "^5.39.6",
+    "svelte-check": "^4.3.4",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
     "vite": "^7.2.1"
@@ -43,5 +47,5 @@
   "svelte": "./dist/lib/index.js",
   "type": "module",
   "types": "./dist/lib/index.d.ts",
-  "version": "1.1.0"
+  "version": "1.1.2"
 }

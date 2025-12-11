@@ -1,4 +1,4 @@
-﻿<!-- src/lib/PaginatedCard.svelte -->
+<!-- src/lib/PaginatedCard.svelte -->
 <script lang="ts">
   /**
    * @component PaginatedCard

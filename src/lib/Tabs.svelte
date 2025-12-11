@@ -67,6 +67,7 @@
       activeTab = tabs[0].id;
     }
   });
+  
   function focusActiveButton() {
     if (!activeTab) return;
     const btn = document.getElementById(

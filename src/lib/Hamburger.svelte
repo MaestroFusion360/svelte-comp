@@ -1,4 +1,4 @@
-﻿<!-- src/lib/Hamburger.svelte -->
+<!-- src/lib/Hamburger.svelte -->
 <script lang="ts">
   /**
    * @component Hamburger
@@ -32,7 +32,7 @@
    * @note Clicking outside the panel or pressing `Escape` closes the drawer.
    * @note Focus moves to the first interactive element inside the panel, is trapped while open, and returns to the trigger on close.
    * @note In controlled mode (`pressed` is defined), state changes are requested via `onOpenChange(open)`.
-   * @note When `menuItems` is empty, a вЂњNo itemsвЂќ placeholder is shown.
+   * @note When `menuItems` is empty, a "No items" placeholder is shown.
    * @note The drawer uses `role=\"dialog\"` and `aria-modal=\"true\"`; the trigger reflects state via `aria-expanded`.
    */
   import type { Snippet } from "svelte";

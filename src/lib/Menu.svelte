@@ -1,4 +1,4 @@
-﻿<!-- src/lib/Menu.svelte -->
+<!-- src/lib/Menu.svelte -->
 <script lang="ts">
   /**
    * @component Menu
@@ -48,6 +48,7 @@
 
   // Refs for focus control
   let triggerRefs = $state<Record<string, HTMLButtonElement>>({});
+  let menuRefs = $state<Record<string, HTMLDivElement>>({});
   let itemRefs = $state<Record<string, HTMLButtonElement>>({});
   let subItemRefs = $state<Record<string, HTMLButtonElement>>({});
 
@@ -55,6 +56,7 @@
   let menuTop = $state(0);
   let menuLeft = $state(0);
 
+  let subMenuRefs = $state<Record<string, HTMLDivElement>>({});
   let subMenuTop = $state(0);
   let subMenuLeft = $state(0);
 
@@ -69,8 +71,10 @@
   const navBase =
     "flex items-stretch pl-2 gap-1 border-b relative z-10 bg-[var(--color-bg-surface)] text-[var(--color-text-default)] border-[var(--border-color-default)]";
 
+  const subMenuGutter = 8;
+
   const topButtonBase =
-    "px-4 rounded-xs leading-none transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-color-focus)] focus-visible:outline-offset-2";
+    "px-4 rounded-xs leading-none transition-colors outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]";
 
   const topButtonActive =
     "bg-[var(--color-bg-muted)] text-[var(--color-text-default)]";
@@ -78,10 +82,10 @@
     "hover:bg-[var(--color-bg-muted)] text-[var(--color-text-default)]";
 
   const menuStyle = $derived(
-    `position:fixed; top:${menuTop}px; left:${menuLeft}px; width:max-content;`
+    `position:fixed; top:${menuTop}px; left:${menuLeft}px; width:max-content; max-width:calc(100vw - 16px);`
   );
   const subMenuStyle = $derived(
-    `position:fixed; top:${subMenuTop}px; left:${subMenuLeft}px; width:max-content;`
+    `position:fixed; top:${subMenuTop}px; left:${subMenuLeft}px; width:max-content; max-width:calc(100vw - 16px);`
   );
 
   const textCls = $derived(TEXT[sz]);
@@ -136,16 +140,51 @@
   }
 
   // Positioning dropdown
-  function updateMenuPosition(triggerEl: HTMLElement) {
+  function updateMenuPosition(
+    triggerEl: HTMLElement,
+    menuEl?: HTMLElement | null
+  ) {
     const rect = triggerEl.getBoundingClientRect();
+    const menuWidth = Math.min(
+      menuEl?.getBoundingClientRect().width ?? rect.width,
+      window.innerWidth - 16
+    );
+    const spaceRight = window.innerWidth - rect.left;
+    const spaceLeft = rect.right;
+    const alignRight = spaceRight < menuWidth && spaceLeft > spaceRight;
+    const viewportLeft = window.scrollX;
+    const viewportRight = window.scrollX + window.innerWidth;
+
     menuTop = rect.bottom + window.scrollY;
-    menuLeft = rect.left + window.scrollX;
+    const targetLeft = alignRight
+      ? rect.right + window.scrollX - menuWidth
+      : rect.left + window.scrollX;
+    const maxLeft = viewportRight - menuWidth;
+    menuLeft = Math.max(viewportLeft, Math.min(targetLeft, maxLeft));
   }
 
-  function updateSubMenuPosition(parentItemEl: HTMLElement) {
+  function updateSubMenuPosition(
+    parentItemEl: HTMLElement,
+    subMenuEl?: HTMLElement | null
+  ) {
     const rect = parentItemEl.getBoundingClientRect();
+    const subRect = subMenuEl?.getBoundingClientRect();
+    const subWidth = Math.min(
+      subRect?.width ?? rect.width,
+      window.innerWidth - 16
+    );
+    const spaceRight = window.innerWidth - rect.right;
+    const spaceLeft = rect.left;
+    const shouldFlipLeft = spaceRight < subWidth && spaceLeft > spaceRight;
+
     subMenuTop = rect.top + window.scrollY;
-    subMenuLeft = rect.right + window.scrollX;
+    const viewportLeft = window.scrollX;
+    const viewportRight = window.scrollX + window.innerWidth;
+    const targetLeft = shouldFlipLeft
+      ? rect.left + window.scrollX - subWidth - subMenuGutter
+      : rect.right + window.scrollX + subMenuGutter;
+    const maxLeft = viewportRight - subWidth - subMenuGutter;
+    subMenuLeft = Math.max(viewportLeft, Math.min(targetLeft, maxLeft));
   }
 
   function firstActionIndex(actions: MenuAction[]) {
@@ -209,7 +248,7 @@
     activeIndex = firstIndex;
     const triggerEl = triggerRefs[menuItem.name];
     if (triggerEl) {
-      updateMenuPosition(triggerEl);
+      updateMenuPosition(triggerEl, menuRefs[menuItem.name]);
     }
     if (focusFirst && firstIndex !== -1) {
       focusMenuAction(menuItem, firstIndex);
@@ -221,7 +260,7 @@
     openSub = actionId(parentAction);
     const parentEl = itemRefs[actionId(parentAction)];
     if (parentEl) {
-      updateSubMenuPosition(parentEl);
+      updateSubMenuPosition(parentEl, subMenuRefs[actionId(parentAction)]);
     }
     const firstIndex = focusFirst ? firstActionIndex(parentAction.submenu) : -1;
     activeSubIndex = firstIndex;
@@ -352,10 +391,10 @@
     if (open) {
       const triggerEl = triggerRefs[open];
       if (triggerEl) {
-        updateMenuPosition(triggerEl);
+        updateMenuPosition(triggerEl, menuRefs[open]);
 
         const handleScrollResize = () => {
-          updateMenuPosition(triggerEl);
+          updateMenuPosition(triggerEl, menuRefs[open]);
         };
 
         window.addEventListener("scroll", handleScrollResize, true);
@@ -372,11 +411,12 @@
   $effect(() => {
     if (openSub) {
       const itemEl = itemRefs[openSub];
+      const subEl = subMenuRefs[openSub];
       if (itemEl) {
-        updateSubMenuPosition(itemEl);
+        updateSubMenuPosition(itemEl, subEl);
 
         const handleScrollResize = () => {
-          updateSubMenuPosition(itemEl);
+          updateSubMenuPosition(itemEl, subMenuRefs[openSub]);
         };
 
         window.addEventListener("scroll", handleScrollResize, true);
@@ -438,6 +478,7 @@
 
       <!-- Main Menu -->
       <div
+        bind:this={menuRefs[menuItem.name]}
         class={cx(
           "fixed z-50 min-w-44 p-2 rounded-xs shadow-[0_2px_4px_var(--shadow-color)] ",
           "border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]"
@@ -462,6 +503,7 @@
                 class={cx(
                   "relative text-left rounded-xs transition-colors outline-none px-1.5 py-0.5 my-1 mr-1 min-w-full flex items-center",
                   "gap-3 hover:bg-[var(--color-bg-muted)] focus-visible:bg-[var(--color-bg-muted)]",
+                  "focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]",
                   textCls
                 )}
                 onmousedown={(e) => e.preventDefault()}
@@ -518,9 +560,10 @@
               <!-- Sub Menu -->
               {#if hasSubmenu(action) && openSub === actionId(action)}
                 <div
+                  bind:this={subMenuRefs[actionId(action)]}
                   class={cx(
                     "fixed z-50 min-w-44 p-2 rounded-xs shadow-[0_2px_4px_var(--shadow-color)]",
-                    "border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] ml-2"
+                    "border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]"
                   )}
                   style={subMenuStyle}
                   role="menu"
@@ -543,8 +586,7 @@
                           "relative text-left rounded-xs transition-colors outline-none px-1.5 py-0.5",
                           "my-1 mr-1 w-full flex items-center justify-between gap-3",
                           "hover:bg-[var(--color-bg-muted)] focus-visible:bg-[var(--color-bg-muted)]",
-                          "focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)]",
-                          "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-surface)]",
+                          "focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]",
                           "decoration-[var(--color-text-default)]",
                           textCls
                         )}

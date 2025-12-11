@@ -226,7 +226,7 @@
         {L.fileCount.replace("{n}", String(internalValue.length))}
 
         {#if multiple && internalValue.length > 1}
-          вЂў {L.totalSize}: {(
+          • {L.totalSize}: {(
             Array.from(internalValue).reduce(
               (acc, file) => acc + file.size,
               0

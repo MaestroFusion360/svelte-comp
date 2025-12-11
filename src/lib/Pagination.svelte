@@ -13,7 +13,7 @@
    * @prop class {string} - Custom classes applied to the pagination wrapper
    * @default ""
    *
-   * @note Displays вЂњPage X of YвЂќ and numbered page buttons.
+   * @note Displays “Page X of Y” and numbered page buttons.
    * @note Prev/next buttons are disabled at the edges.
    * @note Shows up to 3 numbered buttons centered around the current page.
    * @note Uses `aria-current=\"page\"` on the active page for accessibility.
