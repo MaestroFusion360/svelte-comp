@@ -1,4 +1,4 @@
-<!-- src/lib/Accordion.svelte -->
+﻿<!-- src/lib/Accordion.svelte -->
 <script lang="ts">
   /**
    * @component Accordion
@@ -29,8 +29,8 @@
    * @note AccordionItem.content is a plain string; wrap HTML inside the string or fork the component if you need custom nodes
    */
 
-  import { type AccordionItem, type SizeKey, TEXT } from "$lib/types";
-  import { cx } from "$utils";
+  import { type AccordionItem, type SizeKey, TEXT } from "./types";
+  import { cx } from "../utils";
 
   type Props = {
     items?: AccordionItem[];

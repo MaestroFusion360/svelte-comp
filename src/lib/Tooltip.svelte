@@ -1,4 +1,4 @@
-<!-- src/lib/Tooltip.svelte -->
+﻿<!-- src/lib/Tooltip.svelte -->
 <script lang="ts">
   /**
    * @component Tooltip
@@ -28,8 +28,8 @@
    */
   import type { Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";
-  import type { Position } from "$lib/types";
-  import { cx } from "$utils";
+  import type { Position } from "./types";
+  import { cx } from "../utils";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     children?: Snippet;

@@ -1,4 +1,4 @@
-<!-- src/lib/Tabs.svelte -->
+﻿<!-- src/lib/Tabs.svelte -->
 <script lang="ts">
   /**
    * @component Tabs
@@ -34,9 +34,9 @@
    * @note The panel content (`children`) scales visually with the selected tab size.
    */
   import type { Snippet } from "svelte";
-  import type { SizeKey, TabsVariant, TabItem } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { cx } from "$utils";
+  import type { SizeKey, TabsVariant, TabItem } from "./types";
+  import { TEXT } from "./types";
+  import { cx } from "../utils";
 
   type Props = {
     tabs?: TabItem[];
@@ -67,7 +67,7 @@
       activeTab = tabs[0].id;
     }
   });
-
+  
   function focusActiveButton() {
     if (!activeTab) return;
     const btn = document.getElementById(

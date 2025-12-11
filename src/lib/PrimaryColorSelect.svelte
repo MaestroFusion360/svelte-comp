@@ -20,8 +20,8 @@
    * @note Uses the same onChange contract as Select and forwards palette options as-is.
    */
   import { getContext } from "svelte";
-  import Select from "$lib/Select.svelte";
-  import type { PrimaryKey, PaletteOption, SizeKey } from "$lib/types";
+  import Select from "./Select.svelte";
+  import type { PrimaryKey, PaletteOption, SizeKey } from "./types";
   import { TEXTS } from "./lang";
 
   type Props = {
@@ -29,6 +29,8 @@
     label?: string;
     class?: string;
   };
+
+  let { sz = "sm", label, class: externalClass = "" }: Props = $props();
 
   const langCtx =
     getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;

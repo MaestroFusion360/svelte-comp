@@ -1,4 +1,4 @@
-<!-- src/lib/Pagination.svelte -->
+﻿<!-- src/lib/Pagination.svelte -->
 <script lang="ts">
   /**
    * @component Pagination
@@ -19,7 +19,7 @@
    * @note Uses `aria-current=\"page\"` on the active page for accessibility.
    * @note Buttons are native `<button>` elements for keyboard support.
    */
-  import { cx, times } from "$utils";
+  import { cx, times } from "../utils";
   import Button from "./Button.svelte";
 
   type Props = {

@@ -176,7 +176,7 @@
 /* ----------------------------- */
 
 [data-primary="default"] {
-  --color-primary: oklch(71.5% 0.143 215.221);
+  --color-primary: oklch(62.3% 0.214 259.8deg);
   --color-bg-primary: var(--color-primary);
   --border-color-primary: var(--color-primary);
   --border-color-focus: var(--color-primary);

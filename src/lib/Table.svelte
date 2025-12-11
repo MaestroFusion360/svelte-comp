@@ -1,4 +1,4 @@
-<!-- src/lib/Table.svelte -->
+﻿<!-- src/lib/Table.svelte -->
 <script lang="ts">
   /**
    * @component Table
@@ -40,9 +40,9 @@
     SizeKey,
     TableRow,
     TableVariant,
-  } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { cx } from "$utils";
+  } from "./types";
+  import { TEXT } from "./types";
+  import { cx } from "../utils";
 
   type Props<T extends TableRow> = {
     columns: readonly Column<T>[];

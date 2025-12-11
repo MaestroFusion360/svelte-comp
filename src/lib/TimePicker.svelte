@@ -1,4 +1,4 @@
-<!-- src/lib/TimePicker.svelte -->
+﻿<!-- src/lib/TimePicker.svelte -->
 <script lang="ts">
   /**
    * @component TimePicker
@@ -37,7 +37,7 @@
   import { getContext } from "svelte";
   import Button from "./Button.svelte";
   import Select from "./Select.svelte";
-  import { cx } from "$utils";
+  import { cx } from "../utils";
   import { TEXTS } from "./lang";
 
   type Props = HTMLAttributes<HTMLDivElement> & {

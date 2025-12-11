@@ -1,4 +1,4 @@
-<!-- src/lib/Dialog.svelte -->
+﻿<!-- src/lib/Dialog.svelte -->
 <script lang="ts">
   /**
    * @component Dialog
@@ -46,7 +46,7 @@
   import { TEXTS } from "./lang";
   import Button from "./Button.svelte";
   import { type SizeKey, TEXT } from "./types";
-  import { cx, focusFirstInteractive, trapFocus } from "$utils";
+  import { cx, focusFirstInteractive, trapFocus } from "../utils";
 
   type Props = {
     open?: boolean;

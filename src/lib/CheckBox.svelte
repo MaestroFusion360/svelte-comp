@@ -1,4 +1,4 @@
-<!-- src/lib/CheckBox.svelte -->
+﻿<!-- src/lib/CheckBox.svelte -->
 <script lang="ts">
   /**
    * @component CheckBox
@@ -38,8 +38,8 @@
    * @note Sizes scale the control box (`xs → xl`).
    */
   import type { HTMLInputAttributes } from "svelte/elements";
-  import { type SizeKey, type ComponentVariant, TEXT } from "$lib/types";
-  import { cx, uid } from "$utils";
+  import { type SizeKey, type ComponentVariant, TEXT } from "./types";
+  import { cx, uid } from "../utils";
 
   type Props = HTMLInputAttributes & {
     label?: string;

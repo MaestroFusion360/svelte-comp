@@ -1,4 +1,4 @@
-<!-- src/lib/Carousel.svelte -->
+﻿<!-- src/lib/Carousel.svelte -->
 <script lang="ts">
   /**
    * @component Carousel
@@ -34,8 +34,8 @@
    */
   import Card from "./Card.svelte";
   import type { HTMLAttributes } from "svelte/elements";
-  import type { SizeKey, CarouselItem } from "$lib/types";
-  import { cx } from "$utils";
+  import type { SizeKey, CarouselItem } from "./types";
+  import { cx } from "../utils";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     items?: CarouselItem[];
@@ -128,7 +128,10 @@
   );
 
   const dotClass = $derived(
-    cx(dotSize[sz], "rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none")
+    cx(
+      dotSize[sz],
+      "rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none"
+    )
   );
 
   $effect(() => {

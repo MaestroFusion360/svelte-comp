@@ -1,4 +1,4 @@
-<!-- src/lib/Slider.svelte -->
+﻿<!-- src/lib/Slider.svelte -->
 <script lang="ts">
   /**
    * @component Slider
@@ -40,9 +40,9 @@
    * @note Uses proper ARIA attributes.
    */
   import type { HTMLAttributes } from "svelte/elements";
-  import type { SizeKey, ComponentVariant } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { cx, clamp } from "$utils";
+  import type { SizeKey, ComponentVariant } from "./types";
+  import { TEXT } from "./types";
+  import { cx, clamp } from "../utils";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     value?: number;

@@ -49,9 +49,9 @@
    */
   import { getContext } from "svelte";
   import type { HTMLSelectAttributes } from "svelte/elements";
-  import type { SizeKey, FieldVariant, SelectOption } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { uid, cx } from "$utils";
+  import type { SizeKey, FieldVariant, SelectOption } from "./types";
+  import { TEXT } from "./types";
+  import { uid, cx } from "../utils";
 
   type Props = HTMLSelectAttributes & {
     label?: string;
@@ -427,7 +427,9 @@
         {/if}
       </span>
       <span
-        class={cx("pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [color:var(--color-text-default)]")}
+        class={cx(
+          "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 [color:var(--color-text-default)]"
+        )}
       >
         <svg
           class={iconsSizes[sz]}
@@ -481,7 +483,9 @@
           <button
             type="button"
             tabindex="0"
-            class={cx("w-full text-left focus:outline-[3px] focus:outline-offset-3 focus:outline-[var(--border-color-focus)] rounded flex items-center gap-2")}
+            class={cx(
+              "w-full text-left focus:outline-[3px] focus:outline-offset-3 focus:outline-[var(--border-color-focus)] rounded flex items-center gap-2"
+            )}
             disabled={opt.disabled}
             onclick={() => choose(i)}
             onfocus={() => (highlighted = i)}

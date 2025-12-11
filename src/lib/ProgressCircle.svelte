@@ -26,8 +26,8 @@
    * @note Works in both determinate/indeterminate modes
    */
   import type { HTMLAttributes } from "svelte/elements";
-  import { type SizeKey, type ComponentVariant, TEXT } from "$lib/types";
-  import { cx, clamp } from "$utils";
+  import { type SizeKey, type ComponentVariant, TEXT } from "./types";
+  import { cx, clamp } from "../utils";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     value?: number;

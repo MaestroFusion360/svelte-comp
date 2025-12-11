@@ -1,4 +1,4 @@
-<!-- src/lib/Radio.svelte -->
+﻿<!-- src/lib/Radio.svelte -->
 <script lang="ts">
   /**
    * @component Radio
@@ -40,8 +40,8 @@
    */
   import type { Snippet } from "svelte";
   import type { HTMLInputAttributes } from "svelte/elements";
-  import { type SizeKey, type ComponentVariant, TEXT } from "$lib/types";
-  import { cx, uid } from "$utils";
+  import { type SizeKey, type ComponentVariant, TEXT } from "./types";
+  import { cx, uid } from "../utils";
 
   type Props = HTMLInputAttributes & {
     label?: string;

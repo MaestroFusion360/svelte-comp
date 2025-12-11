@@ -1,4 +1,4 @@
-<!-- src/lib/Form.svelte -->
+﻿<!-- src/lib/Form.svelte -->
 <script lang="ts">
   /**
    * @component Form
@@ -58,9 +58,9 @@
     FieldSchema,
     FormApi,
     FormValues,
-  } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { cx, debounce } from "$utils";
+  } from "./types";
+  import { TEXT } from "./types";
+  import { cx, debounce } from "../utils";
 
   type Props = {
     schema: FieldSchema[];

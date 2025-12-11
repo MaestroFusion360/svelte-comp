@@ -1,4 +1,4 @@
-<!-- src/lib/Switch.svelte -->
+﻿<!-- src/lib/Switch.svelte -->
 <script lang="ts">
   /**
    * @component Switch
@@ -29,9 +29,9 @@
    * @note The component keeps no internal state besides the bound `checked` value, so it's predictable in forms and controlled UI.
    */
   import type { HTMLInputAttributes } from "svelte/elements";
-  import type { SizeKey } from "$lib/types";
-  import { TEXT } from "$lib/types";
-  import { cx, uid } from "$utils";
+  import type { SizeKey } from "./types";
+  import { TEXT } from "./types";
+  import { cx, uid } from "../utils";
 
   type Props = HTMLInputAttributes & {
     sz?: SizeKey;

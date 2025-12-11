@@ -1,4 +1,4 @@
-<!-- src/lib/Toast.svelte -->
+﻿<!-- src/lib/Toast.svelte -->
 <script lang="ts">
   /**
    * @component Toast
@@ -32,8 +32,8 @@
    * @note Variant controls color and icon style.
    */
   import { fade } from "svelte/transition";
-  import type { ToastVariant } from "$lib/types";
-  import { cx } from "$utils";
+  import type { ToastVariant } from "./types";
+  import { cx } from "../utils";
 
   type Props = {
     title?: string;
