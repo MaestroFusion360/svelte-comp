@@ -31,7 +31,7 @@ const enTexts = {
       totalSize: "Total size",
     },
     menu: { subtitle: "Menu with size options" },
-    primaryColorToggle: { text: "Primary color" },
+    primaryColorSelect: { text: "Primary color" },
     timePicker: {
       text: "Choose time",
       placeholder: "No time selected",
@@ -77,7 +77,7 @@ const ruTexts = {
       totalSize: "Общий размер",
     },
     menu: { subtitle: "Меню с опциями размеров" },
-    primaryColorToggle: { text: "Основной цвет" },
+    primaryColorSelect: { text: "Основной цвет" },
     timePicker: {
       text: "Выбрать время",
       placeholder: "Время не выбрано",
@@ -123,7 +123,7 @@ const esTexts = {
       totalSize: "Tamaño total",
     },
     menu: { subtitle: "Menú con opciones de tamaño" },
-    primaryColorToggle: { text: "Color primario" },
+    primaryColorSelect: { text: "Color primario" },
     timePicker: {
       text: "Elegir hora",
       placeholder: "Ninguna hora seleccionada",

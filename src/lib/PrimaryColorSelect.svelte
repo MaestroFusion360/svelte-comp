@@ -30,10 +30,10 @@
     class?: string;
   };
 
-  let { sz = "sm", label, class: externalClass = "" }: Props = $props();
-
-  const lang = getContext<{ value: keyof typeof TEXTS }>("lang");
-  const L = $derived(TEXTS[lang.value].components.primaryColorToggle);
+  const langCtx =
+    getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;
+  const langKey = $derived(langCtx?.value ?? "en");
+  const L = $derived(TEXTS[langKey].components.primaryColorSelect);
 
   const labelFinal = $derived(label ?? L.text);
 
