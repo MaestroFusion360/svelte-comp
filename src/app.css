@@ -1,3 +1,235 @@
 /* src/app.css */
 
 @import "tailwindcss";
+
+/* src/styles.css */
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* COLORS — TEXT */
+  --color-text-default: oklch(15% 0 0deg);
+  --color-text-muted: oklch(60% 0 0deg);
+  --color-text-danger: oklch(92% 0.05 25deg);
+  --color-text-success: oklch(92% 0.05 150deg);
+  --color-text-warning: oklch(95% 0.05 90deg);
+  --color-text-link: oklch(35% 0.3 250deg);
+  --color-text-red: oklch(50% 0.25 30deg);
+
+  /* COLORS — BG */
+  --color-bg-page: oklch(98% 0 0deg);
+  --color-bg-surface: oklch(100% 0 0deg);
+  --color-bg-primary: oklch(62.3% 0.214 259.8deg);
+  --color-primary: var(--color-bg-primary);
+  --color-bg-secondary: oklch(80% 0 0deg);
+  --color-bg-danger: oklch(60% 0.25 30deg);
+  --color-bg-success: oklch(55% 0.2 150deg);
+  --color-bg-warning: oklch(75% 0.2 70deg);
+  --color-bg-muted: oklch(90% 0 0deg);
+
+  /* INTERACTION STATES */
+  --color-bg-hover: oklch(94% 0 0deg);
+  --color-bg-active: oklch(88% 0 0deg);
+
+  /* BORDER */
+  --border-color-default: oklch(85% 0 0deg);
+  --border-color-primary: oklch(50% 0.19 259.8deg);
+  --border-color-strong: oklch(75% 0 0deg);
+  --border-color-focus: oklch(68.7% 0.14 237.5deg);
+
+  /* SHADOW */
+  --shadow-color: oklch(0% 0 0deg / 0.15);
+
+  /* SPACING */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* TYPOGRAPHY */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "Fira Code", "Consolas", "Monaco", monospace;
+
+  /* FONT WEIGHTS */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* TEXT SIZES */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+
+  /* LINE HEIGHT & LETTER SPACING */
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.6;
+  --letter-spacing-tight: -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.02em;
+
+  /* RADIUS */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  /* TRANSITIONS */
+  --transition-fast: 150ms;
+  --transition-normal: 300ms;
+  --transition-slow: 500ms;
+  --timing-default: ease-in-out;
+
+  /* OPACITY */
+  --opacity-disabled: 0.5;
+  --opacity-hover: 0.9;
+  --opacity-overlay: 0.7;
+
+  /* Z-INDEX */
+  --z-base: 0;
+  --z-dropdown: 10;
+  --z-overlay: 50;
+  --z-modal: 100;
+  --z-toast: 200;
+}
+
+.dark {
+  /* COLORS — TEXT */
+  --color-text-default: oklch(98% 0 0deg);
+  --color-text-muted: oklch(60% 0 0deg);
+  --color-text-danger: oklch(98% 0.02 25deg);
+  --color-text-success: oklch(92% 0.05 150deg);
+  --color-text-warning: oklch(95% 0.05 90deg);
+  --color-text-link: oklch(65% 0.3 250deg);
+  --color-text-red: oklch(50% 0.25 30deg);
+
+  /* COLORS — BG */
+  --color-bg-page: oklch(15% 0 0deg);
+  --color-bg-surface: oklch(26% 0 0deg);
+  --color-bg-primary: oklch(42% 0.19 259.8deg);
+  --color-primary: var(--color-bg-primary);
+  --color-bg-secondary: oklch(45% 0 0deg);
+  --color-bg-danger: oklch(50% 0.25 30deg);
+  --color-bg-success: oklch(45% 0.2 150deg);
+  --color-bg-warning: oklch(65% 0.2 70deg);
+  --color-bg-muted: oklch(30% 0 0deg);
+
+  /* INTERACTION STATES */
+  --color-bg-hover: oklch(25% 0 0deg);
+  --color-bg-active: oklch(18% 0 0deg);
+
+  /* BORDER */
+  --border-color-default: oklch(35% 0 0deg);
+  --border-color-primary: oklch(50% 0.17 259.8deg);
+  --border-color-strong: oklch(45% 0 0deg);
+  --border-color-focus: oklch(68.7% 0.14 237.5deg);
+
+  /* SHADOW */
+  --shadow-color: oklch(0% 0 0deg / 0.6);
+
+  /* OPACITY */
+  --opacity-disabled: 0.4;
+  --opacity-hover: 0.85;
+  --opacity-overlay: 0.6;
+}
+
+/* SCROLLBARS */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-secondary);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(from var(--color-bg-secondary) l c h / 0.8);
+}
+
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-bg-secondary) transparent;
+  }
+
+  .dark * {
+    scrollbar-color: oklch(from var(--color-bg-secondary) l c h / 0.7)
+      transparent;
+  }
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(from var(--color-bg-secondary) l c h / 0.7);
+}
+
+/* ----------------------------- */
+/* 🎨 Primary color palettes     */
+/* ----------------------------- */
+
+[data-primary="default"] {
+  --color-primary: oklch(62.3% 0.214 259.8deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="cyan"] {
+  --color-primary: oklch(86.5% 0.127 207.078);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="red"] {
+  --color-primary: oklch(58% 0.24 30deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="green"] {
+  --color-primary: oklch(65% 0.22 140deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="yellow"] {
+  --color-primary: oklch(75% 0.18 90deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="pink"] {
+  --color-primary: oklch(70% 0.25 350deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="orange"] {
+  --color-primary: oklch(72% 0.22 60deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}
+
+[data-primary="purple"] {
+  --color-primary: oklch(55% 0.22 290deg);
+  --color-bg-primary: var(--color-primary);
+  --border-color-primary: var(--color-primary);
+  --border-color-focus: var(--color-primary);
+}

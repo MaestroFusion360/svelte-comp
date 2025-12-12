@@ -19,6 +19,7 @@
   import Toast from "./lib/Toast.svelte";
   import Tooltip from "./lib/Tooltip.svelte";
   import type { ToastVariant } from "./lib/types";
+  import Container from "./Container.svelte";
 
   const tabs = [
     { id: "overview", label: "Overview" },
@@ -151,15 +152,10 @@
   }
 </script>
 
-<main class="min-h-screen bg-[var(--color-bg-page)] text-[var(--color-text-default)]">
-  <div class="pointer-events-none absolute inset-0 overflow-hidden">
-    <div class="absolute -left-10 top-10 h-64 w-64 rounded-full bg-[var(--color-bg-primary)]/10 blur-3xl"></div>
-    <div class="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[var(--color-bg-warning)]/20 blur-3xl"></div>
-  </div>
-
+<Container>
   <div class="relative mx-auto max-w-6xl space-y-8 px-6 py-10">
     <section
-      class="relative overflow-hidden rounded-[28px] border border-[var(--border-color-default)] bg-gradient-to-br from-[var(--color-bg-surface)] via-white/70 to-[var(--color-bg-muted)] shadow-[0_20px_60px_-25px_var(--shadow-color)] dark:from-[var(--color-bg-surface)] dark:via-slate-900/70 dark:to-slate-900/50"
+      class="relative rounded-[28px] border border-[var(--border-color-default)] bg-gradient-to-br from-[var(--color-bg-surface)] via-white/70 to-[var(--color-bg-muted)] shadow-[0_20px_60px_-25px_var(--shadow-color)] dark:from-[var(--color-bg-surface)] dark:via-slate-900/70 dark:to-slate-900/50"
     >
       <div
         class="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(99,102,241,0.18),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(16,185,129,0.14),transparent_25%)]"
@@ -203,7 +199,7 @@
         </div>
 
         <div
-          class="space-y-4 rounded-2xl border border-[var(--border-color-default)] bg-white/70 p-5 shadow-lg backdrop-blur dark:bg-slate-900/60"
+          class="space-y-4 rounded-2xl border border-[var(--border-color-default)] bg-white/70 p-5 shadow-lg dark:bg-slate-900/60"
         >
           <div class="flex items-start justify-between gap-3">
             <div>
@@ -552,4 +548,4 @@
       timeout={3500}
     />
   {/each}
-</main>
+</Container>
