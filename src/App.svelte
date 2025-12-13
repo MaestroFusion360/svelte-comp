@@ -164,7 +164,7 @@
       <div class="relative grid gap-8 p-8 md:p-10 lg:grid-cols-[1.1fr_0.9fr]">
         <div class="space-y-4">
           <p class="text-xs uppercase tracking-[0.25em] text-[var(--color-text-muted)]">
-            svelte-comp kit
+            svelte-comp
           </p>
           <h1 class="text-3xl font-bold leading-tight md:text-4xl">
             Component showcase
