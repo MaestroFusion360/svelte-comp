@@ -194,8 +194,8 @@
     {labelFinal}
   </div>
 
-  <div class="flex items-start gap-4">
-    <div class="flex flex-wrap gap-3 min-w-[0]">
+  <div class="flex flex-wrap items-start gap-4">
+    <div class="flex flex-wrap gap-3 min-w-[0] flex-1">
       {#if timeSystem === "iso"}
         <Select
           label={L.hour}
@@ -235,7 +235,7 @@
       />
     </div>
 
-    <div class="flex items-center gap-3 pt-6">
+    <div class="flex items-center gap-3 basis-full pt-2">
       <Button onClick={toggleSystem} {disabled} sz="xs">
         {timeSystem === "iso" ? L.switchTo12h : L.switchTo24h}
       </Button>
