@@ -105,7 +105,7 @@ export interface FieldSchema {
   when?: (form: Record<string, unknown>) => boolean;
   validators?: ((
     v: unknown,
-    form?: Record<string, unknown>
+    form?: Record<string, unknown>,
   ) => string | null | Promise<string | null>)[];
   sz?: "xs" | "sm" | "md" | "lg" | "xl";
   variant?: "default" | "filled" | "neutral";

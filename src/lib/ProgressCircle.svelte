@@ -94,7 +94,7 @@
   {...rest}
 >
   {#if label}
-    <span class="text-[var(--color-text-muted)] select-none {TEXT[sz]}">
+    <span class={cx("text-[var(--color-text-muted)] select-none", TEXT[sz])}>
       {label}
     </span>
   {/if}
@@ -143,9 +143,10 @@
 
     {#if !indeterminate}
       <div
-        class="absolute inset-0 flex items-center justify-center text-[var(--color-text-muted)] font-medium select-none {TEXT[
-          sz
-        ]}"
+        class={cx(
+          "absolute inset-0 flex items-center justify-center text-[var(--color-text-muted)] font-medium select-none",
+          TEXT[sz]
+        )}
       >
         {pctText}%
       </div>

@@ -170,7 +170,7 @@
     </div>
   {/if}
 
-  <div class="flex font-mono {TEXT[sz]} {LINE_HEIGHT[sz]}">
+  <div class={cx("flex font-mono", TEXT[sz], LINE_HEIGHT[sz])}>
     {#if showLineNumbers}
       <div
         bind:this={gutterEl}
@@ -189,7 +189,7 @@
     <div class="relative flex-1 min-h-[180px] max-h-[480px]">
       <div
         bind:this={highlightEl}
-        class="cv-highlight cv-layer {TEXT[sz]} {LINE_HEIGHT[sz]}"
+        class={cx("cv-highlight cv-layer", TEXT[sz], LINE_HEIGHT[sz])}
         class:cv-active-line={activeLine && editable}
         style={activeLine && editable
           ? `--cv-line-height: ${lineHeightPx}px; --cv-active-line-top: ${padTopPx + activeLineIndex * lineHeightPx - highlightScroll}px;`
@@ -211,7 +211,7 @@
         onfocus={editable ? updateActiveLine : undefined}
         spellcheck="false"
         readonly={!editable}
-        class="cv-input cv-layer {TEXT[sz]} {LINE_HEIGHT[sz]}"
+        class={cx("cv-input cv-layer", TEXT[sz], LINE_HEIGHT[sz])}
       ></textarea>
     </div>
   </div>

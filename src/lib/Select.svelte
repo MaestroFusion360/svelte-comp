@@ -384,6 +384,7 @@
 <div class={rootClass}>
   {#if label}
     <label
+      id={`${fieldId}-hidden-label`}
       for={`${fieldId}-hidden`}
       class={cx(TEXT[sz], "font-medium [color:var(--color-text-muted)]")}
     >

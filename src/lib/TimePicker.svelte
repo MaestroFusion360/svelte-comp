@@ -1,4 +1,4 @@
-<!-- src/lib/TimePicker.svelte -->
+﻿<!-- src/lib/TimePicker.svelte -->
 <script lang="ts">
   /**
    * @component TimePicker
