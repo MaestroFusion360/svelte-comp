@@ -93,7 +93,7 @@
   type Row = { id: number; item: string; qty: number; price: number };
 
   // Generate sample table dataset
-  const allRows: Row[] = $state(
+  const allRows = $derived<Row[]>(
     times(23, (i) => ({
       id: i + 1,
       item: `${L.table.positionPrefix} ${i + 1}`,
