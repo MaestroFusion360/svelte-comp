@@ -151,8 +151,11 @@
     return compact ? (compactMap[size] ?? "md") : size;
   }
 
-  let formInstanceCounter = 0;
-  const instanceId = $state(formInstanceCounter++);
+  const globalFormInstanceCounter = globalThis as unknown as {
+    __svelteCompFormInstanceCounter?: number;
+  };
+  globalFormInstanceCounter.__svelteCompFormInstanceCounter ??= 0;
+  const instanceId = $state(globalFormInstanceCounter.__svelteCompFormInstanceCounter++);
 
   const baseFormId = $derived.by(() => {
     if (formId && formId.trim()) return formId.trim();

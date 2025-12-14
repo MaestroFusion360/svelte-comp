@@ -30,9 +30,7 @@ function extract(file: string): string {
   if (start < 0 || end < 0) throw new Error(`JSDoc not found in ${file}`);
 
   const jsdoc = code.slice(start + 3, end).trim();
-  const lines = jsdoc
-    .split("\n")
-    .map((l) => l.trim().replace(/^\* ?/, ""));
+  const lines = jsdoc.split("\n").map((l) => l.trim().replace(/^\* ?/, ""));
 
   let component = "";
   let description = "";

@@ -9,7 +9,10 @@ export const toasts = writable<
 
 let toastId = 0;
 
-export function addToast(variant: ToastVariant, opt?: { title?: string; message?: string }) {
+export function addToast(
+  variant: ToastVariant,
+  opt?: { title?: string; message?: string },
+) {
   const id = toastId++;
   const cfg = getToastConfig(variant, opt?.message);
 

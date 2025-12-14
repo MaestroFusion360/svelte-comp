@@ -104,7 +104,7 @@
   {...rest}
 >
   {#if label}
-    <span class="text-[var(--color-text-muted)] select-none {TEXT[sz]}">
+    <span class={cx("text-[var(--color-text-muted)] select-none", TEXT[sz])}>
       {label}
     </span>
   {/if}

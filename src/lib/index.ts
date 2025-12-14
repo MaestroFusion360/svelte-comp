@@ -29,4 +29,4 @@ export { default as ThemeToggle } from "./ThemeToggle.svelte";
 export { default as TimePicker } from "./TimePicker.svelte";
 export { default as Toast } from "./Toast.svelte";
 export { default as Tooltip } from "./Tooltip.svelte";
-export * from "./types"
+export * from "./types";

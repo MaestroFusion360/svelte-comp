@@ -49,7 +49,10 @@ describe("ProgressCircle", () => {
     );
 
     expect(progress?.getAttribute("aria-valuenow")).toBe("0");
-    expect(Number(bar?.getAttribute("stroke-dashoffset"))).toBeCloseTo(circAttr, 4);
+    expect(Number(bar?.getAttribute("stroke-dashoffset"))).toBeCloseTo(
+      circAttr,
+      4,
+    );
   });
 
   it("shows indeterminate state", () => {
@@ -64,7 +67,9 @@ describe("ProgressCircle", () => {
   });
 
   it("applies size styles", () => {
-    const { container, rerender } = render(ProgressCircle, { props: { sz: "md" } });
+    const { container, rerender } = render(ProgressCircle, {
+      props: { sz: "md" },
+    });
     const ringWrapper = () =>
       container.querySelector(
         ".relative.inline-flex.items-center.justify-center",

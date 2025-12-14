@@ -49,9 +49,9 @@ const enTexts = {
 const ruTexts = {
   components: {
     colorPicker: {
-      text: "Выберете цвет",
+      text: "Выбрать цвет",
       color: "Цвет",
-      clear: "Сбросить",
+      clear: "Очистить",
       placeholder: "Цвет не выбран",
       selectedColor: "Выбранный цвет",
     },
@@ -59,7 +59,7 @@ const ruTexts = {
       text: "Выбрать дату",
       placeholder: "Дата не выбрана",
       date: "Дата",
-      clear: "Сбросить",
+      clear: "Очистить",
       selectedDate: "Выбранная дата",
     },
     dialog: {
@@ -68,7 +68,7 @@ const ruTexts = {
     },
     filePicker: {
       text: "Выбрать файлы",
-      clear: "Сбросить",
+      clear: "Очистить",
       dragDrop: "Перетащите файлы сюда или нажмите, чтобы выбрать",
       accepted: "Допустимые форматы",
       selectedFiles: "Выбранные файлы",
@@ -76,14 +76,14 @@ const ruTexts = {
       fileCount: "{n} файл(ов) выбрано",
       totalSize: "Общий размер",
     },
-    menu: { subtitle: "Меню с опциями размеров" },
+    menu: { subtitle: "Меню с вариантами размеров" },
     primaryColorSelect: { text: "Основной цвет" },
     timePicker: {
       text: "Выбрать время",
       placeholder: "Время не выбрано",
       clear: "Очистить",
-      hour: "Часы",
-      minute: "Минуты",
+      hour: "Час",
+      minute: "Минута",
       period: "Период",
       selectedTime: "Выбранное время",
       switchTo12h: "12ч",

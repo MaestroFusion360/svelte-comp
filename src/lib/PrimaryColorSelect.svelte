@@ -71,9 +71,15 @@
 
   $effect(() => {
     if (!mounted) {
-      const saved = localStorage.getItem("primary");
-      if (isPrimaryKey(saved)) {
-        selected = saved;
+      try {
+        if (typeof window !== "undefined") {
+          const saved = localStorage.getItem("primary");
+          if (isPrimaryKey(saved)) {
+            selected = saved;
+          }
+        }
+      } catch {
+        // ignore unavailable storage/environment
       }
       mounted = true;
     }
@@ -81,8 +87,16 @@
 
   $effect(() => {
     if (mounted) {
-      document.documentElement.setAttribute("data-primary", selected);
-      localStorage.setItem("primary", selected);
+      try {
+        if (typeof document !== "undefined") {
+          document.documentElement.setAttribute("data-primary", selected);
+        }
+        if (typeof window !== "undefined") {
+          localStorage.setItem("primary", selected);
+        }
+      } catch {
+        // ignore unavailable storage/environment
+      }
     }
   });
 </script>

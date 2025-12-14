@@ -17,7 +17,7 @@ const normalize = (s: string) =>
 
 function getSelectTriggerByLabelText(
   container: HTMLElement,
-  labelText: string
+  labelText: string,
 ) {
   const labelEl = within(container).getByText(labelText, {
     selector: "label",
@@ -75,11 +75,11 @@ async function changeLanguageToSpanish() {
     TEXTS.en.app.language.options.find((opt) => opt.value === "es")?.label ??
     "Spanish";
   const hiddenLangInput = drawer.querySelector(
-    'input[type="hidden"][value="en"]'
+    'input[type="hidden"][value="en"]',
   );
   const languageSelect = hiddenLangInput
     ? (hiddenLangInput.parentElement?.querySelector(
-        'button[role="combobox"]'
+        'button[role="combobox"]',
       ) as HTMLElement | null)
     : null;
 
@@ -91,7 +91,7 @@ async function changeLanguageToSpanish() {
 
   await waitFor(() => {
     expect(
-      drawer.querySelector('input[type="hidden"][value="es"]')
+      drawer.querySelector('input[type="hidden"][value="es"]'),
     ).toBeTruthy();
   });
 
@@ -115,23 +115,23 @@ describe("App", () => {
     await goToPage(TEXTS.en.pageLabels.tablePagination);
 
     expect(
-      await screen.findByText(`${TEXTS.en.table.positionPrefix} 1`)
+      await screen.findByText(`${TEXTS.en.table.positionPrefix} 1`),
     ).toBeTruthy();
 
     await changeLanguageToSpanish();
     await tick();
 
-    const expectedPrefix = normalize(TEXTS.es.table.positionPrefix).toLowerCase();
+    const expectedPrefix = normalize(
+      TEXTS.es.table.positionPrefix,
+    ).toLowerCase();
     expect(
       await screen.findByText((text) => {
         const normalized = normalize(text).toLowerCase();
         return normalized.includes(expectedPrefix) && text.includes("1");
-      })
+      }),
     ).toBeTruthy();
 
-    expect(
-      await screen.findByText(TEXTS.es.table.columns.item)
-    ).toBeTruthy();
+    expect(await screen.findByText(TEXTS.es.table.columns.item)).toBeTruthy();
   });
 
   it("navigates to About and renders localized heading", async () => {
@@ -155,7 +155,7 @@ describe("App", () => {
     expect(document.documentElement.classList.contains("dark")).toBe(true);
 
     expect(
-      screen.getByRole("button", { name: /switch to light mode/i })
+      screen.getByRole("button", { name: /switch to light mode/i }),
     ).toBeTruthy();
   });
 
@@ -178,11 +178,13 @@ describe("App", () => {
     await goToPage(TEXTS.en.pageLabels.dialog);
 
     await fireEvent.click(
-      screen.getByRole("button", { name: TEXTS.en.snippets.dialog.button })
+      screen.getByRole("button", { name: TEXTS.en.snippets.dialog.button }),
     );
 
     expect(
-      await screen.findByRole("dialog", { name: TEXTS.en.snippets.dialog.title })
+      await screen.findByRole("dialog", {
+        name: TEXTS.en.snippets.dialog.title,
+      }),
     ).toBeTruthy();
 
     await fireEvent.click(screen.getByRole("button", { name: "OK" }));
@@ -219,13 +221,13 @@ describe("App", () => {
 
     const fieldTypeSelect = getSelectTriggerByLabelText(
       document.body,
-      TEXTS.en.playground.controls.fieldType
+      TEXTS.en.playground.controls.fieldType,
     );
     await fireEvent.click(fieldTypeSelect);
     await chooseOption("Number");
 
     const numberInput = await screen.findByPlaceholderText(
-      TEXTS.en.snippets.field.placeholder
+      TEXTS.en.snippets.field.placeholder,
     );
     expect(numberInput.getAttribute("type")).toBe("number");
   });
@@ -243,9 +245,7 @@ describe("App", () => {
 
     expect(screen.getByText("Page 2 of 5")).toBeTruthy();
     expect(screen.queryByText(`${TEXTS.en.table.positionPrefix} 1`)).toBeNull();
-    expect(
-      screen.getByText(`${TEXTS.en.table.positionPrefix} 6`)
-    ).toBeTruthy();
+    expect(screen.getByText(`${TEXTS.en.table.positionPrefix} 6`)).toBeTruthy();
   });
 
   it("shows slider value when toggled and reflects updates", async () => {
@@ -254,7 +254,7 @@ describe("App", () => {
     await goToPage(TEXTS.en.pageLabels.slider);
 
     const valueToggle = screen.getByLabelText(
-      TEXTS.en.playground.controls.sliderShowValue
+      TEXTS.en.playground.controls.sliderShowValue,
     );
     expect(valueToggle).toBeTruthy();
 
@@ -276,16 +276,18 @@ describe("App", () => {
     await fireEvent.click(toastBtn);
 
     const toastMessage = await screen.findByText(
-      "Operation completed successfully!"
+      "Operation completed successfully!",
     );
     expect(toastMessage).toBeTruthy();
 
     const toastStatus = screen.getByRole("status");
-    const closeBtn = within(toastStatus).getByRole("button", { name: /close/i });
+    const closeBtn = within(toastStatus).getByRole("button", {
+      name: /close/i,
+    });
     await fireEvent.click(closeBtn);
     await waitFor(() => {
       expect(
-        screen.queryByText("Operation completed successfully!")
+        screen.queryByText("Operation completed successfully!"),
       ).toBeNull();
     });
   });

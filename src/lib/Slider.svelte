@@ -209,6 +209,8 @@
   bind:this={wrap}
   class={rootClass}
   onclick={onTrackClick}
+  onfocusin={(e) => (rest as unknown as { onfocus?: (e: FocusEvent) => void }).onfocus?.(e as FocusEvent)}
+  onfocusout={(e) => (rest as unknown as { onblur?: (e: FocusEvent) => void }).onblur?.(e as FocusEvent)}
   data-disabled={disabled ? "true" : undefined}
   {...rest}
 >
