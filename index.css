@@ -179,6 +179,7 @@
   }
   html,
   :host {
+    text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     tab-size: 4;
     line-height: 1.5;
@@ -960,6 +961,9 @@
   .basis-0 {
     flex-basis: calc(var(--spacing) * 0);
   }
+  .basis-full {
+    flex-basis: 100%;
+  }
   .border-collapse {
     border-collapse: collapse;
   }
@@ -1519,8 +1523,8 @@
   .pt-0 {
     padding-top: calc(var(--spacing) * 0);
   }
-  .pt-6 {
-    padding-top: calc(var(--spacing) * 6);
+  .pt-2 {
+    padding-top: calc(var(--spacing) * 2);
   }
   .pr-2 {
     padding-right: calc(var(--spacing) * 2);
