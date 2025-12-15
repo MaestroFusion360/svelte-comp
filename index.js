@@ -3567,7 +3567,7 @@ const Ru = "5";
 typeof window < "u" && ((window.__svelte ??= {}).v ??= new Set()).add(Ru);
 const ju = {
     app: {
-      version: "v1.1.5",
+      version: "v1.1.6",
       title: "Svelte 5 UI Components",
       footer: "© 2025 MaestroFusion360",
       authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -3870,7 +3870,7 @@ const ju = {
   },
   Vu = {
     app: {
-      version: "v1.1.5",
+      version: "v1.1.6",
       title: "Svelte 5 UI Components",
       footer: "© 2025 MaestroFusion360",
       authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -4177,7 +4177,7 @@ const ju = {
   },
   qu = {
     app: {
-      version: "v1.1.5",
+      version: "v1.1.6",
       title: "Svelte 5 UI Components",
       footer: "© 2025 MaestroFusion360",
       authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
