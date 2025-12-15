@@ -8,7 +8,7 @@ Zero slots, simple props, themeable with CSS variables.
 ## 📦 Install
 
 ```bash
-npm install svelte-comp
+npm i svelte-comp
 ```
 
 ---
@@ -16,7 +16,7 @@ npm install svelte-comp
 ## 🔧 Setup TailwindCSS
 
 ```bash
-npm install tailwindcss @tailwindcss/vite
+npm i tailwindcss @tailwindcss/vite
 ```
 
 `vite.config.ts`:
@@ -39,6 +39,14 @@ Add to `src/app.css`:
 ```css
 @import "tailwindcss";
 @import "svelte-comp/styles.css";
+```
+
+---
+
+## 🔧 Setup Prism
+
+```bash
+npm i prismjs @types/prismjs
 ```
 
 ---

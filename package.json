@@ -47,5 +47,5 @@
   "svelte": "./dist/lib/index.js",
   "type": "module",
   "types": "./dist/lib/index.d.ts",
-  "version": "1.1.5"
+  "version": "1.1.6"
 }
