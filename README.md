@@ -9,7 +9,6 @@ Svelte 5 gives the library a clean execution model: state is explicit, updates a
 The toolkit is built for engineers: no hidden behavior, no opaque abstractions, no vendor lock–just straightforward components you can read, modify and trust. Everything plays nicely with Vite, Storybook, strict TypeScript, unit tests and real-world SPA workflows where clarity and maintainability matter more than magic.
 
 ---
-
 <!-- markdownlint-disable MD033 -->
 <details>
   <summary><h2>Table of Contents</h2></summary>
@@ -19,6 +18,7 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
   - [🚀 Quick Start](#-quick-start)
   - [📦 Package](#-package)
     - [🔧 Setup TailwindCSS](#-setup-tailwindcss)
+    - [🔧 Setup Prism](#-setup-prism)
   - [📁 Project Structure](#-project-structure)
   - [🎨 Global Styles (Theme Tokens)](#-global-styles-theme-tokens)
     - [Theme Tokens - Text Colors](#theme-tokens---text-colors)
@@ -232,6 +232,14 @@ Add global styles in `src/app.css` (or main stylesheet):
 
 ---
 
+### 🔧 Setup Prism
+
+```bash
+npm i prismjs @types/prismjs
+```
+
+---
+
 ## 📁 Project Structure
 
 ```plaintext
@@ -260,13 +268,10 @@ All tables below stay unchanged - verified against app.css.
 
 ### Theme Tokens - Text Colors
 
-<details>
-  <summary>Expand on</summary>
-
 | Token                  | Light                    | Dark                     |
 | ---------------------- | ------------------------ | ------------------------ |
 | `--color-text-default` | `oklch(15% 0 0deg)`      | `oklch(98% 0 0deg)`      |
-| `--color-text-muted`   | `oklch(60% 0 0deg)`      | `oklch(60% 0 0deg)`      |
+| `--color-text-muted`   | `oklch(60% 0 0deg)`      | `oklch(50% 0 0deg)`      |
 | `--color-text-danger`  | `oklch(92% 0.05 25deg)`  | `oklch(98% 0.02 25deg)`  |
 | `--color-text-success` | `oklch(92% 0.05 150deg)` | `oklch(92% 0.05 150deg)` |
 | `--color-text-warning` | `oklch(95% 0.05 90deg)`  | `oklch(95% 0.05 90deg)`  |
@@ -391,8 +396,6 @@ All tables below stay unchanged - verified against app.css.
 | `--z-overlay`  | `50`  |
 | `--z-modal`    | `100` |
 | `--z-toast`    | `200` |
-
-</details>
 
 ---
 
