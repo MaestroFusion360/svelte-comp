@@ -147,7 +147,7 @@
 
 <div
   class={cx(
-    "cv-root w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]",
+    "cv-root w-full h-full min-h-0 flex flex-col border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]",
     "text-[var(--color-text-default)]",
     externalClass
   )}
@@ -176,14 +176,20 @@
     </div>
   {/if}
 
-  <div class={cx("cv-body flex font-mono", TEXT[sz], LINE_HEIGHT[sz])}>
+  <div
+    class={cx(
+      "cv-body flex flex-1 min-h-0 font-mono",
+      TEXT[sz],
+      LINE_HEIGHT[sz]
+    )}
+  >
     {#if showLineNumbers}
       <div
         bind:this={gutterEl}
         class={cx(
           "select-none px-3 py-[12px] border-r border-[var(--border-color-default)]",
           "text-[var(--color-text-muted)] text-right overflow-hidden",
-          "cv-gutter bg-[var(--color-bg-surface)] tabular-nums min-h-[180px] max-h-[480px]"
+          "cv-gutter bg-[var(--color-bg-surface)] tabular-nums h-full min-h-0"
         )}
       >
         {#each lines as _, i (i)}
@@ -192,7 +198,7 @@
       </div>
     {/if}
 
-    <div class="cv-editor relative flex-1 min-h-[180px] max-h-[480px]">
+    <div class="cv-editor relative flex-1 min-h-0">
       <div
         bind:this={highlightEl}
         class={cx("cv-highlight cv-layer", TEXT[sz], LINE_HEIGHT[sz])}
