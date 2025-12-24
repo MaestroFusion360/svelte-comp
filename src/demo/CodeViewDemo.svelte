@@ -1,6 +1,7 @@
 <!-- src/demo/CodeViewDemo.svelte -->
 <script lang="ts">
   import { CodeView, Select, Switch } from "$lib";
+  import { cx } from "$utils";
   import type { SizeKey, Language, SelectOption } from "$lib/types";
 
   type Props = {
@@ -73,7 +74,7 @@ body {
   });
 </script>
 
-<div class="w-full flex flex-col gap-3 {externalClass}">
+<div class={cx("w-full flex flex-col gap-3", externalClass)}>
   <div class="flex flex-wrap items-baseline gap-3">
     <div class="shrink-0">
       <Select

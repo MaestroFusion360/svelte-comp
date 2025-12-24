@@ -188,7 +188,7 @@
 
 {#snippet burgerFooter()}
   <div class={cx("text-center p-2 flex flex-col items-center gap-4")}>
-    <PrimaryColorSelect class="w-fit"/>
+    <PrimaryColorSelect class="w-fit" />
     <Select
       sz="sm"
       label={L.app.language.label}
@@ -233,14 +233,18 @@
 {/snippet}
 
 {#snippet carouselSnippet(sz: SizeKey)}
-  <Carousel
-    items={carouselItems}
-    {sz}
-    autoplay={true}
-    showDots={true}
-    showArrows={true}
-    class="w-full"
-  />
+  <div
+    class="w-full max-w-3xl max-h-[320px] md:max-h-[480px] lg:max-h-[480px] overflow-auto"
+  >
+    <Carousel
+      items={carouselItems}
+      {sz}
+      autoplay={true}
+      showDots={true}
+      showArrows={true}
+      class="w-full"
+    />
+  </div>
 {/snippet}
 
 {#snippet toastSnippet(sz: SizeKey, variant: string)}
@@ -315,7 +319,11 @@
 {/snippet}
 
 {#snippet tableSnippet(sz: SizeKey, variant: string)}
-  <div class={cx("w-full max-w-3xl max-h-[320px] md:max-h-[480px] lg:max-h-[480px] overflow-auto")}>
+  <div
+    class={cx(
+      "w-full max-w-3xl max-h-[320px] md:max-h-[480px] lg:max-h-[480px] overflow-auto"
+    )}
+  >
     <Table {columns} rows={pageRows} {sz} variant={variant as TableVariant} />
     <div class="mt-4">
       <Pagination {currentPage} {totalPages} onPageChange={handlePageChange} />
@@ -567,7 +575,6 @@
         <div class="overflow-x-auto w-full min-w-full min-h-[400px]">
           <Notepad {L} />
         </div>
-        
       {:else if active === "progressBar"}
         <PlayCard
           component="ProgressBar"

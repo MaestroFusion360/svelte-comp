@@ -76,6 +76,22 @@
   clearable={true}
   {leading}
   {placeholder}
-  class={`w-full max-w-[520px] [&_input]:pl-10 ${externalClass}`}
+  class={`search-input w-full max-w-[520px] [&_input]:pl-10 ${externalClass}`}
   {...rest}
 />
+
+<style>
+  :global(.search-input input[type="search"]) {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  :global(.search-input input[type="search"]::-webkit-search-cancel-button),
+  :global(.search-input input[type="search"]::-webkit-search-decoration),
+  :global(.search-input input[type="search"]::-webkit-search-results-button),
+  :global(.search-input input[type="search"]::-webkit-search-results-decoration) {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+  }
+</style>

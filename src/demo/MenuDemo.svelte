@@ -2,6 +2,7 @@
 <script lang="ts">
   import { getContext } from "svelte";
   import { Menu } from "$lib";
+  import { cx } from "$utils";
   import type { SizeKey, MenuItem, MenuAction } from "$lib/types";
   import { TEXTS } from "../lang";
 
@@ -109,7 +110,7 @@
   });
 </script>
 
-<div class="flex flex-col w-full {externalClass}">
+<div class={cx("flex flex-col w-full", externalClass)}>
   <div
     class="w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] overflow-x-auto overflow-y-visible"
   >

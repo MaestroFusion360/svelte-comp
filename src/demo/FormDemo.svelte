@@ -156,7 +156,7 @@
         case "email":
           api.setValue(
             f.name,
-            `${rand(names).toLowerCase()}.${rand(surnames).toLowerCase()}@example.com`,
+            `${rand(names).toLowerCase()}.${rand(surnames).toLowerCase()}@example.com`
           );
           break;
         case "select": {
@@ -187,19 +187,21 @@
 {/snippet}
 
 {#snippet formFooter()}
-  <div class="p-4 flex justify-center gap-[var(--spacing-sm)]">
+  <div class="p-4 flex flex-wrap justify-center gap-[var(--spacing-sm)]">
     <Tooltip text={L.form.footer.submit}>
-      <Button variant="primary" type="submit" form={formId}
-        >{L.form.footer.submit}</Button
-      >
+      <Button variant="primary" type="submit" form={formId}>
+        {L.form.footer.submit}
+      </Button>
     </Tooltip>
+
     <Tooltip text={L.form.footer.cancel}>
-      <Button variant="secondary" type="button" onClick={handleCancel}
-        >{L.form.footer.cancel}</Button
-      >
+      <Button variant="danger" type="button" onClick={handleCancel}>
+        {L.form.footer.cancel}
+      </Button>
     </Tooltip>
+
     <Tooltip text={L.form.footer.random}>
-      <Button variant="info" type="button" onClick={fillRandomValid}>
+      <Button variant="secondary" type="button" onClick={fillRandomValid}>
         {L.form.footer.random}
       </Button>
     </Tooltip>
