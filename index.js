@@ -3567,7 +3567,7 @@ const Wu = "5";
 typeof window < "u" && ((window.__svelte ??= {}).v ??= new Set()).add(Wu);
 const Zu = {
     app: {
-      version: "v1.1.8",
+      version: "v1.1.9",
       title: "Svelte 5 UI Components",
       footer: "© 2025 MaestroFusion360",
       authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -3878,7 +3878,7 @@ const Zu = {
   },
   Yu = {
     app: {
-      version: "v1.1.8",
+      version: "v1.1.9",
       title: "Svelte 5 UI Components",
       footer: "© 2025 MaestroFusion360",
       authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -4193,7 +4193,7 @@ const Zu = {
   },
   Xu = {
     app: {
-      version: "v1.1.8",
+      version: "v1.1.9",
       title: "Svelte 5 UI Components",
       footer: "© 2025 MaestroFusion360",
       authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -13506,8 +13506,12 @@ function Ze(r, e) {
   });
   const h = v(() =>
     j(
-      "w-full flex flex-col h-[480px]",
-      e.component === "CodeView" ? "md:h-[800px]" : "md:h-[540px]",
+      "w-full flex flex-col h-[640px]",
+      e.component === "CodeView" ||
+        e.component === "Table" ||
+        e.component === "Card"
+        ? "md:h-[900px]"
+        : "md:h-[800px]",
       s(),
     ),
   );
@@ -14336,7 +14340,7 @@ function Rv(r, e) {
             () =>
               G(
                 j(
-                  "w-full max-w-3xl max-h-[320px] md:max-h-[360px] lg:max-h-[420px] overflow-auto",
+                  "w-full max-w-3xl max-h-[320px] md:max-h-[480px] lg:max-h-[480px] overflow-auto",
                 ),
               ),
           ],
