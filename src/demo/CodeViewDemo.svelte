@@ -94,14 +94,60 @@ body {
     />
   </div>
 
-  <CodeView
-    code={displayCode}
-    title="CODE"
-    {language}
-    showCopyButton={true}
-    showLineNumbers={true}
-    {editable}
-    activeLine={true}
-    {sz}
-  />
+  <div class="codeview-shell w-full h-[320px] md:h-[480px]">
+    <CodeView
+      code={displayCode}
+      title="CODE"
+      {language}
+      showCopyButton={true}
+      showLineNumbers={true}
+      {editable}
+      activeLine={true}
+      {sz}
+      class="h-full"
+    />
+  </div>
 </div>
+
+<style>
+  :global(.codeview-shell) {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  :global(.codeview-shell .cv-root) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  :global(.codeview-shell .cv-body) {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  :global(.codeview-shell .cv-gutter) {
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+  }
+
+  :global(.codeview-shell .cv-editor) {
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+  }
+
+  :global(.codeview-shell .cv-highlight) {
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  :global(.codeview-shell .cv-input) {
+    height: 100% !important;
+    overflow: auto !important;
+  }
+</style>

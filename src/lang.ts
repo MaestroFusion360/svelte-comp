@@ -3,7 +3,7 @@ import type { SelectOption } from "$lib/types";
 
 const enTexts = {
   app: {
-    version: "v1.1.6",
+    version: "v1.1.8",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -35,6 +35,7 @@ const enTexts = {
     progressBar: "ProgressBar",
     progressCircle: "ProgressCircle",
     radio: "Radio",
+    searchInput: "Search Input",
     select: "Select",
     slider: "Slider",
     splitter: "Splitter",
@@ -330,6 +331,13 @@ const enTexts = {
       banana: "Banana",
       cherry: "Cherry",
     },
+    searchInput: {
+      subtitle: "Search example",
+      label: "Search",
+      placeholder: "Type to filter...",
+      empty: "No matches",
+      items: ["Svelte", "TypeScript", "TailwindCSS", "Storybook", "Prism.js"],
+    },
     tablePagination: {
       subtitle: "Paginated data table",
     },
@@ -362,7 +370,7 @@ const enTexts = {
 
 const ruTexts = {
   app: {
-    version: "v1.1.6",
+    version: "v1.1.8",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -394,6 +402,7 @@ const ruTexts = {
     progressBar: "Прогресс-бар",
     progressCircle: "Прогресс-круг",
     radio: "Радио-кнопки",
+    searchInput: "Поиск",
     select: "Выпадающий список",
     slider: "Ползунок",
     splitter: "Сплиттер",
@@ -691,6 +700,13 @@ const ruTexts = {
       banana: "Банан",
       cherry: "Вишня",
     },
+    searchInput: {
+      subtitle: "Пример поиска",
+      label: "Поиск",
+      placeholder: "Введите запрос...",
+      empty: "Ничего не найдено",
+      items: ["Компоненты", "Документация", "Стили", "Шаблоны", "Истории"],
+    },
     tablePagination: {
       subtitle: "Таблица и пагинация",
     },
@@ -723,7 +739,7 @@ const ruTexts = {
 
 const esTexts = {
   app: {
-    version: "v1.1.6",
+    version: "v1.1.8",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -755,6 +771,7 @@ const esTexts = {
     progressBar: "Barra de progreso",
     progressCircle: "Círculo de progreso",
     radio: "Botones de opción",
+    searchInput: "Búsqueda",
     select: "Lista desplegable",
     slider: "Control deslizante",
     splitter: "Divisor",
@@ -1051,6 +1068,19 @@ const esTexts = {
       apple: "Manzana",
       banana: "Plátano",
       cherry: "Cereza",
+    },
+    searchInput: {
+      subtitle: "Ejemplo de búsqueda",
+      label: "Buscar",
+      placeholder: "Escribe para filtrar...",
+      empty: "Sin resultados",
+      items: [
+        "Componentes",
+        "Documentación",
+        "Estilos",
+        "Plantillas",
+        "Historias",
+      ],
     },
     tablePagination: {
       subtitle: "Tabla de datos paginada",

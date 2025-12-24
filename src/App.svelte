@@ -41,6 +41,7 @@
     ProgressBar,
     ProgressCircle,
     Radio,
+    SearchInput,
     Select,
     Slider,
     Switch,
@@ -144,6 +145,7 @@
   let selectedTime = $state(null);
   let selectedCountry = $state("en");
   const todayIso = new Date().toISOString().split("T")[0];
+  let searchTerm = $state("");
 
   // Form types
   type FormValues = Record<string, unknown>;
@@ -164,6 +166,12 @@
   // Snapshot copies of locale-dependent UI data
   const carouselItems = $derived([...L.snippets.carousel.slides]);
   const accordionItems = $derived([...L.snippets.accordion.items]);
+  const searchItems = $derived([...L.snippets.searchInput.items]);
+  const filteredSearchItems = $derived(
+    searchItems.filter((item) =>
+      item.toLowerCase().includes(searchTerm.trim().toLowerCase())
+    )
+  );
 </script>
 
 <!-- #region Snippets -->
@@ -307,7 +315,7 @@
 {/snippet}
 
 {#snippet tableSnippet(sz: SizeKey, variant: string)}
-  <div class={cx("w-full max-w-3xl")}>
+  <div class={cx("w-full max-w-3xl max-h-[320px] md:max-h-[360px] lg:max-h-[420px] overflow-auto")}>
     <Table {columns} rows={pageRows} {sz} variant={variant as TableVariant} />
     <div class="mt-4">
       <Pagination {currentPage} {totalPages} onPageChange={handlePageChange} />
@@ -638,6 +646,50 @@
                 value="cherry"
                 bind:group={fruit}>{L.snippets.radio.cherry}</Radio
               >
+            </div>
+          {/snippet}
+        </PlayCard>
+      {:else if active === "searchInput"}
+        <PlayCard
+          component="SearchInput"
+          title={L.pageLabels.searchInput}
+          subtitle={L.snippets.searchInput.subtitle}
+        >
+          {#snippet children(
+            sz: SizeKey,
+            variant: string,
+            label: string,
+            disabled: boolean
+          )}
+            <div class="grid gap-3">
+              <Tooltip text={label || L.snippets.searchInput.label}>
+                <SearchInput
+                  {sz}
+                  variant={variant as FieldVariant}
+                  label={label || L.snippets.searchInput.label}
+                  placeholder={L.snippets.searchInput.placeholder}
+                  bind:value={searchTerm}
+                  {disabled}
+                />
+              </Tooltip>
+              <div
+                class={cx(
+                  "rounded-md border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] px-3 py-2",
+                  TEXT.sm
+                )}
+              >
+                {#if filteredSearchItems.length === 0}
+                  <div class="text-[var(--color-text-muted)]">
+                    {L.snippets.searchInput.empty}
+                  </div>
+                {:else}
+                  <ul class="space-y-1">
+                    {#each filteredSearchItems as item (item)}
+                      <li>{item}</li>
+                    {/each}
+                  </ul>
+                {/if}
+              </div>
             </div>
           {/snippet}
         </PlayCard>

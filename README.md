@@ -9,6 +9,7 @@ Svelte 5 gives the library a clean execution model: state is explicit, updates a
 The toolkit is built for engineers: no hidden behavior, no opaque abstractions, no vendor lock–just straightforward components you can read, modify and trust. Everything plays nicely with Vite, Storybook, strict TypeScript, unit tests and real-world SPA workflows where clarity and maintainability matter more than magic.
 
 ---
+
 <!-- markdownlint-disable MD033 -->
 <details>
   <summary><h2>Table of Contents</h2></summary>
@@ -116,6 +117,10 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (Radio)](#props-radio)
       - [Notes (Radio)](#notes-radio)
       - [Usage (Radio)](#usage-radio)
+    - [SearchInput.svelte](#searchinputsvelte)
+      - [Props (SearchInput)](#props-searchinput)
+      - [Notes (SearchInput)](#notes-searchinput)
+      - [Usage (SearchInput)](#usage-searchinput)
     - [Select.svelte](#selectsvelte)
       - [Props (Select)](#props-select)
       - [Notes (Select)](#notes-select)
@@ -640,6 +645,7 @@ CodeView is a small prism.js powered code block that supports syntax highlightin
 - `editable?: boolean` - Enables editable mode with a textarea overlay (default: `false`)
 - `activeLine?: boolean` - Highlights the current cursor line in editable mode (default: `false`)
 - `sz?: SizeKey` - Size preset affecting spacing and typography (xs|sm|md|lg|xl) (default: `md`)
+- `class?: string` - Extra classes applied to the root container (default: `""`)
 
 #### Notes (CodeView)
 
@@ -1329,6 +1335,42 @@ Single choice input with optional label, custom sizing and theme variants.
   <Radio value="banana" bind:group={fruit}>Banana</Radio>
   <Radio value="cherry" bind:group={fruit}>Cherry</Radio>
 </div>
+```
+
+---
+
+### SearchInput.svelte
+
+Search input field with a leading search icon.
+
+#### Props (SearchInput)
+
+- `label?: string` - Label text rendered above the field
+- `placeholder?: string` - Placeholder text (default: `"Search"`)
+- `value?: string` - Controlled field value (bindable) (default: `""`)
+- `sz?: SizeKey` - Size preset for spacing and typography (xs|sm|md|lg|xl) (default: `sm`)
+- `variant?: FieldVariant` - Visual style variant (default|filled|neutral) (default: `filled`)
+- `class?: string` - Additional classes applied to the Field root (default: `""`)
+
+#### Notes (SearchInput)
+
+- Renders a leading search icon and uses `Field` with `type="search"` and `clearable`.
+
+#### Usage (SearchInput)
+
+```svelte
+<script lang="ts">
+  import SearchInput from '$lib/SearchInput.svelte';
+
+  let query = '';
+</script>
+
+<SearchInput
+  label="Search"
+  placeholder="Type to search..."
+  bind:value={query}
+  variant="filled"
+/>
 ```
 
 ---

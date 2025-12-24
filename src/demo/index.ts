@@ -34,6 +34,7 @@ export const pageIds = [
   "progressBar",
   "progressCircle",
   "radio",
+  "searchInput",
   "select",
   "slider",
   "splitter",
@@ -137,6 +138,11 @@ export const componentMeta = {
     variants: ["default", "neutral"],
     sizes: ["xs", "sm", "md", "lg", "xl"],
     supports: { label: false, disabled: true },
+  },
+  SearchInput: {
+    variants: ["default", "filled", "neutral"],
+    sizes: ["xs", "sm", "md", "lg", "xl"],
+    supports: { label: true, disabled: true },
   },
   Select: {
     variants: ["default", "filled", "neutral"],

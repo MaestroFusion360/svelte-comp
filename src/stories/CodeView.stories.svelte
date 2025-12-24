@@ -1,8 +1,11 @@
 <!-- src/stories/CodeView.stories.svelte -->
 <script module lang="ts">
   import { defineMeta } from "@storybook/addon-svelte-csf";
+  import type { ComponentProps } from "svelte";
   import CodeView from "$lib/CodeView.svelte";
   import { SIZES } from "$lib/types";
+
+  type CodeViewProps = ComponentProps<typeof CodeView>;
 
   const sampleHtml = `<!doctype html>
 <html lang="en">
@@ -52,7 +55,7 @@
 </script>
 
 <Story name="Readonly HTML">
-  {#snippet template(args)}
+  {#snippet template(args: CodeViewProps)}
     <div class="story-center">
       <CodeView {...args} />
     </div>
@@ -69,7 +72,7 @@
     showLineNumbers: true,
   }}
 >
-  {#snippet template(args)}
+  {#snippet template(args: CodeViewProps)}
     <div class="story-center">
       <CodeView {...args} />
     </div>

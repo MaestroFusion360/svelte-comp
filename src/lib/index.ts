@@ -19,6 +19,7 @@ export { default as PrimaryColorSelect } from "./PrimaryColorSelect.svelte";
 export { default as ProgressBar } from "./ProgressBar.svelte";
 export { default as ProgressCircle } from "./ProgressCircle.svelte";
 export { default as Radio } from "./Radio.svelte";
+export { default as SearchInput } from "./SearchInput.svelte";
 export { default as Select } from "./Select.svelte";
 export { default as Slider } from "./Slider.svelte";
 export { default as Splitter } from "./Splitter.svelte";
