@@ -795,14 +795,8 @@
   .max-h-\[320px\] {
     max-height: 320px;
   }
-  .max-h-\[480px\] {
-    max-height: 480px;
-  }
   .min-h-0 {
     min-height: calc(var(--spacing) * 0);
-  }
-  .min-h-\[180px\] {
-    min-height: 180px;
   }
   .min-h-\[200px\] {
     min-height: 200px;
@@ -3052,34 +3046,4 @@ pre[class*="language-"] {
   -webkit-appearance: none;
   appearance: none;
   display: none;
-}
-.codeview-shell {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-.codeview-shell .cv-root {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-.codeview-shell .cv-body {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: hidden;
-}
-.codeview-shell .cv-gutter,
-.codeview-shell .cv-editor {
-  height: 100% !important;
-  min-height: 0 !important;
-  max-height: 100% !important;
-}
-.codeview-shell .cv-highlight {
-  height: 100% !important;
-  overflow: hidden !important;
-}
-.codeview-shell .cv-input {
-  height: 100% !important;
-  overflow: auto !important;
 }
