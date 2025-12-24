@@ -100,7 +100,7 @@
   }
 
   const panelBase =
-    "bg-[var(--color-bg-surface)] rounded-[var(--radius-lg)] shadow-lg min-w-80 max-w-md w-full border border-[var(--border-color-default)]";
+    "fusion-dialog bg-[var(--color-bg-surface)] rounded-[var(--radius-lg)] shadow-lg min-w-80 max-w-md w-full border border-[var(--border-color-default)]";
 
   const paddingBySize: Record<SizeKey, string> = {
     xs: "p-[var(--spacing-sm)]",
@@ -224,3 +224,12 @@
     </div>
   {/if}
 {/if}
+<style>
+  :global(.fusion-dialog h3) {
+    color: var(--color-text-default);
+  }
+
+  :global(.fusion-dialog p) {
+    color: var(--color-text-muted);
+  }
+</style>

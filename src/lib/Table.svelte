@@ -171,6 +171,13 @@
   const alignTd = (a?: CellAlign) =>
     a === "end" ? "text-right" : a === "start" ? "text-left" : "text-center";
 
+  const alignTh = (a?: CellAlign) =>
+    a === "end"
+      ? "justify-end"
+      : a === "center"
+        ? "justify-center"
+        : "justify-start";
+
   const wrapperClass = $derived(cx("overflow-x-auto", externalClass));
   const tableTextSize = $derived(TEXT[sz]);
   const currentVariant = $derived(variant);
@@ -225,7 +232,10 @@
             >
               <button
                 type="button"
-                class="flex items-center gap-2 select-none hover:bg-[var(--color-bg-hover)] rounded-none px-1 py-0.5 border border-transparent focus-visible:border-[var(--border-color-focus)] focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:outline-none"
+                class={cx(
+                  "flex w-full items-center gap-2 select-none hover:bg-[var(--color-bg-hover)] rounded-none px-1 py-0.5 border border-transparent focus-visible:border-[var(--border-color-focus)] focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:outline-none",
+                  alignTh(col.align)
+                )}
                 onclick={() => toggleSort(col)}
                 onkeydown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
@@ -235,7 +245,9 @@
                 }}
                 aria-label={`Sort by ${col.label}`}
               >
-                <span class="truncate min-w-0 text-left">{col.label}</span>
+                <span class={cx("truncate min-w-0", alignTd(col.align))}>
+                  {col.label}
+                </span>
                 <svg
                   class={cx(
                     "h-4 w-4 opacity-60 transition-transform",

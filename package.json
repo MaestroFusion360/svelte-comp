@@ -1,4 +1,7 @@
 {
+  "name": "svelte-comp",
+  "version": "1.2.1",
+  "license": "MIT",
   "description": "A comprehensive component library built on Svelte 5 (runes) with design tokens (tailwind), accessibility focus, and TypeScript support",
   "devDependencies": {
     "@sveltejs/package": "^2.5.7",
@@ -34,8 +37,6 @@
     "tailwind",
     "ui-library"
   ],
-  "license": "MIT",
-  "name": "svelte-comp",
   "peerDependencies": {
     "svelte": "^5.0.0"
   },
@@ -46,6 +47,5 @@
   },
   "svelte": "./dist/lib/index.js",
   "type": "module",
-  "types": "./dist/lib/index.d.ts",
-  "version": "1.1.7"
+  "types": "./dist/lib/index.d.ts"
 }

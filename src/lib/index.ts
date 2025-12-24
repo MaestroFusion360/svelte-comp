@@ -19,6 +19,7 @@ export { default as PrimaryColorSelect } from "./PrimaryColorSelect.svelte";
 export { default as ProgressBar } from "./ProgressBar.svelte";
 export { default as ProgressCircle } from "./ProgressCircle.svelte";
 export { default as Radio } from "./Radio.svelte";
+export { default as SearchInput } from "./SearchInput.svelte";
 export { default as Select } from "./Select.svelte";
 export { default as Slider } from "./Slider.svelte";
 export { default as Splitter } from "./Splitter.svelte";
@@ -29,4 +30,4 @@ export { default as ThemeToggle } from "./ThemeToggle.svelte";
 export { default as TimePicker } from "./TimePicker.svelte";
 export { default as Toast } from "./Toast.svelte";
 export { default as Tooltip } from "./Tooltip.svelte";
-export * from "./types"
+export * from "./types";

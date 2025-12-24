@@ -30,6 +30,9 @@
    * @options xs|sm|md|lg|xl
    * @default md
    *
+   * @prop class {string} - Extra classes applied to the root container
+   * @default ""
+   * 
    * @note Uses Prism for syntax highlighting; HTML/CSS/TXT grammars are bundled by default.
    * @note Editable mode renders a transparent textarea above a highlighted code layer, mirroring real editors.
    * @note Cursor-line highlight is overlaid using CSS variables and scroll-position tracking.
@@ -59,6 +62,7 @@
     editable?: boolean;
     activeLine?: boolean;
     sz?: SizeKey;
+    class?: string;
   };
 
   let {
@@ -70,6 +74,7 @@
     editable = false,
     activeLine = false,
     sz = "md",
+    class: externalClass = "",
   }: Props = $props();
 
   let textareaEl = $state<HTMLTextAreaElement | null>(null);
@@ -142,8 +147,9 @@
 
 <div
   class={cx(
-    "w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]",
-    "text-[var(--color-text-default)]"
+    "cv-root w-full h-full min-h-0 flex flex-col border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]",
+    "text-[var(--color-text-default)]",
+    externalClass
   )}
 >
   {#if title}
@@ -170,14 +176,20 @@
     </div>
   {/if}
 
-  <div class={cx("flex font-mono", TEXT[sz], LINE_HEIGHT[sz])}>
+  <div
+    class={cx(
+      "cv-body flex flex-1 min-h-0 font-mono",
+      TEXT[sz],
+      LINE_HEIGHT[sz]
+    )}
+  >
     {#if showLineNumbers}
       <div
         bind:this={gutterEl}
         class={cx(
           "select-none px-3 py-[12px] border-r border-[var(--border-color-default)]",
           "text-[var(--color-text-muted)] text-right overflow-hidden",
-          "bg-[var(--color-bg-surface)] tabular-nums min-h-[180px] max-h-[480px]"
+          "cv-gutter bg-[var(--color-bg-surface)] tabular-nums h-full min-h-0"
         )}
       >
         {#each lines as _, i (i)}
@@ -186,7 +198,7 @@
       </div>
     {/if}
 
-    <div class="relative flex-1 min-h-[180px] max-h-[480px]">
+    <div class="cv-editor relative flex-1 min-h-0">
       <div
         bind:this={highlightEl}
         class={cx("cv-highlight cv-layer", TEXT[sz], LINE_HEIGHT[sz])}
