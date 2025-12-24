@@ -315,7 +315,7 @@
 {/snippet}
 
 {#snippet tableSnippet(sz: SizeKey, variant: string)}
-  <div class={cx("w-full max-w-3xl max-h-[320px] md:max-h-[360px] lg:max-h-[420px] overflow-auto")}>
+  <div class={cx("w-full max-w-3xl max-h-[320px] md:max-h-[480px] lg:max-h-[480px] overflow-auto")}>
     <Table {columns} rows={pageRows} {sz} variant={variant as TableVariant} />
     <div class="mt-4">
       <Pagination {currentPage} {totalPages} onPageChange={handlePageChange} />

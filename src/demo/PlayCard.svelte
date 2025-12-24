@@ -71,8 +71,10 @@
 
   const rootClass = $derived(
     cx(
-      "w-full flex flex-col h-[480px]",
-      component === "CodeView" ? "md:h-[800px]" : "md:h-[540px]",
+      "w-full flex flex-col h-[640px]",
+      component === "CodeView" || component === "Table" || component === "Card"
+        ? "md:h-[900px]"
+        : "md:h-[800px]",
       externalClass
     )
   );
