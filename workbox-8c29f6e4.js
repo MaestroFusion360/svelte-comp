@@ -33,7 +33,7 @@ define(["exports"], function (t) {
             return s.slice(1);
         },
         e,
-        s
+        s,
       );
     }
   }
@@ -60,7 +60,7 @@ define(["exports"], function (t) {
                 "string" == typeof e && (e = [e]);
                 const s = new Request(...e);
                 return this.handleRequest({ request: s, event: t });
-              })
+              }),
             );
           (t.waitUntil(s),
             t.ports && t.ports[0] && s.then(() => t.ports[0].postMessage(!0)));
@@ -330,7 +330,7 @@ define(["exports"], function (t) {
         let t;
         t = await fetch(
           n,
-          "navigate" === n.mode ? void 0 : this.l.fetchOptions
+          "navigate" === n.mode ? void 0 : this.l.fetchOptions,
         );
         for (const s of this.iterateCallbacks("fetchDidSucceed"))
           t = await s({ event: e, request: r, response: t });
@@ -382,7 +382,7 @@ define(["exports"], function (t) {
             ((o = r.url),
             new URL(String(o), location.href).href.replace(
               new RegExp(`^${location.origin}`),
-              ""
+              "",
             )),
         });
       var o;
@@ -435,7 +435,7 @@ define(["exports"], function (t) {
               request: n,
               event: this.event,
               params: this.params,
-            })
+            }),
           );
         this.u[s] = n;
       }
@@ -466,7 +466,7 @@ define(["exports"], function (t) {
       for (; this.R.length; ) {
         const t = this.R.splice(0),
           e = (await Promise.allSettled(t)).find(
-            (t) => "rejected" === t.status
+            (t) => "rejected" === t.status,
           );
         if (e) throw e.reason;
       }
@@ -585,7 +585,7 @@ define(["exports"], function (t) {
           r = t.integrity,
           o = !r || r === s;
         ((n = await e.fetch(
-          new Request(t, { integrity: "no-cors" !== t.mode ? r || s : void 0 })
+          new Request(t, { integrity: "no-cors" !== t.mode ? r || s : void 0 }),
         )),
           s &&
             o &&
@@ -694,7 +694,7 @@ define(["exports"], function (t) {
               params: { cacheKey: s },
               request: r,
               event: t,
-            })
+            }),
           );
         }
         const { updatedURLs: s, notUpdatedURLs: n } = e;
@@ -754,7 +754,7 @@ define(["exports"], function (t) {
             directoryIndex: s = "index.html",
             cleanURLs: n = !0,
             urlManipulation: i,
-          } = {}
+          } = {},
         ) {
           const r = new URL(t, location.href);
           ((r.hash = ""), yield r.href);
@@ -802,10 +802,10 @@ define(["exports"], function (t) {
           (async (t, e = "-precache-") => {
             const s = (await self.caches.keys()).filter(
               (s) =>
-                s.includes(e) && s.includes(self.registration.scope) && s !== t
+                s.includes(e) && s.includes(self.registration.scope) && s !== t,
             );
             return (await Promise.all(s.map((t) => self.caches.delete(t))), s);
-          })(e).then((t) => {})
+          })(e).then((t) => {}),
         );
       });
     }),

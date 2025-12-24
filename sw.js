@@ -16,15 +16,15 @@ if (!self.define) {
       })
   );
   self.define = (n, r) => {
-    const o =
+    const c =
       e ||
       ("document" in self ? document.currentScript.src : "") ||
       location.href;
-    if (i[o]) return;
-    let c = {};
-    const t = (e) => s(e, o),
-      l = { module: { uri: o }, exports: c, require: t };
-    i[o] = Promise.all(n.map((e) => l[e] || t(e))).then((e) => (r(...e), c));
+    if (i[c]) return;
+    let o = {};
+    const t = (e) => s(e, c),
+      l = { module: { uri: c }, exports: o, require: t };
+    i[c] = Promise.all(n.map((e) => l[e] || t(e))).then((e) => (r(...e), o));
   };
 }
 define(["./workbox-8c29f6e4"], function (e) {
@@ -38,9 +38,9 @@ define(["./workbox-8c29f6e4"], function (e) {
           url: "manifest.webmanifest",
           revision: "caf5c32711f8f765a3063eb70c7cc155",
         },
-        { url: "index.js", revision: "6ec9287a0c56e36c7abe2de6f8d28f14" },
-        { url: "index.html", revision: "0b5e838ed95b7de5c1dd352649a32adf" },
-        { url: "index.css", revision: "61a1fa447d57e76321200e3a4b412ae8" },
+        { url: "index.js", revision: "1dce33fdd0f0f53a88c37a7ee1c21eb7" },
+        { url: "index.html", revision: "43727b0a42af605273199c30412167e0" },
+        { url: "index.css", revision: "ca58ffa74cdf53b1f748157f06eb5ed4" },
         { url: "assets/icon.svg", revision: null },
         { url: "assets/icon-512x512.png", revision: null },
         { url: "assets/icon-192x192.png", revision: null },
@@ -51,10 +51,10 @@ define(["./workbox-8c29f6e4"], function (e) {
           revision: "caf5c32711f8f765a3063eb70c7cc155",
         },
       ],
-      {}
+      {},
     ),
     e.cleanupOutdatedCaches(),
     e.registerRoute(
-      new e.NavigationRoute(e.createHandlerBoundToURL("index.html"))
+      new e.NavigationRoute(e.createHandlerBoundToURL("index.html")),
     ));
 });
