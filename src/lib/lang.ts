@@ -30,6 +30,9 @@ const enTexts = {
       fileCount: "{n} file(s) selected",
       totalSize: "Total size",
     },
+    searchInput: {
+      placeholder: "Search",
+    },
     menu: { subtitle: "Menu with size options" },
     primaryColorSelect: { text: "Primary color" },
     timePicker: {
@@ -76,6 +79,9 @@ const ruTexts = {
       fileCount: "{n} файл(ов) выбрано",
       totalSize: "Общий размер",
     },
+    searchInput: {
+      placeholder: "?????",
+    },
     menu: { subtitle: "Меню с вариантами размеров" },
     primaryColorSelect: { text: "Основной цвет" },
     timePicker: {
@@ -121,6 +127,9 @@ const esTexts = {
       placeholder: "No hay archivos",
       fileCount: "{n} archivo(s) seleccionado(s)",
       totalSize: "Tamaño total",
+    },
+    searchInput: {
+      placeholder: "Buscar",
     },
     menu: { subtitle: "Menú con opciones de tamaño" },
     primaryColorSelect: { text: "Color primario" },

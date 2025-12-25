@@ -5,8 +5,7 @@
    *
    * @prop label {string} - Label text rendered above the field
    *
-   * @prop placeholder {string} - Placeholder text
-   * @default "Search"
+   * @prop placeholder {string} - Placeholder text (localized by default)
    *
    * @prop value {string} - Controlled field value (bindable)
    * @default ""
@@ -24,27 +23,37 @@
    *
    * @note Renders a leading search icon and uses `Field` with `type="search"` and `clearable`.
    */
+  import { getContext } from "svelte";
   import Field from "./Field.svelte";
+  import type { FieldVariant, SizeKey } from "./types";
+  import { TEXTS } from "./lang";
 
   type Props = {
     label?: string;
     placeholder?: string;
     value?: string;
-    sz?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    variant?: 'default' | 'filled' | 'neutral';
+    sz?: SizeKey;
+    variant?: FieldVariant;
     class?: string;
     [key: string]: unknown;
   };
 
   let {
     label,
-    placeholder = 'Search',
+    placeholder,
     value = $bindable(''),
     sz = 'sm',
     variant = 'filled',
     class: externalClass = '',
     ...rest
   }: Props = $props();
+
+  const langCtx =
+    getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;
+  const langKey = $derived(langCtx?.value ?? "en");
+  const L = $derived(TEXTS[langKey].components.searchInput);
+
+  const placeholderFinal = $derived(placeholder ?? L.placeholder);
 </script>
 
 {#snippet leading()}
@@ -75,7 +84,7 @@
   type="search"
   clearable={true}
   {leading}
-  {placeholder}
+  placeholder={placeholderFinal}
   class={`search-input w-full max-w-[520px] [&_input]:pl-10 ${externalClass}`}
   {...rest}
 />
