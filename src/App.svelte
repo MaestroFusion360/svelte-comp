@@ -83,6 +83,10 @@
   );
   let active = $state<PageId>("about");
 
+  let viewportWidth = $state(0);
+  const hamburgerWidth = $derived(viewportWidth < 768 ? 250 : 300);
+  const hamburgerTextClass = $derived(viewportWidth < 768 ? TEXT.sm : TEXT.md);
+
   // Handle sidebar navigation
   function setActive(id: string) {
     if (pageIds.includes(id as PageId)) {
@@ -233,9 +237,7 @@
 {/snippet}
 
 {#snippet carouselSnippet(sz: SizeKey)}
-  <div
-    class="w-full max-w-3xl max-h-[320px] md:max-h-[480px] lg:max-h-[480px] overflow-auto"
-  >
+  <div class="w-full max-w-3xl">
     <Carousel
       items={carouselItems}
       {sz}
@@ -353,6 +355,7 @@
 <!-- #endregion -->
 
 <!-- #region Container -->
+<svelte:window bind:innerWidth={viewportWidth} />
 <Container>
   <div class={cx("p-6 md:p-6 lg:p-6")}>
     <div class={cx("flex items-center justify-between")}>
@@ -364,8 +367,8 @@
           activeItem={active}
           onSelect={setActive}
           closeOnSelect={true}
-          width={300}
-          class={TEXT.md}
+          width={hamburgerWidth}
+          class={hamburgerTextClass}
         />
       </div>
       <div class="flex-1"></div>

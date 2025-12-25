@@ -65,13 +65,14 @@
 </script>
 
 <div class={wrapperClass}>
-  <span>Page {currentPage} of {totalPages}</span>
+  <span class="pagination-count">Page {currentPage} of {totalPages}</span>
 
   <Button
     onClick={prevPage}
     disabled={currentPage === 1}
     sz="xs"
     variant="secondary"
+    class="pagination-btn"
   >
     &lt;
   </Button>
@@ -82,6 +83,7 @@
       sz="xs"
       variant={currentPage === page ? "primary" : "secondary"}
       aria-current={currentPage === page ? "page" : undefined}
+      class="pagination-btn"
     >
       {page}
     </Button>
@@ -92,7 +94,26 @@
     disabled={currentPage === totalPages}
     sz="xs"
     variant="secondary"
+    class="pagination-btn"
   >
     &gt;
   </Button>
 </div>
+
+<style>
+  @media (max-width: 640px) {
+    :global(.pagination-btn) {
+      font-size: 10px;
+      line-height: 1;
+      height: 20px;
+      padding: 0 6px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    :global(.pagination-count) {
+      display: none;
+    }
+  }
+</style>
+

@@ -63,7 +63,7 @@
     xl: "px-6 py-3 h-10",
   };
 
-  const position = "fixed top-4 right-4";
+  const position = "fixed top-4 right-4 z-50";
 
   const mergedClass = $derived(
     cx(

@@ -6,7 +6,7 @@
    * Notes:
    * - `component` selects component metadata (sizes/variants).
    * - `title`/`subtitle` label the playground card.
-   * - `sz` seeds the initial size; `label`/`disabled` seed control defaults.
+   * - `label`/`disabled` seed control defaults.
    * - `children` is a snippet receiving size, variant, label, disabled, type, and boolean value flags.
    * - `class` merges external classes on the root card.
    */
@@ -25,7 +25,6 @@
     component: ComponentName;
     title?: string;
     subtitle?: string;
-    sz?: SizeKey;
     class?: string;
     label?: string;
     disabled?: boolean;
@@ -36,7 +35,6 @@
     component,
     title = "",
     subtitle = "",
-    sz = "md",
     class: externalClass = "",
     label = "",
     disabled = false,
@@ -62,8 +60,13 @@
   let curType = $state("input");
   let curValue = $state(false);
 
+  let viewportWidth = $state(0);
+  const responsiveSize = $derived<SizeKey>(
+    viewportWidth < 768 ? "xs" : "md"
+  );
+
   $effect(() => {
-    curSize = sz;
+    curSize = responsiveSize;
     curLabel = label;
     curDisabled = disabled;
     curVariant = meta.variants[0] ?? "";
@@ -72,13 +75,24 @@
   const rootClass = $derived(
     cx(
       "w-full flex flex-col",
-      component === "Carousel" || component === "CodeView" || component === "Splitter" || component === "Table"
+      component === "CodeView" || component === "Splitter"
         ? "h-[640px] md:h-[800px]"
-        : component !== "Card" && "h-[480px] md:h-[640px]",
+        : component !== "Accordion" &&
+            component !== "Card" &&
+            component !== "Carousel" &&
+            component !== "SearchInput" &&
+            component !== "ProgressBar" &&
+            component !== "ProgressCircle" &&
+            component !== "Table" &&
+            component !== "Tabs" &&
+            component !== "TimePicker" &&
+            "h-[360px] md:h-[480px]",
       externalClass
     )
   );
 </script>
+
+<svelte:window bind:innerWidth={viewportWidth} />
 
 <Card class={rootClass}>
   <div class="flex flex-col h-full min-h-0">

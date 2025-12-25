@@ -290,9 +290,6 @@ An interactive playground wrapper for showcasing and testing UI components with 
 - **`subtitle?`**: `string`
   The subtitle displayed under the title. Default: `"Interactive examples"`.
 
-- **`sz?`**: `SizeKey`
-  The initial size passed to the preview renderer. Default: `"md"`.
-
 - **`class?`**: `string`
   Additional CSS classes for the card wrapper.
 

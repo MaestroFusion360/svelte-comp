@@ -61,7 +61,8 @@ export default defineConfig({
   ],
   base: basePath,
   build: {
-    outDir: "dist",
+    target: "es2016",
+    outDir: "build",
     rollupOptions: {
       output: {
         entryFileNames: `[name].js`,
