@@ -756,11 +756,11 @@
   .h-\[320px\] {
     height: 320px;
   }
+  .h-\[360px\] {
+    height: 360px;
+  }
   .h-\[400px\] {
     height: 400px;
-  }
-  .h-\[480px\] {
-    height: 480px;
   }
   .h-\[640px\] {
     height: 640px;
@@ -2210,9 +2210,6 @@
     .md\:h-\[480px\] {
       height: 480px;
     }
-    .md\:h-\[640px\] {
-      height: 640px;
-    }
     .md\:h-\[800px\] {
       height: 800px;
     }
@@ -2975,7 +2972,6 @@ pre[class*="language-"] {
   color: #ef6fcf;
 }
 .token.attr-name.svelte-dvc4kn {
-  color: #6fb0ff;
   color: oklch(0.747 0.157 254);
 }
 .token.attr-value.svelte-dvc4kn,
@@ -2983,7 +2979,6 @@ pre[class*="language-"] {
   color: #87e46c;
 }
 .token.keyword.svelte-dvc4kn {
-  color: #ff655a;
   color: oklch(0.701 0.206 27);
 }
 .fusion-dialog h3 {
@@ -2991,6 +2986,19 @@ pre[class*="language-"] {
 }
 .fusion-dialog p {
   color: var(--color-text-muted);
+}
+@media (max-width: 640px) {
+  .pagination-btn {
+    font-size: 10px;
+    line-height: 1;
+    height: 20px;
+    padding: 0 6px;
+  }
+}
+@media (max-width: 480px) {
+  .pagination-count {
+    display: none;
+  }
 }
 @keyframes pb-indeterminate {
   0% {
