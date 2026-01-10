@@ -37,10 +37,10 @@
    * @note Preview card includes `aria-live="polite"` to announce updated dates.
    */
   import type { HTMLAttributes } from "svelte/elements";
-  import { getContext } from "svelte";
   import Button from "./Button.svelte";
-  import { cx, formatDate } from "../utils";
-  import { TEXTS } from "./lang";
+  import Calendar from "./Calendar.svelte";
+  import { cx, formatDate, uid } from "../utils";
+  import { getComponentText, getLangContext, getLangKey } from "./lang-context";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     value?: string | null;
@@ -58,7 +58,7 @@
 
   let {
     value = $bindable<string | null>(null),
-    min,
+    min = "1926-01-01",
     max,
     label,
     placeholder,
@@ -71,15 +71,12 @@
     ...rest
   }: Props = $props();
 
-  const langCtx =
-    getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;
-  const langKey = $derived(langCtx?.value ?? "en");
-  const L = $derived(TEXTS[langKey].components.datePicker);
+  const langCtx = getLangContext();
+  const langKey = $derived(getLangKey(langCtx));
+  const L = $derived(getComponentText("datePicker", langKey));
 
   const labelFinal = $derived(label ?? L.text);
   const placeholderFinal = $derived(placeholder ?? L.placeholder);
-
-  let inputEl: HTMLInputElement;
 
   const base = "inline-block w-full";
   const pickerClass = $derived(cx(base, externalClass));
@@ -87,47 +84,109 @@
   const hasValue = $derived(Boolean(value));
   const formattedValue = $derived(formatDate(value, locale, formatOptions));
 
-  $effect(() => {
-    if (inputEl) {
-      inputEl.value = value ?? "";
-    }
-  });
+  let open = $state(false);
+  const panelId = uid("calendar-");
+  const panelWidth = 240;
 
-  function openPicker() {
+  let triggerEl = $state<HTMLDivElement | null>(null);
+  let panelEl = $state<HTMLDivElement | null>(null);
+  let panelTop = $state(0);
+  let panelLeft = $state(0);
+
+  const panelStyle = $derived(
+    `position:fixed; top:${panelTop}px; left:${panelLeft}px; width:${panelWidth}px;`
+  );
+
+  function togglePanel() {
     if (disabled) return;
-    if (typeof inputEl?.showPicker === "function") {
-      inputEl.showPicker();
-    } else {
-      inputEl?.focus();
-      inputEl?.click();
-    }
+    open = !open;
   }
 
-  function handleInput(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const nextValue = target.value || null;
+  function handleSelect(nextValue: string | null) {
     value = nextValue;
     onChange?.(nextValue);
+    open = false;
   }
 
   function clearSelection() {
     if (!clearable) return;
     value = null;
-    if (inputEl) {
-      inputEl.value = "";
-    }
     onChange?.(null);
   }
+
+  $effect(() => {
+    const currentTrigger = triggerEl;
+    const currentPanel = panelEl;
+    if (!open || !currentTrigger) return;
+
+    const updatePosition = () => {
+      const triggerRect = currentTrigger.getBoundingClientRect();
+      const panelHeight =
+        currentPanel?.getBoundingClientRect().height ?? 0;
+      const spaceBelow = window.innerHeight - triggerRect.bottom;
+      const spaceAbove = triggerRect.top;
+      const shouldFlip = spaceBelow < panelHeight && spaceAbove > spaceBelow;
+
+      panelTop = shouldFlip
+        ? Math.max(0, triggerRect.top - panelHeight - 8)
+        : triggerRect.bottom + 8;
+
+      const viewportLeft = window.scrollX;
+      const viewportRight = window.scrollX + window.innerWidth;
+      const targetLeft = triggerRect.left + window.scrollX;
+      const maxLeft = viewportRight - panelWidth;
+      panelLeft = Math.max(viewportLeft, Math.min(targetLeft, maxLeft));
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        open = false;
+      }
+    };
+
+    const onClickOutside = (event: MouseEvent) => {
+      if (
+        currentTrigger &&
+        currentPanel &&
+        !currentTrigger.contains(event.target as Node) &&
+        !currentPanel.contains(event.target as Node)
+      ) {
+        open = false;
+      }
+    };
+
+    queueMicrotask(updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("keydown", onKeyDown);
+    document.addEventListener("mousedown", onClickOutside);
+
+    return () => {
+      window.removeEventListener("scroll", updatePosition, true);
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("mousedown", onClickOutside);
+    };
+  });
 </script>
 
 <div class={pickerClass} {...rest}>
   <div class="text-md font-medium mb-2 [color:var(--color-text-default)]">
     {labelFinal}:
   </div>
-  <div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-    <Button onClick={openPicker} {disabled} sz="xs">
-      {L.date}
-    </Button>
+  <div class="inline-flex flex-wrap items-center gap-x-3 gap-y-2">
+    <div bind:this={triggerEl}>
+      <Button
+        onClick={togglePanel}
+        {disabled}
+        sz="xs"
+        aria-expanded={open}
+        aria-controls={open ? panelId : undefined}
+      >
+        {L.date}
+      </Button>
+    </div>
 
     {#if clearable}
       <Button
@@ -139,17 +198,34 @@
         {L.clear}
       </Button>
     {/if}
-  </div>
 
-  <input
-    bind:this={inputEl}
-    type="date"
-    {min}
-    {max}
-    {disabled}
-    class="invisible absolute w-px h-px"
-    onchange={handleInput}
-  />
+    {#if open}
+      <div
+        role="presentation"
+        tabindex="-1"
+        class="fixed inset-0 z-[var(--z-overlay)]"
+      ></div>
+
+      <div
+        bind:this={panelEl}
+        id={panelId}
+        role="dialog"
+        aria-label={labelFinal}
+        class="z-[var(--z-modal)] p-3 border border-[var(--border-color-default)] rounded-[var(--radius-md)] bg-[var(--color-bg-surface)] shadow-[0_2px_6px_var(--shadow-color)]"
+        style={panelStyle}
+      >
+        <Calendar
+          value={value}
+          {min}
+          {max}
+          {locale}
+          onChange={handleSelect}
+          showOutsideDays
+          class="max-w-full"
+        />
+      </div>
+    {/if}
+  </div>
 
   <div
     class="mt-3 p-4 bg-[var(--color-bg-surface)] text-center"

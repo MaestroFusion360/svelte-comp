@@ -69,6 +69,10 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (DatePicker)](#props-datepicker)
       - [Notes (DatePicker)](#notes-datepicker)
       - [Usage (DatePicker)](#usage-datepicker)
+    - [Calendar.svelte](#calendarsvelte)
+      - [Props (Calendar)](#props-calendar)
+      - [Notes (Calendar)](#notes-calendar)
+      - [Usage (Calendar)](#usage-calendar)
     - [Dialog.svelte](#dialogsvelte)
       - [Props (Dialog)](#props-dialog)
       - [Notes (Dialog)](#notes-dialog)
@@ -728,7 +732,7 @@ Button-driven date selector that formats the chosen value and supports min/max l
 #### Props (DatePicker)
 
 - `value?: string | null` - Selected date value (ISO `YYYY-MM-DD`) (default: `null`)
-- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`)
+- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`) (default: `"1926-01-01"`)
 - `max?: string` - Maximum selectable date (ISO `YYYY-MM-DD`)
 - `label?: string` - Label text displayed above the picker
 - `placeholder?: string` - Placeholder shown when no date is selected
@@ -741,10 +745,9 @@ Button-driven date selector that formats the chosen value and supports min/max l
 
 #### Notes (DatePicker)
 
-- Wraps a hidden `<input type="date">` so native date-pickers, keyboard, and validation work automatically.
-- `showPicker()` is used when available for a consistent trigger; fallback is focus + click.
+- Uses `Calendar.svelte` in a popover panel for a consistent in-app UI.
 - Formatter uses `Intl.DateTimeFormat` (with `locale`/`formatOptions`) and gracefully falls back to `toLocaleDateString()`.
-- `clearable` resets the underlying input value and dispatches `onChange(null)`.
+- `clearable` resets the value and dispatches `onChange(null)`.
 - Preview card includes `aria-live="polite"` to announce updated dates.
 
 #### Usage (DatePicker)
@@ -763,6 +766,44 @@ Button-driven date selector that formats the chosen value and supports min/max l
 />
 
 <p>Scheduled for: {launchDate ?? 'TBD'}</p>
+```
+
+---
+
+### Calendar.svelte
+
+Monthly calendar grid with navigation and date selection.
+
+#### Props (Calendar)
+
+- `value?: string | null` - Selected date in ISO `YYYY-MM-DD` (bindable) (default: `null`)
+- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`) (default: `"1926-01-01"`)
+- `max?: string` - Maximum selectable date (ISO `YYYY-MM-DD`)
+- `locale?: string` - Locale for month/day labels (default: `"en-US"`)
+- `weekStartsOn?: 0|1|2|3|4|5|6` - First day of week (0=Sun ... 6=Sat) (default: `1`)
+- `showOutsideDays?: boolean` - Render days from adjacent months (default: `true`)
+- `disabled?: boolean` - Disables selection and navigation (default: `false`)
+- `onChange?: (value: string | null) => void` - Fired when a date is selected
+- `class?: string` - Additional classes for the root wrapper (default: `""`)
+
+#### Notes (Calendar)
+
+- Selection value is always ISO `YYYY-MM-DD`.
+- Month labels and weekday names are localized using `Intl.DateTimeFormat`.
+- Days outside the current month can be shown or hidden via `showOutsideDays`.
+- Uses CSS variables for spacing, colors, and focus styles.
+
+#### Usage (Calendar)
+
+```svelte
+<script lang="ts">
+  import Calendar from '$lib/Calendar.svelte';
+  let selected: string | null = null;
+</script>
+
+<Calendar bind:value={selected} weekStartsOn={1} />
+
+<p>Selected: {selected ?? 'None'}</p>
 ```
 
 ---

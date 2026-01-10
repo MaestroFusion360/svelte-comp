@@ -28,10 +28,9 @@
    * @note `clearable=false` hides the clear button; when `disabled`, pointer/keyboard handlers are skipped.
    */
   import type { HTMLAttributes } from "svelte/elements";
-  import { getContext } from "svelte";
   import Button from "./Button.svelte";
   import { cx } from "../utils";
-  import { TEXTS } from "./lang";
+  import { getComponentText, getLangContext, getLangKey } from "./lang-context";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     value?: string | null;
@@ -54,10 +53,9 @@
     ...rest
   }: Props = $props();
 
-  const langCtx =
-    getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;
-  const langKey = $derived(langCtx?.value ?? "en");
-  const L = $derived(TEXTS[langKey].components.colorPicker);
+  const langCtx = getLangContext();
+  const langKey = $derived(getLangKey(langCtx));
+  const L = $derived(getComponentText("colorPicker", langKey));
 
   const labelFinal = $derived(label ?? L.text);
   const placeholderFinal = $derived(placeholder ?? L.placeholder);

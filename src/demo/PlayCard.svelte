@@ -80,6 +80,7 @@
         : component !== "Accordion" &&
             component !== "Card" &&
             component !== "Carousel" &&
+            component !== "DatePicker" &&
             component !== "SearchInput" &&
             component !== "ProgressBar" &&
             component !== "ProgressCircle" &&
@@ -183,7 +184,12 @@
       </div>
     </section>
 
-    <section class="p-3 md:p-3 lg:p-3 flex-1 min-h-0 overflow-hidden">
+    <section
+      class={cx(
+        "p-3 md:p-3 lg:p-3 flex-1 min-h-0",
+        component === "DatePicker" ? "overflow-visible" : "overflow-hidden"
+      )}
+    >
       <div
         class="bg-[var(--color-bg-surface)] rounded-[var(--radius-xl)] p-4 md:p-6 lg:p-10 shadow-lg w-full border border-[var(--border-color-default)] flex items-center justify-center h-full"
       >

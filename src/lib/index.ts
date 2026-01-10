@@ -2,6 +2,7 @@
 export { default as Accordion } from "./Accordion.svelte";
 export { default as Button } from "./Button.svelte";
 export { default as Card } from "./Card.svelte";
+export { default as Calendar } from "./Calendar.svelte";
 export { default as Carousel } from "./Carousel.svelte";
 export { default as CheckBox } from "./CheckBox.svelte";
 export { default as CodeView } from "./CodeView.svelte";

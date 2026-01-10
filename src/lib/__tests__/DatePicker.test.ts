@@ -14,37 +14,38 @@ describe("DatePicker", () => {
     expect(getByText("Pick a day")).toBeTruthy();
   });
 
-  it("binds the passed value to the hidden input", () => {
-    const { container } = render(DatePicker, { props: { value: isoDate } });
-    const input = container.querySelector(
-      'input[type="date"]',
-    ) as HTMLInputElement;
-    expect(input.value).toBe(isoDate);
+  it("emits onChange when selecting a date", async () => {
+    const handle = vi.fn();
+    const { getByText, getByRole } = render(DatePicker, {
+      props: { value: isoDate, onChange: handle, locale: "en-US" },
+    });
+
+    await fireEvent.click(getByText("Date"));
+    const target = getByRole("button", { name: /May 21, 2025/i });
+    await fireEvent.click(target);
+
+    expect(handle).toHaveBeenCalledWith("2025-05-21");
   });
 
-  it("emits onChange when the native input changes", async () => {
-    const handle = vi.fn();
-    const { container } = render(DatePicker, { props: { onChange: handle } });
-    const input = container.querySelector(
-      'input[type="date"]',
-    ) as HTMLInputElement;
+  it("closes the panel on Escape", async () => {
+    const { getByText, getByRole, queryByRole } = render(DatePicker, {
+      props: { value: isoDate, locale: "en-US" },
+    });
 
-    await fireEvent.change(input, { target: { value: isoDate } });
-    expect(handle).toHaveBeenCalledWith(isoDate);
-    expect(input.value).toBe(isoDate);
+    await fireEvent.click(getByText("Date"));
+    expect(getByRole("dialog")).toBeTruthy();
+
+    await fireEvent.keyDown(window, { key: "Escape" });
+    expect(queryByRole("dialog")).toBeNull();
   });
 
   it("clears the value when clicking Clear", async () => {
     const handle = vi.fn();
-    const { getByText, container } = render(DatePicker, {
+    const { getByText } = render(DatePicker, {
       props: { value: isoDate, onChange: handle },
     });
     await fireEvent.click(getByText("Clear"));
 
     expect(handle).toHaveBeenCalledWith(null);
-    const input = container.querySelector(
-      'input[type="date"]',
-    ) as HTMLInputElement;
-    expect(input.value).toBe("");
   });
 });

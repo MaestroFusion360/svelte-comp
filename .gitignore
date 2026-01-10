@@ -23,7 +23,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
+AGENTS.md
 *storybook.log
 storybook-static
 
@@ -31,3 +31,4 @@ storybook-static
 .svelte-kit/
 
 # Scripts
+

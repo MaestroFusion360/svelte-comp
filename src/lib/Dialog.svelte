@@ -42,11 +42,10 @@
    * @note `sz` adjusts both dialog padding and text sizes to match the rest of the system tokens.
    */
   import type { Snippet } from "svelte";
-  import { getContext } from "svelte";
-  import { TEXTS } from "./lang";
   import Button from "./Button.svelte";
   import { type SizeKey, TEXT } from "./types";
   import { cx, focusFirstInteractive, trapFocus } from "../utils";
+  import { getComponentText, getLangContext, getLangKey } from "./lang-context";
 
   type Props = {
     open?: boolean;
@@ -74,10 +73,9 @@
     children,
   }: Props = $props();
 
-  const langCtx =
-    getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;
-  const langKey = $derived(langCtx?.value ?? "en");
-  const L = $derived(TEXTS[langKey].components.dialog);
+  const langCtx = getLangContext();
+  const langKey = $derived(getLangKey(langCtx));
+  const L = $derived(getComponentText("dialog", langKey));
 
   let panelEl = $state<HTMLDivElement | null>(null);
   let releaseFocus: (() => void) | null = null;
