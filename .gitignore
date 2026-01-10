@@ -24,5 +24,8 @@ dist-ssr
 *.sln
 *.sw?
 
+AGENTS.md
+
 # SvelteKit build outputs
 .svelte-kit
+
