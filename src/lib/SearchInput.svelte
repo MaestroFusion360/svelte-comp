@@ -23,10 +23,9 @@
    *
    * @note Renders a leading search icon and uses `Field` with `type="search"` and `clearable`.
    */
-  import { getContext } from "svelte";
   import Field from "./Field.svelte";
   import type { FieldVariant, SizeKey } from "./types";
-  import { TEXTS } from "./lang";
+  import { getComponentText, getLangContext, getLangKey } from "./lang-context";
 
   type Props = {
     label?: string;
@@ -48,10 +47,9 @@
     ...rest
   }: Props = $props();
 
-  const langCtx =
-    getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;
-  const langKey = $derived(langCtx?.value ?? "en");
-  const L = $derived(TEXTS[langKey].components.searchInput);
+  const langCtx = getLangContext();
+  const langKey = $derived(getLangKey(langCtx));
+  const L = $derived(getComponentText("searchInput", langKey));
 
   const placeholderFinal = $derived(placeholder ?? L.placeholder);
 </script>

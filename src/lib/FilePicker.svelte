@@ -37,10 +37,9 @@
    * @note When `disabled=true`, clicks, drag events, focus, and keyboard input are blocked.
    */
   import type { HTMLAttributes } from "svelte/elements";
-  import { getContext } from "svelte";
   import Button from "./Button.svelte";
-  import { cx } from "../utils";
-  import { TEXTS } from "./lang";
+  import { cx, formatFileSize } from "../utils";
+  import { getComponentText, getLangContext, getLangKey } from "./lang-context";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     accept?: string;
@@ -62,32 +61,35 @@
     disabled = false,
     clearable = true,
     placeholder,
-    value: propValue = null,
+    value = $bindable<FileList | null>(null),
     onFilesSelected,
     class: externalClass = "",
     ...rest
   }: Props = $props();
 
-  const lang = getContext<{ value: keyof typeof TEXTS }>("lang");
-  const L = $derived(TEXTS[lang.value].components.filePicker);
+  const langCtx = getLangContext();
+  const langKey = $derived(getLangKey(langCtx));
+  const L = $derived(getComponentText("filePicker", langKey));
 
   const labelFinal = $derived(label ?? L.text);
   const placeholderFinal = $derived(placeholder ?? L.placeholder);
 
   let inputEl: HTMLInputElement;
-  let internalValue: FileList | null = $derived(propValue);
   let isDragOver = $state(false);
 
   const base = "inline-block w-full";
   const pickerClass = $derived(cx(base, externalClass));
 
-  const hasValue = $derived(Boolean(internalValue && internalValue.length > 0));
+  const hasValue = $derived(Boolean(value && value.length > 0));
   const fileNames = $derived(
-    internalValue
-      ? Array.from(internalValue)
+    value
+      ? Array.from(value)
           .map((file) => file.name)
           .join(", ")
       : ""
+  );
+  const totalBytes = $derived(
+    value ? Array.from(value).reduce((acc, file) => acc + file.size, 0) : 0
   );
 
   function handleButtonClick() {
@@ -98,9 +100,12 @@
   function handleFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const files = target.files;
-    internalValue = files;
+    value = files;
     if (files && files.length > 0) {
       onFilesSelected?.(files);
+    }
+    if (inputEl) {
+      inputEl.value = "";
     }
   }
 
@@ -109,9 +114,12 @@
     isDragOver = false;
     if (disabled) return;
     const files = event.dataTransfer?.files;
-    internalValue = files || null;
+    value = files || null;
     if (files && files.length > 0) {
       onFilesSelected?.(files);
+    }
+    if (inputEl) {
+      inputEl.value = "";
     }
   }
 
@@ -141,7 +149,7 @@
 
   function clearSelection() {
     if (!clearable) return;
-    internalValue = null;
+    value = null;
     if (inputEl) {
       inputEl.value = "";
     }
@@ -180,7 +188,7 @@
     class="mt-2 p-4 border-2 border-dashed rounded-[var(--radius-md)] text-center transition-colors duration-200"
     class:border-[var(--color-primary)]={isDragOver && !disabled}
     class:border-[var(--border-color-default)]={!isDragOver || disabled}
-    class:bg-[var(--color-bg-surface-hover)]={isDragOver && !disabled}
+    class:bg-[var(--color-bg-hover)]={isDragOver && !disabled}
     class:cursor-pointer={!disabled}
     class:opacity-[var(--opacity-disabled)]={disabled}
     class:cursor-not-allowed={disabled}
@@ -221,19 +229,12 @@
         {placeholderFinal}
       {/if}
     </p>
-    {#if hasValue && internalValue}
+    {#if hasValue && value}
       <p class="text-sm mt-1 [color:var(--color-text-muted)]">
-        {L.fileCount.replace("{n}", String(internalValue.length))}
+        {L.fileCount.replace("{n}", String(value.length))}
 
-        {#if multiple && internalValue.length > 1}
-          • {L.totalSize}: {(
-            Array.from(internalValue).reduce(
-              (acc, file) => acc + file.size,
-              0
-            ) /
-            1024 /
-            1024
-          ).toFixed(2)} MB
+        {#if multiple && value.length > 1}
+          - {L.totalSize}: {formatFileSize(totalBytes)}
         {/if}
       </p>
     {/if}

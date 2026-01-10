@@ -34,11 +34,10 @@
    * @note No locale or date-formatting APIs are used internally
    */
   import type { HTMLAttributes } from "svelte/elements";
-  import { getContext } from "svelte";
   import Button from "./Button.svelte";
   import Select from "./Select.svelte";
   import { cx } from "../utils";
-  import { TEXTS } from "./lang";
+  import { getComponentText, getLangContext, getLangKey } from "./lang-context";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
     value?: string | null;
@@ -65,17 +64,16 @@
     ...rest
   }: Props = $props();
 
-  const langCtx =
-    getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;
-  const langKey = $derived(langCtx?.value ?? "en");
-  const L = $derived(TEXTS[langKey].components.timePicker);
+  const langCtx = getLangContext();
+  const langKey = $derived(getLangKey(langCtx));
+  const L = $derived(getComponentText("timePicker", langKey));
 
   const labelFinal = $derived(label ?? L.text);
   const placeholderFinal = $derived(placeholder ?? L.placeholder);
 
   const pickerClass = $derived(cx("inline-block w-full", externalClass));
 
-  let timeSystem = $derived(initialSystem);
+  let timeSystem = $state(initialSystem);
 
   let hour = $state("00");
   let minute = $state("00");
@@ -115,12 +113,28 @@
     return x.padStart(2, "0").slice(-2);
   }
 
-  function emit() {
-    const v =
-      timeSystem === "english"
-        ? `${hour}:${minute} ${period}`
-        : `${hour}:${minute}`;
+  function toIsoHour(h: string, p: "AM" | "PM") {
+    const numeric = Number.parseInt(h, 10);
+    if (Number.isNaN(numeric)) return "00";
+    const base = numeric % 12;
+    const withPeriod = p === "PM" ? base + 12 : base;
+    return normalize(String(withPeriod));
+  }
 
+  function toEnglishHour(isoHour: string) {
+    const numeric = Number.parseInt(isoHour, 10);
+    if (Number.isNaN(numeric)) {
+      return { hour: "12", period: "AM" as const };
+    }
+    const periodValue = numeric >= 12 ? "PM" : "AM";
+    const normalized = numeric % 12 || 12;
+    return { hour: normalize(String(normalized)), period: periodValue };
+  }
+
+  function emit() {
+    const isoHour =
+      timeSystem === "english" ? toIsoHour(hour, period) : normalize(hour);
+    const v = `${isoHour}:${normalize(minute)}`;
     value = v;
     onChange?.(v);
   }
@@ -150,16 +164,13 @@
 
     if (timeSystem === "iso") {
       timeSystem = "english";
-
-      const h = parseInt(hour, 10);
-
-      if (h >= 0) {
-        hour = "12";
-      }
-
-      handlePeriod("AM");
+      const mapped = toEnglishHour(hour);
+      hour = mapped.hour;
+      period = mapped.period;
     } else {
       timeSystem = "iso";
+      hour = toIsoHour(hour, period);
+      period = "AM";
     }
 
     emit();
@@ -174,23 +185,47 @@
     onChange?.(null);
   }
 
+  const displayValue = $derived.by(() => {
+    if (!value) return "";
+    const [isoH, isoM] = value.split(":");
+    if (timeSystem === "english") {
+      const { hour: h, period: p } = toEnglishHour(isoH);
+      return `${h}:${normalize(isoM)} ${p}`;
+    }
+    return `${normalize(isoH)}:${normalize(isoM)}`;
+  });
+
   $effect(() => {
     if (value == null) return;
 
     let raw = value;
+    let parsedPeriod: "AM" | "PM" | null = null;
 
     if (raw.includes("AM") || raw.includes("PM")) {
+      parsedPeriod = raw.includes("PM") ? "PM" : "AM";
       raw = raw.replace(" AM", "").replace(" PM", "");
     }
 
     const [h, m] = raw.split(":");
-    hour = normalize(h);
-    minute = normalize(m);
+    const isoHour = normalize(h);
+    const isoMinute = normalize(m);
+
+    if (timeSystem === "english") {
+      const mapped = parsedPeriod
+        ? { hour: normalize(h), period: parsedPeriod }
+        : toEnglishHour(isoHour);
+      hour = mapped.hour;
+      period = mapped.period;
+    } else {
+      hour = isoHour;
+      period = toEnglishHour(isoHour).period;
+    }
+    minute = isoMinute;
   });
 </script>
 
 <div class={pickerClass} {...rest}>
-  <div class="text-sm font-medium mb-2 [color:var(--color-text-default)]">
+  <div class="text-md font-medium mb-2 [color:var(--color-text-default)]">
     {labelFinal}
   </div>
 
@@ -260,7 +295,7 @@
 
     <p class="text-sm font-semibold mt-1 [color:var(--color-text-default)]">
       {#if hasValue}
-        {value}
+        {displayValue}
       {:else}
         {placeholderFinal}
       {/if}

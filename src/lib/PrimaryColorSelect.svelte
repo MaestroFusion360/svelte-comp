@@ -19,10 +19,9 @@
    * @note The `html` element receives `data-primary="{value}"` for theme styling.
    * @note Uses the same onChange contract as Select and forwards palette options as-is.
    */
-  import { getContext } from "svelte";
   import Select from "./Select.svelte";
   import type { PrimaryKey, PaletteOption, SizeKey } from "./types";
-  import { TEXTS } from "./lang";
+  import { getComponentText, getLangContext, getLangKey } from "./lang-context";
 
   type Props = {
     sz?: SizeKey;
@@ -32,10 +31,9 @@
 
   let { sz = "sm", label, class: externalClass = "" }: Props = $props();
 
-  const langCtx =
-    getContext<{ value: keyof typeof TEXTS } | undefined>("lang") ?? null;
-  const langKey = $derived(langCtx?.value ?? "en");
-  const L = $derived(TEXTS[langKey].components.primaryColorSelect);
+  const langCtx = getLangContext();
+  const langKey = $derived(getLangKey(langCtx));
+  const L = $derived(getComponentText("primaryColorSelect", langKey));
 
   const labelFinal = $derived(label ?? L.text);
 

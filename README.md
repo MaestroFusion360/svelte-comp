@@ -53,7 +53,7 @@ npm i prismjs @types/prismjs
 
 ## 📁 Components included
 
-Accordion • Button • Card • Carousel • CheckBox • CodeView • ColorPicker •
+Accordion • Button • Calendar • Card • Carousel • CheckBox • CodeView • ColorPicker •
 DatePicker • Dialog • Field • FilePicker • Form • Hamburger • Menu •
 PaginatedCard • Pagination • PrimaryColorSelect • ProgressBar • ProgressCircle •
 Radio • SearchInput • Select • Slider • Splitter • Switch • Tabs • Table • ThemeToggle •
