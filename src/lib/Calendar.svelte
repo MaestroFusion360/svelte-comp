@@ -113,11 +113,9 @@
   const weekdayLabels = $derived.by(() => {
     const formatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
     const labels: string[] = [];
-    const base = new Date(2023, 0, 1);
     for (let i = 0; i < 7; i += 1) {
       const offset = (weekStartsOn + i) % 7;
-      const date = new Date(base);
-      date.setDate(base.getDate() + offset);
+      const date = new Date(2023, 0, 1 + offset);
       labels.push(formatter.format(date));
     }
     return labels;
@@ -164,11 +162,9 @@
     const month = viewDate.getMonth();
     const first = new Date(year, month, 1);
     const startOffset = (first.getDay() - weekStartsOn + 7) % 7;
-    const start = new Date(year, month, 1 - startOffset);
     const cells: DayCell[] = [];
     for (let i = 0; i < 42; i += 1) {
-      const date = new Date(start);
-      date.setDate(start.getDate() + i);
+      const date = new Date(year, month, 1 - startOffset + i);
       const day = startOfDay(date);
       const inMonth = day.getMonth() === month;
       const isToday = isSameDay(day, today);
@@ -189,7 +185,7 @@
     return cells;
   });
 
-  function shift(delta: number) {
+  function handleShift(delta: number) {
     if (disabled) return;
     if (viewMode === "days") {
       viewDate = new Date(
@@ -264,7 +260,7 @@
         type="button"
         class={arrowButtonBase}
         aria-label="Previous"
-        onclick={() => shift(-1)}
+        onclick={() => handleShift(-1)}
         disabled={disabled}
       >
         ▲
@@ -273,7 +269,7 @@
         type="button"
         class={arrowButtonBase}
         aria-label="Next"
-        onclick={() => shift(1)}
+        onclick={() => handleShift(1)}
         disabled={disabled}
       >
         ▼

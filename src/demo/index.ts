@@ -24,6 +24,7 @@ export const pageIds = [
   "checkbox",
   "codeView",
   "colorPicker",
+  "calendar",
   "datePicker",
   "dialog",
   "field",
@@ -98,6 +99,11 @@ export const componentMeta = {
     variants: [],
     sizes: [],
     supports: { label: true, disabled: true },
+  },
+  Calendar: {
+    variants: [],
+    sizes: [],
+    supports: { label: false, disabled: true },
   },
   DatePicker: {
     variants: [],

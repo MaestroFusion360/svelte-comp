@@ -3,7 +3,7 @@ import type { SelectOption } from "$lib/types";
 
 const enTexts = {
   app: {
-    version: "v1.2.6",
+    version: "v1.2.7",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -25,6 +25,7 @@ const enTexts = {
     checkbox: "CheckBox",
     codeView: "Code View",
     colorPicker: "Color Picker",
+    calendar: "Calendar",
     datePicker: "Date Picker",
     dialog: "Dialog",
     field: "Field",
@@ -212,6 +213,9 @@ const enTexts = {
       placeholder: "No color selected",
       subtitle: "Pick a brand color",
     },
+    calendar: {
+      subtitle: "Inline calendar view",
+    },
     datePicker: {
       label: "Choose date",
       placeholder: "No date selected",
@@ -370,7 +374,7 @@ const enTexts = {
 
 const ruTexts = {
   app: {
-    version: "v1.2.6",
+    version: "v1.2.7",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -392,6 +396,7 @@ const ruTexts = {
     checkbox: "Чекбокс",
     codeView: "Просмотр кода",
     colorPicker: "Выбор цвета",
+    calendar: "Calendar",
     datePicker: "Выбор даты",
     dialog: "Диалог",
     field: "Поле ввода",
@@ -580,6 +585,9 @@ const ruTexts = {
       subtitle: "Выбор фирменного цвета",
       placeholder: "Цвет не выбран",
     },
+    calendar: {
+      subtitle: "Calendar",
+    },
     datePicker: {
       label: "Выбрать дату",
       subtitle: "Планирование важных дат",
@@ -739,7 +747,7 @@ const ruTexts = {
 
 const esTexts = {
   app: {
-    version: "v1.2.6",
+    version: "v1.2.7",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
@@ -760,6 +768,7 @@ const esTexts = {
     carousel: "Carrusel",
     checkbox: "Casilla",
     colorPicker: "Selector de color",
+    calendar: "Calendar",
     codeView: "Vista de código",
     datePicker: "Selector de fecha",
     dialog: "Diálogo",
@@ -948,6 +957,9 @@ const esTexts = {
       label: "Elegir color",
       subtitle: "Selecciona el color de marca",
       placeholder: "Ningún color seleccionado",
+    },
+    calendar: {
+      subtitle: "Calendar",
     },
     datePicker: {
       label: "Elegir fecha",

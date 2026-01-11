@@ -32,6 +32,7 @@
     Carousel,
     ColorPicker,
     CheckBox,
+    Calendar,
     DatePicker,
     FilePicker,
     Field,
@@ -486,6 +487,21 @@
               placeholder={L.components.colorPicker.placeholder}
               bind:value={selectedColor}
             />
+          {/snippet}
+        </PlayCard>
+      {:else if active === "calendar"}
+        <PlayCard
+          component="Calendar"
+          title={L.pageLabels.calendar}
+          subtitle={L.components.calendar.subtitle}
+        >
+          {#snippet children(
+            _sz: SizeKey,
+            _variant: string,
+            _label: string,
+            disabled: boolean
+          )}
+            <Calendar {disabled} bind:value={selectedDate} />
           {/snippet}
         </PlayCard>
       {:else if active === "datePicker"}

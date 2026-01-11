@@ -50,6 +50,7 @@
     onChange?: (value: string | null) => void;
     class?: string;
   };
+  type Period = "AM" | "PM";
 
   let {
     value = $bindable<string | null>(null),
@@ -73,11 +74,12 @@
 
   const pickerClass = $derived(cx("inline-block w-full", externalClass));
 
-  let timeSystem = $state(initialSystem);
+  let timeSystem = $state<"iso" | "english">("iso");
+  let didInitSystem = $state(false);
 
   let hour = $state("00");
   let minute = $state("00");
-  let period = $state<"AM" | "PM">("AM");
+  let period = $state<Period>("AM");
 
   const hasValue = $derived(value != null);
 
@@ -91,7 +93,7 @@
     return { value: h, label: h };
   });
 
-  const periodOptions = [
+  const periodOptions: Array<{ value: Period; label: Period }> = [
     { value: "AM", label: "AM" },
     { value: "PM", label: "PM" },
   ];
@@ -121,12 +123,12 @@
     return normalize(String(withPeriod));
   }
 
-  function toEnglishHour(isoHour: string) {
+  function toEnglishHour(isoHour: string): { hour: string; period: Period } {
     const numeric = Number.parseInt(isoHour, 10);
     if (Number.isNaN(numeric)) {
       return { hour: "12", period: "AM" as const };
     }
-    const periodValue = numeric >= 12 ? "PM" : "AM";
+    const periodValue: Period = numeric >= 12 ? "PM" : "AM";
     const normalized = numeric % 12 || 12;
     return { hour: normalize(String(normalized)), period: periodValue };
   }
@@ -196,10 +198,16 @@
   });
 
   $effect(() => {
+    if (didInitSystem) return;
+    didInitSystem = true;
+    timeSystem = initialSystem;
+  });
+
+  $effect(() => {
     if (value == null) return;
 
     let raw = value;
-    let parsedPeriod: "AM" | "PM" | null = null;
+    let parsedPeriod: Period | null = null;
 
     if (raw.includes("AM") || raw.includes("PM")) {
       parsedPeriod = raw.includes("PM") ? "PM" : "AM";
