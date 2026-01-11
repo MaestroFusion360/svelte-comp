@@ -86,20 +86,25 @@
     );
   }
 
-  let viewDate = $state(startOfDay(parseIso(value) ?? new Date()));
+  let internalValue = $state<string | null>(null);
+  let viewDate = $state(startOfDay(new Date()));
   let viewMode = $state<ViewMode>("days");
 
-  const selectedDate = $derived(parseIso(value));
+  const selectedDate = $derived(parseIso(internalValue));
   const minDate = $derived(parseIso(min));
   const maxDate = $derived(parseIso(max));
   const today = $derived(startOfDay(new Date()));
 
-  let lastValue = $state<string | null>(value ?? null);
+  let lastValue = $state<string | null>(null);
 
   $effect(() => {
-    if (value === lastValue) return;
-    lastValue = value;
-    const selected = parseIso(value);
+    internalValue = value ?? null;
+  });
+
+  $effect(() => {
+    if (internalValue === lastValue) return;
+    lastValue = internalValue;
+    const selected = parseIso(internalValue);
     if (!selected) return;
     viewDate = new Date(selected.getFullYear(), selected.getMonth(), 1);
   });
@@ -206,6 +211,7 @@
 
   function selectDay(cell: DayCell) {
     if (cell.isDisabled) return;
+    internalValue = cell.iso;
     value = cell.iso;
     onChange?.(cell.iso);
   }
@@ -231,10 +237,16 @@
     "inline-flex items-center justify-center h-3 w-3 rounded-[var(--radius-sm)] text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed";
 
   const dayButtonBase =
-    "rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] text-[var(--text-xs)]";
+    "rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] text-[var(--text-xs)] text-[var(--color-text-default)]";
 </script>
 
-<div class={wrapperClass} style="width: 240px; max-width: 100%;" {...rest}>
+<div
+  class={cx(
+    wrapperClass,
+    "w-[240px] max-w-full text-[var(--color-text-default)]"
+  )}
+  {...rest}
+>
   <div class="flex items-center justify-between mb-[var(--spacing-sm)]">
     <div class="flex items-center gap-1">
       <button
@@ -278,10 +290,7 @@
   </div>
 
   {#if viewMode === "days"}
-    <div
-      class={cx("text-center", TEXT.xs)}
-      style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--spacing-xs);"
-    >
+    <div class={cx("grid grid-cols-7 gap-[var(--spacing-xs)] text-center", TEXT.xs)}>
       {#each weekdayLabels as label, i (i)}
         <div class="py-[var(--spacing-xs)] [color:var(--color-text-muted)]">
           {label}
@@ -289,26 +298,24 @@
       {/each}
     </div>
 
-    <div
-      style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--spacing-xs); margin-top: var(--spacing-xs);"
-    >
+    <div class="grid grid-cols-7 gap-[var(--spacing-xs)] mt-[var(--spacing-xs)]">
       {#each days as cell (cell.iso)}
         <button
           type="button"
           class={cx(
             dayButtonBase,
+            "text-[var(--color-text-default)]",
             cell.isSelected &&
-              "bg-[var(--color-bg-primary)] text-white hover:brightness-110",
-            !cell.isSelected && "text-[var(--color-text-default)]",
+              "bg-[var(--color-bg-primary)] text-[var(--color-text-default)] hover:brightness-110",
             cell.isToday &&
               !cell.isSelected &&
               "border border-[var(--border-color-primary)]",
-            !cell.inMonth && "text-[var(--color-text-muted)]",
+            !cell.inMonth && "opacity-60",
             cell.isDisabled &&
               "opacity-[var(--opacity-disabled)] cursor-not-allowed",
-            !cell.isDisabled && "hover:bg-[var(--color-bg-hover)]"
+            !cell.isDisabled && "hover:bg-[var(--color-bg-hover)]",
+            "w-[22px] h-[22px] justify-self-center"
           )}
-          style="width: 22px; height: 22px; justify-self: center;"
           aria-pressed={cell.isSelected}
           aria-current={cell.isToday ? "date" : undefined}
           aria-label={dayLabelFormatter.format(cell.date)}
@@ -322,22 +329,19 @@
       {/each}
     </div>
   {:else if viewMode === "months"}
-    <div
-      style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-sm);"
-    >
+    <div class="grid grid-cols-4 gap-[var(--spacing-sm)]">
       {#each monthOptions as month (month.index)}
         <button
           type="button"
           class={cx(
-            "rounded-[var(--radius-md)] text-center transition-colors",
+            "rounded-[var(--radius-md)] text-center transition-colors text-[var(--color-text-default)] w-[22px] h-[22px]",
             TEXT.xs,
             month.index === viewDate.getMonth() &&
-              "bg-[var(--color-bg-primary)] text-white",
+              "bg-[var(--color-bg-primary)]",
             month.index !== viewDate.getMonth() &&
-              "text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)]",
+              "hover:bg-[var(--color-bg-hover)]",
             disabled && "opacity-[var(--opacity-disabled)] cursor-not-allowed"
           )}
-          style="height: 22px; width: 22px;"
           onclick={() => selectMonth(month.index)}
           disabled={disabled}
         >
@@ -346,22 +350,19 @@
       {/each}
     </div>
   {:else}
-    <div
-      style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-sm);"
-    >
+    <div class="grid grid-cols-4 gap-[var(--spacing-sm)]">
       {#each yearOptions as year (year)}
         <button
           type="button"
           class={cx(
-            "rounded-[var(--radius-md)] text-center transition-colors",
+            "rounded-[var(--radius-md)] text-center transition-colors text-[var(--color-text-default)] w-[22px] h-[22px]",
             TEXT.xs,
             year === viewDate.getFullYear() &&
-              "bg-[var(--color-bg-primary)] text-white",
+              "bg-[var(--color-bg-primary)]",
             year !== viewDate.getFullYear() &&
-              "text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)]",
+              "hover:bg-[var(--color-bg-hover)]",
             disabled && "opacity-[var(--opacity-disabled)] cursor-not-allowed"
           )}
-          style="height: 22px; width: 22px;"
           onclick={() => selectYear(year)}
           disabled={disabled}
         >

@@ -20,6 +20,13 @@ const withDarkClass: Decorator = (Story, ctx) => {
   const isDark = ctx.globals.theme === "dark";
   document.documentElement.classList.toggle("dark", isDark);
   document.body.classList.toggle("dark", isDark);
+  const bg = "var(--color-bg-page)";
+  document.body.style.backgroundColor = bg;
+  const root = document.getElementById("storybook-root");
+  if (root) {
+    root.classList.toggle("dark", isDark);
+    (root as HTMLElement).style.backgroundColor = bg;
+  }
   return Story();
 };
 
@@ -28,6 +35,13 @@ export const decorators = [withDarkClass];
 const preview: Preview = {
   parameters: {
     controls: { matchers: { color: /(background|color)$/i, date: /Date$/i } },
+    backgrounds: {
+      default: "page",
+      values: [
+        { name: "page", value: "var(--color-bg-page)" },
+        { name: "surface", value: "var(--color-bg-surface)" },
+      ],
+    },
     a11y: { test: "todo" },
   },
 };

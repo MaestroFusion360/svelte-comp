@@ -96,7 +96,7 @@
 322	.\src\lib\__tests__\Table.test.ts
 341	.\src\lib\__tests__\Carousel.test.ts
 345	.\src\demo\README.md
-373	.\src\lib\Calendar.svelte
+374	.\src\lib\Calendar.svelte
 413	.\src\lib\__tests__\Form.test.ts
 438	.\src\lib\Form.svelte
 524	.\src\lib\Select.svelte
@@ -105,4 +105,4 @@
 891	.\src\App.svelte
 1131	.\src\lang.ts
 1998	.\README.md
-TOTAL	20829
+TOTAL	20830
