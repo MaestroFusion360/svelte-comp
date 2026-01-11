@@ -26,9 +26,11 @@ dist-ssr
 AGENTS.md
 *storybook.log
 storybook-static
+chromatic.config.json
 
 #SvelteKit
 .svelte-kit/
 
 # Scripts
+
 

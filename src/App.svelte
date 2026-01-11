@@ -501,7 +501,9 @@
             _label: string,
             disabled: boolean
           )}
-            <Calendar {disabled} bind:value={selectedDate} />
+            <div class="w-[240px] aspect-square">
+              <Calendar {disabled} bind:value={selectedDate} class="w-full h-full" />
+            </div>
           {/snippet}
         </PlayCard>
       {:else if active === "datePicker"}

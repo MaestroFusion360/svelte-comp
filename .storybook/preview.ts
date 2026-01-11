@@ -21,11 +21,14 @@ const withDarkClass: Decorator = (Story, ctx) => {
   document.documentElement.classList.toggle("dark", isDark);
   document.body.classList.toggle("dark", isDark);
   const bg = "var(--color-bg-page)";
+  const text = "var(--color-text-default)";
   document.body.style.backgroundColor = bg;
+  document.body.style.color = text;
   const root = document.getElementById("storybook-root");
   if (root) {
     root.classList.toggle("dark", isDark);
     (root as HTMLElement).style.backgroundColor = bg;
+    (root as HTMLElement).style.color = text;
   }
   return Story();
 };

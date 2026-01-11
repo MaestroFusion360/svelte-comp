@@ -80,6 +80,7 @@
         : component !== "Accordion" &&
             component !== "Card" &&
             component !== "Carousel" &&
+            component !== "Calendar" &&
             component !== "DatePicker" &&
             component !== "SearchInput" &&
             component !== "ProgressBar" &&

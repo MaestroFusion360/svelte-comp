@@ -63,7 +63,7 @@
 
 <Story name="Default">
   {#snippet template(args)}
-    <div class="min-w-[400px] max-w-lg mx-auto min-h-screen flex items-center">
+  <div class="min-w-[400px] max-w-lg mx-auto min-h-screen flex items-center">
       <Card sz={args.sz} class={args.class}>
         <div class="space-y-2 leading-relaxed">
           <p>{t.snippets.about.description}</p>
@@ -78,7 +78,7 @@
 
 <Story name="Header&Footer">
   {#snippet template(args)}
-    <div class="min-w-[400px] max-w-lg mx-auto min-h-screen flex items-center">
+  <div class="min-w-[400px] max-w-lg mx-auto min-h-screen flex items-center">
       <Card sz={args.sz} class={args.class} header={title} {footer}>
         <div class="space-y-2 leading-relaxed">
           <p>{t.snippets.about.description}</p>
@@ -93,7 +93,7 @@
 
 <Story name="Image Header Card">
   {#snippet template(args)}
-    <div class="min-w-[400px] max-w-lg mx-auto min-h-screen flex items-center">
+  <div class="min-w-[400px] max-w-lg mx-auto min-h-screen flex items-center">
       <Card
         {header}
         children={body}

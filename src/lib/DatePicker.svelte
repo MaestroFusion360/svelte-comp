@@ -86,7 +86,7 @@
 
   let open = $state(false);
   const panelId = uid("calendar-");
-  const panelWidth = 240;
+  const panelSize = 240;
 
   let triggerEl = $state<HTMLDivElement | null>(null);
   let panelEl = $state<HTMLDivElement | null>(null);
@@ -94,7 +94,7 @@
   let panelLeft = $state(0);
 
   const panelStyle = $derived(
-    `position:fixed; top:${panelTop}px; left:${panelLeft}px; width:${panelWidth}px;`
+    `position:fixed; top:${panelTop}px; left:${panelLeft}px; width:${panelSize}px; height:${panelSize}px;`
   );
 
   function togglePanel() {
@@ -134,7 +134,7 @@
       const viewportLeft = window.scrollX;
       const viewportRight = window.scrollX + window.innerWidth;
       const targetLeft = triggerRect.left + window.scrollX;
-      const maxLeft = viewportRight - panelWidth;
+      const maxLeft = viewportRight - panelSize;
       panelLeft = Math.max(viewportLeft, Math.min(targetLeft, maxLeft));
     };
 
@@ -221,7 +221,7 @@
           {locale}
           onChange={handleSelect}
           showOutsideDays
-          class="max-w-full"
+          class="w-full h-full"
         />
       </div>
     {/if}

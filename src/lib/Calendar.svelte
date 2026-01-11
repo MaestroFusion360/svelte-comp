@@ -86,7 +86,8 @@
     );
   }
 
-  let internalValue = $state<string | null>(null);
+  let internalValue = $state<string | null>(value ?? null);
+  let lastValue = $state<string | null>(value ?? null);
   let viewDate = $state(startOfDay(new Date()));
   let viewMode = $state<ViewMode>("days");
 
@@ -95,15 +96,15 @@
   const maxDate = $derived(parseIso(max));
   const today = $derived(startOfDay(new Date()));
 
-  let lastValue = $state<string | null>(null);
-
   $effect(() => {
-    internalValue = value ?? null;
+    const next = value ?? null;
+    if (next !== lastValue) {
+      lastValue = next;
+      internalValue = next;
+    }
   });
 
   $effect(() => {
-    if (internalValue === lastValue) return;
-    lastValue = internalValue;
     const selected = parseIso(internalValue);
     if (!selected) return;
     viewDate = new Date(selected.getFullYear(), selected.getMonth(), 1);
@@ -231,27 +232,27 @@
   const wrapperClass = $derived(cx("w-full", externalClass));
 
   const headerButtonBase =
-    "px-1 py-0.5 rounded-[var(--radius-sm)] transition-colors text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed text-[var(--text-xs)]";
+    "px-1 py-0.5 rounded-[var(--radius-sm)] text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed text-[var(--text-xs)] transition-none";
 
   const arrowButtonBase =
-    "inline-flex items-center justify-center h-3 w-3 rounded-[var(--radius-sm)] text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed h-[var(--cal-cell)] w-[var(--cal-cell)] transition-none";
 
   const dayButtonBase =
-    "rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] text-[var(--text-xs)] text-[var(--color-text-default)]";
+    "rounded-full flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] text-[var(--text-xs)] text-[var(--color-text-default)] transition-none";
 </script>
 
-<div
+  <div
   class={cx(
     wrapperClass,
-    "w-[240px] max-w-full text-[var(--color-text-default)]"
+    "w-full h-full text-[var(--color-text-default)] [--cal-cell:clamp(16px,4vw,20px)] [--cal-gap:clamp(1px,0.6vw,3px)] [--cal-gap-lg:clamp(2px,0.9vw,6px)]"
   )}
   {...rest}
 >
-  <div class="flex items-center justify-between mb-[var(--spacing-sm)]">
+  <div class="flex items-center justify-between mb-[var(--cal-gap-lg)]">
     <div class="flex items-center gap-1">
       <button
         type="button"
-          class={cx(headerButtonBase, TEXT.sm)}
+        class={cx(headerButtonBase, TEXT.sm)}
         onclick={() => (viewMode = viewMode === "months" ? "days" : "months")}
         disabled={disabled}
       >
@@ -259,7 +260,7 @@
       </button>
       <button
         type="button"
-          class={cx(headerButtonBase, TEXT.sm)}
+        class={cx(headerButtonBase, TEXT.sm)}
         onclick={() => (viewMode = viewMode === "years" ? "days" : "years")}
         disabled={disabled}
       >
@@ -290,15 +291,15 @@
   </div>
 
   {#if viewMode === "days"}
-    <div class={cx("grid grid-cols-7 gap-[var(--spacing-xs)] text-center", TEXT.xs)}>
+    <div class={cx("grid grid-cols-7 gap-[var(--cal-gap)] text-center", TEXT.xs)}>
       {#each weekdayLabels as label, i (i)}
-        <div class="py-[var(--spacing-xs)] [color:var(--color-text-muted)]">
+        <div class="py-[var(--cal-gap)] [color:var(--color-text-muted)]">
           {label}
         </div>
       {/each}
     </div>
 
-    <div class="grid grid-cols-7 gap-[var(--spacing-xs)] mt-[var(--spacing-xs)]">
+    <div class="grid grid-cols-7 gap-[var(--cal-gap)] mt-[var(--cal-gap)]">
       {#each days as cell (cell.iso)}
         <button
           type="button"
@@ -314,7 +315,7 @@
             cell.isDisabled &&
               "opacity-[var(--opacity-disabled)] cursor-not-allowed",
             !cell.isDisabled && "hover:bg-[var(--color-bg-hover)]",
-            "w-[22px] h-[22px] justify-self-center"
+            "w-[var(--cal-cell)] h-[var(--cal-cell)] justify-self-center"
           )}
           aria-pressed={cell.isSelected}
           aria-current={cell.isToday ? "date" : undefined}
@@ -329,12 +330,12 @@
       {/each}
     </div>
   {:else if viewMode === "months"}
-    <div class="grid grid-cols-4 gap-[var(--spacing-sm)]">
+    <div class="grid grid-cols-4 gap-[var(--cal-gap-lg)]">
       {#each monthOptions as month (month.index)}
         <button
           type="button"
           class={cx(
-            "rounded-[var(--radius-md)] text-center transition-colors text-[var(--color-text-default)] w-[22px] h-[22px]",
+            "rounded-[var(--radius-md)] text-center text-[var(--color-text-default)] w-[var(--cal-cell)] h-[var(--cal-cell)]",
             TEXT.xs,
             month.index === viewDate.getMonth() &&
               "bg-[var(--color-bg-primary)]",
@@ -350,12 +351,12 @@
       {/each}
     </div>
   {:else}
-    <div class="grid grid-cols-4 gap-[var(--spacing-sm)]">
+    <div class="grid grid-cols-4 gap-[var(--cal-gap-lg)]">
       {#each yearOptions as year (year)}
         <button
           type="button"
           class={cx(
-            "rounded-[var(--radius-md)] text-center transition-colors text-[var(--color-text-default)] w-[22px] h-[22px]",
+            "rounded-[var(--radius-md)] text-center text-[var(--color-text-default)] w-[var(--cal-cell)] h-[var(--cal-cell)] transition-none",
             TEXT.xs,
             year === viewDate.getFullYear() &&
               "bg-[var(--color-bg-primary)]",
