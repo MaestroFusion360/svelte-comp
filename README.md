@@ -41,10 +41,18 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (Accordion)](#props-accordion)
       - [Notes (Accordion)](#notes-accordion)
       - [Usage (Accordion)](#usage-accordion)
+    - [Badge.svelte](#badgesvelte)
+      - [Props (Badge)](#props-badge)
+      - [Notes (Badge)](#notes-badge)
+      - [Usage (Badge)](#usage-badge)
     - [Button.svelte](#buttonsvelte)
       - [Props (Button)](#props-button)
       - [Notes (Button)](#notes-button)
       - [Usage (Button)](#usage-button)
+    - [Calendar.svelte](#calendarsvelte)
+      - [Props (Calendar)](#props-calendar)
+      - [Notes (Calendar)](#notes-calendar)
+      - [Usage (Calendar)](#usage-calendar)
     - [Card.svelte](#cardsvelte)
       - [Props (Card)](#props-card)
       - [Notes (Card)](#notes-card)
@@ -65,14 +73,14 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (ColorPicker)](#props-colorpicker)
       - [Notes (ColorPicker)](#notes-colorpicker)
       - [Usage (ColorPicker)](#usage-colorpicker)
+    - [ContextMenu.svelte](#contextmenusvelte)
+      - [Props (ContextMenu)](#props-contextmenu)
+      - [Notes (ContextMenu)](#notes-contextmenu)
+      - [Usage (ContextMenu)](#usage-contextmenu)
     - [DatePicker.svelte](#datepickersvelte)
       - [Props (DatePicker)](#props-datepicker)
       - [Notes (DatePicker)](#notes-datepicker)
       - [Usage (DatePicker)](#usage-datepicker)
-    - [Calendar.svelte](#calendarsvelte)
-      - [Props (Calendar)](#props-calendar)
-      - [Notes (Calendar)](#notes-calendar)
-      - [Usage (Calendar)](#usage-calendar)
     - [Dialog.svelte](#dialogsvelte)
       - [Props (Dialog)](#props-dialog)
       - [Notes (Dialog)](#notes-dialog)
@@ -93,10 +101,18 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (Hamburger)](#props-hamburger)
       - [Notes (Hamburger)](#notes-hamburger)
       - [Usage (Hamburger)](#usage-hamburger)
+    - [InstallPWA.svelte](#installpwasvelte)
+      - [Props (InstallPWA)](#props-installpwa)
+      - [Notes (InstallPWA)](#notes-installpwa)
+      - [Usage (InstallPWA)](#usage-installpwa)
     - [Menu.svelte](#menusvelte)
       - [Props (Menu)](#props-menu)
       - [Notes (Menu)](#notes-menu)
       - [Usage (Menu)](#usage-menu)
+    - [NoticeBase.svelte](#noticebasesvelte)
+      - [Props (NoticeBase)](#props-noticebase)
+      - [Notes (NoticeBase)](#notes-noticebase)
+      - [Usage (NoticeBase)](#usage-noticebase)
     - [PaginatedCard.svelte](#paginatedcardsvelte)
       - [Props (PaginatedCard)](#props-paginatedcard)
       - [Notes (PaginatedCard)](#notes-paginatedcard)
@@ -157,10 +173,6 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (TimePicker)](#props-timepicker)
       - [Notes (TimePicker)](#notes-timepicker)
       - [Usage (TimePicker)](#usage-timepicker)
-    - [Badge.svelte](#badgesvelte)
-      - [Props (Badge)](#props-badge)
-      - [Notes (Badge)](#notes-badge)
-      - [Usage (Badge)](#usage-badge)
     - [Toast.svelte](#toastsvelte)
       - [Props (Toast)](#props-toast)
       - [Notes (Toast)](#notes-toast)
@@ -169,6 +181,10 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (Tooltip)](#props-tooltip)
       - [Notes (Tooltip)](#notes-tooltip)
       - [Usage (Tooltip)](#usage-tooltip)
+    - [Topbar.svelte](#topbarsvelte)
+      - [Props (Topbar)](#props-topbar)
+      - [Notes (Topbar)](#notes-topbar)
+      - [Usage (Topbar)](#usage-topbar)
   - [🎯 Design Principles](#-design-principles)
   - [🧪 Testing \& Development](#-testing--development)
   - [📄 License](#-license)
@@ -460,6 +476,34 @@ Collapsible content container with flexible sizing and optional multi-open behav
 
 ---
 
+### Badge.svelte
+
+Compact status badge for inline labels and small indicators.
+
+#### Props (Badge)
+
+- `message: string` - Badge text
+- `variant?: ToastVariant` - Visual style (success|danger|warning|info) (default: `info`)
+- `showIcon?: boolean` - Shows a variant icon (default: `false`)
+- `class?: string` - Additional wrapper classes (default: `""`)
+
+#### Notes (Badge)
+
+- Intended for inline status labels.
+- Uses the same variant palette as Toast.
+
+#### Usage (Badge)
+
+```svelte
+<script lang="ts">
+  import Badge from '$lib/Badge.svelte';
+</script>
+
+<Badge message="Active" variant="success" showIcon />
+```
+
+---
+
 ### Button.svelte
 
 Versatile button supporting multiple variants, sizes, loading state, and link behavior.
@@ -502,6 +546,44 @@ Versatile button supporting multiple variants, sizes, loading state, and link be
 <Button link="/about" variant="link">
   Navigate
 </Button>
+```
+
+---
+
+### Calendar.svelte
+
+Monthly calendar grid with navigation and date selection.
+
+#### Props (Calendar)
+
+- `value?: string | null` - Selected date in ISO `YYYY-MM-DD` (bindable) (default: `null`)
+- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`) (default: `"1926-01-01"`)
+- `max?: string` - Maximum selectable date (ISO `YYYY-MM-DD`)
+- `locale?: string` - Locale for month/day labels (default: `"en-US"`)
+- `weekStartsOn?: 0|1|2|3|4|5|6` - First day of week (0=Sun ... 6=Sat) (default: `1`)
+- `showOutsideDays?: boolean` - Render days from adjacent months (default: `true`)
+- `disabled?: boolean` - Disables selection and navigation (default: `false`)
+- `onChange?: (value: string | null) => void` - Fired when a date is selected
+- `class?: string` - Additional classes for the root wrapper (default: `""`)
+
+#### Notes (Calendar)
+
+- Selection value is always ISO `YYYY-MM-DD`.
+- Month labels and weekday names are localized using `Intl.DateTimeFormat`.
+- Days outside the current month can be shown or hidden via `showOutsideDays`.
+- Uses CSS variables for spacing, colors, and focus styles.
+
+#### Usage (Calendar)
+
+```svelte
+<script lang="ts">
+  import Calendar from '$lib/Calendar.svelte';
+  let selected: string | null = null;
+</script>
+
+<Calendar bind:value={selected} weekStartsOn={1} />
+
+<p>Selected: {selected ?? 'None'}</p>
 ```
 
 ---
@@ -729,6 +811,49 @@ Accessible wrapper around the native `<input type="color">` with a trigger butto
 
 ---
 
+### ContextMenu.svelte
+
+Right-click context menu for editor actions.
+
+#### Props (ContextMenu)
+
+- `onUndo?: () => void` - Fired when Undo is selected
+- `onRedo?: () => void` - Fired when Redo is selected
+- `onCopy?: () => void` - Fired when Copy is selected
+- `onCut?: () => void` - Fired when Cut is selected
+- `onPaste?: () => void` - Fired when Paste is selected
+- `onDelete?: () => void` - Fired when Delete is selected
+
+#### Notes (ContextMenu)
+
+- Call `openAt(event)` from the parent to show the menu at the pointer.
+- Closes on outside click or `Escape`.
+- Labels come from `lang-context` via `setContext("lang", { value })`.
+
+#### Usage (ContextMenu)
+
+```svelte
+<script lang="ts">
+  import { setContext } from "svelte";
+  import ContextMenu from '$lib/ContextMenu.svelte';
+
+  setContext("lang", { value: "en" });
+
+  let menu: ContextMenu | null = null;
+  const onContext = (e: MouseEvent) => {
+    e.preventDefault();
+    menu?.openAt(e);
+  };
+</script>
+
+<div oncontextmenu={onContext}>
+  <p>Right click me</p>
+  <ContextMenu bind:this={menu} onCopy={() => console.log('copy')} />
+</div>
+```
+
+---
+
 ### DatePicker.svelte
 
 Button-driven date selector that formats the chosen value and supports min/max limits.
@@ -770,44 +895,6 @@ Button-driven date selector that formats the chosen value and supports min/max l
 />
 
 <p>Scheduled for: {launchDate ?? 'TBD'}</p>
-```
-
----
-
-### Calendar.svelte
-
-Monthly calendar grid with navigation and date selection.
-
-#### Props (Calendar)
-
-- `value?: string | null` - Selected date in ISO `YYYY-MM-DD` (bindable) (default: `null`)
-- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`) (default: `"1926-01-01"`)
-- `max?: string` - Maximum selectable date (ISO `YYYY-MM-DD`)
-- `locale?: string` - Locale for month/day labels (default: `"en-US"`)
-- `weekStartsOn?: 0|1|2|3|4|5|6` - First day of week (0=Sun ... 6=Sat) (default: `1`)
-- `showOutsideDays?: boolean` - Render days from adjacent months (default: `true`)
-- `disabled?: boolean` - Disables selection and navigation (default: `false`)
-- `onChange?: (value: string | null) => void` - Fired when a date is selected
-- `class?: string` - Additional classes for the root wrapper (default: `""`)
-
-#### Notes (Calendar)
-
-- Selection value is always ISO `YYYY-MM-DD`.
-- Month labels and weekday names are localized using `Intl.DateTimeFormat`.
-- Days outside the current month can be shown or hidden via `showOutsideDays`.
-- Uses CSS variables for spacing, colors, and focus styles.
-
-#### Usage (Calendar)
-
-```svelte
-<script lang="ts">
-  import Calendar from '$lib/Calendar.svelte';
-  let selected: string | null = null;
-</script>
-
-<Calendar bind:value={selected} weekStartsOn={1} />
-
-<p>Selected: {selected ?? 'None'}</p>
 ```
 
 ---
@@ -1100,6 +1187,33 @@ Off-canvas navigation drawer controlled by a floating hamburger button.
 
 ---
 
+### InstallPWA.svelte
+
+Install button that triggers the browser PWA prompt.
+
+#### Props (InstallPWA)
+
+- `alwaysShow?: boolean` - Forces the button to be visible (default: `false`)
+- `inline?: boolean` - Render inline instead of fixed (default: `false`)
+- `class?: string` - Additional button classes (default: `""`)
+
+#### Notes (InstallPWA)
+
+- Relies on the `beforeinstallprompt` event and HTTPS context.
+- The button only appears when the browser fires the event, unless `alwaysShow` is `true`.
+
+#### Usage (InstallPWA)
+
+```svelte
+<script lang="ts">
+  import InstallPWA from '$lib/InstallPWA.svelte';
+</script>
+
+<InstallPWA alwaysShow inline />
+```
+
+---
+
 ### Menu.svelte
 
 A dropdown menu bar component with hover and click interactions.
@@ -1152,6 +1266,38 @@ A dropdown menu bar component with hover and click interactions.
   sz="sm"
   onSelect={handleSelect}
 />
+```
+
+---
+
+### NoticeBase.svelte
+
+Shared base used by Toast and Badge for consistent visuals.
+
+#### Props (NoticeBase)
+
+- `title?: string` - Optional title displayed above the message
+- `message: string` - Notice text content
+- `variant?: ToastVariant` - Visual style (success|danger|warning|info) (default: `info`)
+- `showIcon?: boolean` - Shows an icon matching the variant (default: `true`)
+- `inline?: boolean` - Inline layout without overlay styling (default: `false`)
+- `size?: "sm" | "md"` - Size preset (default: `"sm"`)
+- `end?: Snippet` - Trailing content (e.g. close button)
+- `class?: string` - Additional wrapper classes (default: `""`)
+
+#### Notes (NoticeBase)
+
+- Intended as a low-level building block for notices.
+- Used internally by `Toast` and `Badge`.
+
+#### Usage (NoticeBase)
+
+```svelte
+<script lang="ts">
+  import NoticeBase from '$lib/NoticeBase.svelte';
+</script>
+
+<NoticeBase title="Saved" message="All changes stored" variant="success" />
 ```
 
 ---
@@ -1834,34 +1980,6 @@ Simple time selector that stores values in ISO `HH:MM` format. Supports a fixed 
 
 ---
 
-### Badge.svelte
-
-Compact status badge for inline labels and small indicators.
-
-#### Props (Badge)
-
-- `message: string` - Badge text
-- `variant?: ToastVariant` - Visual style (success|danger|warning|info) (default: `info`)
-- `showIcon?: boolean` - Shows a variant icon (default: `false`)
-- `class?: string` - Additional wrapper classes (default: `""`)
-
-#### Notes (Badge)
-
-- Intended for inline status labels.
-- Uses the same variant palette as Toast.
-
-#### Usage (Badge)
-
-```svelte
-<script lang="ts">
-  import Badge from '$lib/Badge.svelte';
-</script>
-
-<Badge message="Active" variant="success" showIcon />
-```
-
----
-
 ### Toast.svelte
 
 Lightweight notification component for transient messages.
@@ -1957,7 +2075,44 @@ Context-aware hint for inline controls and labels.
 </Tooltip>
 ```
 
-</details>
+### Topbar.svelte
+
+Responsive top navigation bar with optional hamburger menu and PWA install button.
+
+#### Props (Topbar)
+
+- `title?: string` - Title text in the center (default: `"App"`)
+- `menuItems?: Array<{ id: string; label: string }>` - Hamburger menu items (default: `[]`)
+- `onMenuSelect?: (id: string) => void` - Fired on menu selection
+- `hamburgerHeader?: Snippet` - Optional hamburger header content
+- `hamburgerFooter?: Snippet` - Optional hamburger footer content
+- `showHamburger?: boolean` - Show hamburger trigger (default: `false`)
+- `children?: Snippet` - Custom center content
+- `right?: Snippet` - Custom right content
+
+#### Notes (Topbar)
+
+- Fixed to the top of the viewport with a consistent height.
+- Switches hamburger width and typography based on viewport size.
+- Renders `InstallPWA` inline on desktop and inside the hamburger header on mobile.
+- Designed to be used once at the page root.
+
+#### Usage (Topbar)
+
+```svelte
+<script lang="ts">
+  import Topbar from '$lib/Topbar.svelte';
+
+  const items = [
+    { id: 'open', label: 'Open' },
+    { id: 'save', label: 'Save' }
+  ];
+</script>
+
+<Topbar title="FormBuilder" menuItems={items} showHamburger />
+```
+
+---
 
 ---
 
@@ -2028,3 +2183,5 @@ MIT License - See [LICENSE](LICENSE.md) for details.
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=MaestroFusion360-svelte-comp&label=Project+Views&color=blue" alt="Project Views" />
 </p>
+
+</details>
