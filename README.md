@@ -2110,7 +2110,7 @@ Responsive top navigation bar with optional hamburger menu and PWA install butto
 <Topbar title="FormBuilder" menuItems={items} showHamburger />
 ```
 
----
+</details>
 
 ---
 
