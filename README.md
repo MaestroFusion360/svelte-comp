@@ -1035,7 +1035,6 @@ Lightweight file selector with click support and drag-and-drop. Internally uses 
 - `placeholder?: string` - Placeholder text for the drop zone
 - `value?: FileList | null` - Controlled selected files (bindable) (default: `null`)
 - `onFilesSelected?: (files: FileList | null) => void` - Fired when files are chosen
-- `onError?: (error: string) => void` - Fired on validation errors
 - `class?: string` - Additional classes for the wrapper (default: `""`)
 
 #### Notes (FilePicker)
@@ -1457,16 +1456,15 @@ Circular progress indicator for visualizing completion or load state (0-100). Su
 
 - `value?: number` - Current progress value (default: `0`)
 - `indeterminate?: boolean` - Enables spinning infinite mode (default: `false`)
-- `size?: number` - Diameter in px (default: `48`)
-- `stroke?: number` - Stroke width in px (default: `4`)
-- `variant?: ComponentVariant` - Color/style variant (default|neutral|success|warning|error) (default: `default`)
-- `label?: string` - Optional text shown in center (default: `""`)
-- `max?: number` - Max progress value for normalization (default: `100`)
+- `sz?: SizeKey` - Size preset (xs|sm|md|lg|xl) (default: `md`)
+- `variant?: ComponentVariant` - Color/style variant (default|neutral) (default: `default`)
+- `label?: string` - Optional text shown above the circle (default: `""`)
+- `disabled?: boolean` - Apply disabled styles (default: `false`)
 - `class?: string` - Extra wrapper classes (default: `""`)
 
 #### Notes (ProgressCircle)
 
-- Clamps value between 0-max
+- Clamps value between 0-100
 - Uses SVG stroke-dashoffset animation
 - Accessible role=progressbar with aria-valuenow
 - Works in both determinate/indeterminate modes
