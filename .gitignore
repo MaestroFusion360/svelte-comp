@@ -23,9 +23,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
+chromatic.config.json
 AGENTS.md
 
 # SvelteKit build outputs
 .svelte-kit
+
 
