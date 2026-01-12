@@ -157,6 +157,10 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (TimePicker)](#props-timepicker)
       - [Notes (TimePicker)](#notes-timepicker)
       - [Usage (TimePicker)](#usage-timepicker)
+    - [Badge.svelte](#badgesvelte)
+      - [Props (Badge)](#props-badge)
+      - [Notes (Badge)](#notes-badge)
+      - [Usage (Badge)](#usage-badge)
     - [Toast.svelte](#toastsvelte)
       - [Props (Toast)](#props-toast)
       - [Notes (Toast)](#notes-toast)
@@ -1826,6 +1830,34 @@ Simple time selector that stores values in ISO `HH:MM` format. Supports a fixed 
 />
 
 <p>Stored: {time ?? 'None'}</p>
+```
+
+---
+
+### Badge.svelte
+
+Compact status badge for inline labels and small indicators.
+
+#### Props (Badge)
+
+- `message: string` - Badge text
+- `variant?: ToastVariant` - Visual style (success|danger|warning|info) (default: `info`)
+- `showIcon?: boolean` - Shows a variant icon (default: `false`)
+- `class?: string` - Additional wrapper classes (default: `""`)
+
+#### Notes (Badge)
+
+- Intended for inline status labels.
+- Uses the same variant palette as Toast.
+
+#### Usage (Badge)
+
+```svelte
+<script lang="ts">
+  import Badge from '$lib/Badge.svelte';
+</script>
+
+<Badge message="Active" variant="success" showIcon />
 ```
 
 ---

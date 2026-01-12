@@ -15,7 +15,7 @@
       max: undefined,
       clearable: true,
       disabled: false,
-      locale: "",
+      locale: "en-US",
       formatOptions: undefined,
       class: "",
     },
@@ -46,7 +46,7 @@
 
 <Story name="Default">
   {#snippet template(args)}
-    <div class="min-h-screen flex items-center justify-center bg-[var(--color-bg-page)] text-[var(--color-text-default)]">
+    <div class="min-h-screen flex items-center justify-center bg-[var(--color-bg-page)] text-[var(--color-text-default)] overflow-visible [--z-overlay:50] [--z-modal:100]">
       <div
         class="inline-flex items-center justify-center border-1 border-[var(--border-color-default)] rounded-[var(--radius-md)] px-6 py-4"
       >

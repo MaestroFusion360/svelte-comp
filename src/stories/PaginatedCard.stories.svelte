@@ -43,7 +43,7 @@
 <Story name="Default">
   {#snippet template(args)}
     <div class="min-h-screen flex items-center justify-center">
-      <div class="w-full max-w-sm">
+      <div class="w-full max-w-2xl">
         <PaginatedCard {...args} {items} {header} {footer} />
       </div>
     </div>

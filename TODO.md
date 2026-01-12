@@ -4,37 +4,42 @@ Scope: src/lib components. This file tracks test/story coverage only; behavior, 
 
 ## Coverage matrix
 
-| Component          | Tests | Story | TODO              |
-| ------------------ | ----- | ----- | ----------------- |
-| Accordion          | yes   | yes   | -                 |
-| Button             | yes   | yes   | -                 |
-| Calendar           | yes   | yes   | -                 |
-| Card               | yes   | yes   | -                 |
-| Carousel           | yes   | yes   | -                 |
-| CheckBox           | yes   | yes   | -                 |
-| CodeView           | yes   | yes   | -                 |
-| ColorPicker        | yes   | yes   | -                 |
-| DatePicker         | yes   | yes   | -                 |
-| Dialog             | yes   | yes   | -                 |
-| Field              | yes   | yes   | -                 |
-| FilePicker         | yes   | yes   | -                 |
-| Form               | yes   | yes   | -                 |
-| Hamburger          | yes   | yes   | -                 |
-| Menu               | yes   | yes   | -                 |
-| PaginatedCard      | yes   | yes   | -                 |
-| Pagination         | yes   | yes   | -                 |
-| PrimaryColorSelect | yes   | yes   | -                 |
-| ProgressBar        | yes   | yes   | -                 |
-| ProgressCircle     | yes   | yes   | -                 |
-| Radio              | yes   | no    | add story         |
-| SearchInput        | yes   | yes   | -                 |
-| Select             | yes   | yes   | -                 |
-| Slider             | yes   | yes   | -                 |
-| Splitter           | no    | no    | add tests + story |
-| Switch             | yes   | yes   | -                 |
-| Table              | yes   | yes   | -                 |
-| Tabs               | yes   | yes   | -                 |
-| ThemeToggle        | no    | no    | add tests + story |
-| TimePicker         | yes   | yes   | -                 |
-| Toast              | yes   | no    | add story         |
-| Tooltip            | yes   | no    | add story         |
+| #   | Component          | Tests | Story | TODO              |
+| --- | ------------------ | ----- | ----- | ----------------- |
+| 1   | Accordion          | yes   | yes   | -                 |
+| 2   | Button             | yes   | yes   | -                 |
+| 3   | Badge              | no    | no    | add tests + story |
+| 4   | Calendar           | yes   | yes   | -                 |
+| 5   | Card               | yes   | yes   | -                 |
+| 6   | Carousel           | yes   | yes   | -                 |
+| 7   | CheckBox           | yes   | yes   | -                 |
+| 8   | ContextMenu        | yes   | yes   | -                 |
+| 9   | CodeView           | yes   | yes   | -                 |
+| 10  | ColorPicker        | yes   | yes   | -                 |
+| 11  | DatePicker         | yes   | yes   | -                 |
+| 12  | Dialog             | yes   | yes   | -                 |
+| 13  | Field              | yes   | yes   | -                 |
+| 14  | FilePicker         | yes   | yes   | -                 |
+| 15  | Form               | yes   | yes   | -                 |
+| 16  | Hamburger          | yes   | yes   | -                 |
+| 17  | InstallPWA         | yes   | yes   | -                 |
+| 18  | Menu               | yes   | yes   | -                 |
+| 19  | NoticeBase         | no    | no    | add tests + story |
+| 20  | PaginatedCard      | yes   | yes   | -                 |
+| 21  | Pagination         | yes   | yes   | -                 |
+| 22  | PrimaryColorSelect | yes   | yes   | -                 |
+| 23  | ProgressBar        | yes   | yes   | -                 |
+| 24  | ProgressCircle     | yes   | yes   | -                 |
+| 25  | Radio              | yes   | no    | add story         |
+| 26  | SearchInput        | yes   | yes   | -                 |
+| 27  | Select             | yes   | yes   | -                 |
+| 28  | Slider             | yes   | yes   | -                 |
+| 29  | Splitter           | no    | no    | add tests + story |
+| 30  | Switch             | yes   | yes   | -                 |
+| 31  | Table              | yes   | yes   | -                 |
+| 32  | Tabs               | yes   | yes   | -                 |
+| 33  | ThemeToggle        | no    | no    | add tests + story |
+| 34  | TimePicker         | yes   | yes   | -                 |
+| 35  | Topbar             | yes   | yes   | -                 |
+| 36  | Toast              | yes   | no    | add story         |
+| 37  | Tooltip            | yes   | no    | add story         |

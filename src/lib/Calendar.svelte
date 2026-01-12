@@ -210,6 +210,13 @@
     }
   }
 
+  function handleWheel(event: WheelEvent) {
+    if (disabled || viewMode !== "days") return;
+    if (event.deltaY === 0) return;
+    event.preventDefault();
+    handleShift(event.deltaY > 0 ? 1 : -1);
+  }
+
   function selectDay(cell: DayCell) {
     if (cell.isDisabled) return;
     internalValue = cell.iso;
@@ -299,17 +306,19 @@
       {/each}
     </div>
 
-    <div class="grid grid-cols-7 gap-[var(--cal-gap)] mt-[var(--cal-gap)]">
+    <div
+      class="grid grid-cols-7 gap-[var(--cal-gap)] mt-[var(--cal-gap)]"
+      onwheel={handleWheel}
+    >
       {#each days as cell (cell.iso)}
         <button
           type="button"
           class={cx(
             dayButtonBase,
             "text-[var(--color-text-default)]",
-            cell.isSelected &&
-              "bg-[var(--color-bg-primary)] text-[var(--color-text-default)] hover:brightness-110",
             cell.isToday &&
-              !cell.isSelected &&
+              "bg-[var(--color-bg-primary)] text-[var(--color-text-default)] hover:brightness-110",
+            cell.isSelected &&
               "border border-[var(--border-color-primary)]",
             !cell.inMonth && "opacity-60",
             cell.isDisabled &&

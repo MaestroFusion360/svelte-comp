@@ -19,6 +19,7 @@ export const pageIds = [
   "about",
   "accordion",
   "button",
+  "badge",
   "card",
   "carousel",
   "checkbox",
@@ -74,6 +75,11 @@ export const componentMeta = {
     ],
     sizes: ["xs", "sm", "md", "lg", "xl"],
     supports: { label: true, disabled: true },
+  },
+  Badge: {
+    variants: ["success", "danger", "warning", "info"],
+    sizes: [],
+    supports: { label: true, disabled: false },
   },
   Card: {
     variants: [],

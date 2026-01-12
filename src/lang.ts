@@ -6,7 +6,12 @@ const enTexts = {
     version: "v1.2.9",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
+    footerUrl: "https://github.com/MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
+    menuSections: {
+      apps: "Apps",
+      components: "Components",
+    },
     language: {
       label: "Language",
       options: [
@@ -20,6 +25,7 @@ const enTexts = {
     about: "About",
     accordion: "Accordion",
     button: "Button",
+    badge: "Badge",
     card: "Card",
     carousel: "Carousel",
     checkbox: "CheckBox",
@@ -249,6 +255,10 @@ const enTexts = {
     },
   },
   snippets: {
+    badge: {
+      subtitle: "Status labels",
+      label: "Badge",
+    },
     about: {
       description:
         "Cards are flexible containers used to group related content. Use the size control above to preview padding and typography changes.",
@@ -377,7 +387,12 @@ const ruTexts = {
     version: "v1.2.9",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
+    footerUrl: "https://github.com/MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
+    menuSections: {
+      apps: "Apps",
+      components: "Components",
+    },
     language: {
       label: "Язык",
       options: [
@@ -388,6 +403,7 @@ const ruTexts = {
     },
   },
   pageLabels: {
+    badge: "Badge",
     about: "О проекте",
     accordion: "Аккордеон",
     button: "Кнопка",
@@ -622,6 +638,10 @@ const ruTexts = {
     },
   },
   snippets: {
+    badge: {
+      subtitle: "Status labels",
+      label: "Badge",
+    },
     about: {
       description:
         "Карточки это гибкие контейнеры для группировки связанного контента. Используйте переключатель размера выше, чтобы посмотреть как меняются отступы и типографика.",
@@ -750,7 +770,12 @@ const esTexts = {
     version: "v1.2.9",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
+    footerUrl: "https://github.com/MaestroFusion360",
     authorUrl: "https://github.com/MaestroFusion360/svelte-comp",
+    menuSections: {
+      apps: "Apps",
+      components: "Components",
+    },
     language: {
       label: "Idioma",
       options: [
@@ -761,6 +786,7 @@ const esTexts = {
     },
   },
   pageLabels: {
+    badge: "Badge",
     about: "Acerca de",
     accordion: "Acordeón",
     button: "Botón",
@@ -995,6 +1021,10 @@ const esTexts = {
     },
   },
   snippets: {
+    badge: {
+      subtitle: "Status labels",
+      label: "Badge",
+    },
     about: {
       description:
         "Las tarjetas son contenedores flexibles para agrupar contenido relacionado. Usa el control de tamaño de arriba para previsualizar cambios en espaciado y tipografía.",

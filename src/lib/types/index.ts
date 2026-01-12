@@ -75,7 +75,7 @@ export type ComponentVariant = "default" | "neutral";
 // -------------------------------------------------------------------------
 //                                HAMBURGER
 // -------------------------------------------------------------------------
-export type Item = { id: string; label: string };
+export type Item = { id: string; label: string; type?: "section" };
 
 // -------------------------------------------------------------------------
 //                                   FORM

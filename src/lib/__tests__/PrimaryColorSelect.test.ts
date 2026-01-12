@@ -13,7 +13,7 @@ describe("PrimaryColorSelect", () => {
 
     expect(getByRole("combobox")).toBeTruthy();
     expect(document.documentElement.getAttribute("data-primary")).toBe(
-      "default"
+      "default",
     );
   });
 

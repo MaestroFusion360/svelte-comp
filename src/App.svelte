@@ -19,6 +19,7 @@
     ToastVariant,
     TableVariant,
     Column,
+    Item,
   } from "$lib/types";
 
   // Toast store
@@ -27,6 +28,7 @@
   // UI components
   import {
     Accordion,
+    Badge,
     Button,
     Card,
     Carousel,
@@ -74,14 +76,30 @@
   const L = $derived(TEXTS[lang.value]);
 
   // App navigation state
-  const menu = $derived(
-    pageIds
+  const menu = $derived.by((): Item[] => {
+    const items = pageIds
       .filter((id) => id in L.pageLabels)
       .map((id) => ({
         id,
         label: L.pageLabels[id as keyof typeof L.pageLabels],
-      }))
-  );
+      }));
+    const about = items.filter((it) => it.id === "about");
+    const apps = items.filter((it) => it.id === "notepad");
+    const components = items.filter(
+      (it) => it.id !== "about" && it.id !== "notepad"
+    );
+    return [
+      ...about,
+      { id: "section-apps", label: L.app.menuSections.apps, type: "section" },
+      ...apps,
+      {
+        id: "section-components",
+        label: L.app.menuSections.components,
+        type: "section",
+      },
+      ...components,
+    ];
+  });
   let active = $state<PageId>("about");
 
   let viewportWidth = $state(0);
@@ -182,7 +200,7 @@
 <!-- #region Snippets -->
 {#snippet burgerHeader()}
   <div class={cx("p-2 flex flex-col items-center text-center")}>
-    <div class={cx("font-bold text-[var(--color-text-muted)]", TEXT.lg)}>
+    <div class={cx("font-bold text-[var(--color-text-muted)]", TEXT.md)}>
       {L.app.title}
     </div>
     <div class={cx("text-[var(--color-text-muted)]", TEXT.xs)}>
@@ -200,9 +218,14 @@
       options={L.app.language.options}
       bind:value={lang.value}
     />
-    <span class={cx("italic text-[var(--color-text-muted)]", TEXT.xs)}
-      >{L.app.footer}</span
+    <a
+      class={cx("italic text-[var(--color-text-muted)]", TEXT.xs)}
+      href={L.app.footerUrl}
+      target="_blank"
+      rel="noreferrer"
     >
+      {L.app.footer}
+    </a>
   </div>
 {/snippet}
 
@@ -410,6 +433,25 @@
             </Tooltip>
           {/snippet}
         </PlayCard>
+      {:else if active === "badge"}
+        <PlayCard
+          component="Badge"
+          title={L.pageLabels.badge}
+          subtitle={L.snippets.badge.subtitle}
+        >
+          {#snippet children(
+            _sz: SizeKey,
+            variant: string,
+            label: string,
+            _disabled: boolean
+          )}
+            <Badge
+              message={label || L.snippets.badge.label}
+              variant={variant as ToastVariant}
+              showIcon={true}
+            />
+          {/snippet}
+        </PlayCard>
       {:else if active === "card"}
         <PlayCard
           component="Card"
@@ -593,8 +635,8 @@
           {/snippet}
         </PlayCard>
       {:else if active === "notepad"}
-        <div class="overflow-x-auto w-full min-w-full min-h-[400px]">
-          <Notepad {L} />
+        <div class="w-full h-[320px] md:h-[480px] overflow-x-auto">
+          <Notepad {L} class="h-full min-w-0" />
         </div>
       {:else if active === "progressBar"}
         <PlayCard

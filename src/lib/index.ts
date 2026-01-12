@@ -1,5 +1,6 @@
 // src/lib/index.ts
 export { default as Accordion } from "./Accordion.svelte";
+export { default as Badge } from "./Badge.svelte";
 export { default as Button } from "./Button.svelte";
 export { default as Card } from "./Card.svelte";
 export { default as Calendar } from "./Calendar.svelte";
@@ -7,12 +8,14 @@ export { default as Carousel } from "./Carousel.svelte";
 export { default as CheckBox } from "./CheckBox.svelte";
 export { default as CodeView } from "./CodeView.svelte";
 export { default as ColorPicker } from "./ColorPicker.svelte";
+export { default as ContextMenu } from "./ContextMenu.svelte";
 export { default as DatePicker } from "./DatePicker.svelte";
 export { default as Dialog } from "./Dialog.svelte";
 export { default as Field } from "./Field.svelte";
 export { default as FilePicker } from "./FilePicker.svelte";
 export { default as Form } from "./Form.svelte";
 export { default as Hamburger } from "./Hamburger.svelte";
+export { default as InstallPWA } from "./InstallPWA.svelte";
 export { default as Menu } from "./Menu.svelte";
 export { default as PaginatedCard } from "./PaginatedCard.svelte";
 export { default as Pagination } from "./Pagination.svelte";
@@ -31,4 +34,5 @@ export { default as ThemeToggle } from "./ThemeToggle.svelte";
 export { default as TimePicker } from "./TimePicker.svelte";
 export { default as Toast } from "./Toast.svelte";
 export { default as Tooltip } from "./Tooltip.svelte";
+export { default as Topbar } from "./Topbar.svelte";
 export * from "./types";

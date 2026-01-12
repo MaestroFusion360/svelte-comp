@@ -21,6 +21,7 @@
   import Dialog from "$lib/Dialog.svelte";
   import CheckBox from "$lib/CheckBox.svelte";
   import CodeView from "$lib/CodeView.svelte";
+  import ContextMenu from "$lib/ContextMenu.svelte";
   import { TEXT } from "$lib/types";
   import { cx } from "$utils";
   import type {
@@ -198,6 +199,15 @@
   let optionsOpen = $state(false);
   let cursorLine = $state(1);
   let cursorColumn = $state(1);
+  let editorEl = $state<HTMLDivElement | null>(null);
+  let lastSelectionStart = $state(0);
+  let lastSelectionEnd = $state(0);
+  let contextMenu:
+    | {
+        openAt: (event: MouseEvent) => void;
+        close: () => void;
+      }
+    | null = null;
 
   const charCount = $derived(textContent.length);
   const lineCount = $derived(
@@ -361,9 +371,28 @@
     return isTextInput(el) ? el : null;
   }
 
+  function getEditorTextarea() {
+    return editorEl?.querySelector("textarea") ?? null;
+  }
+
+  function getSelectionRange() {
+    const el = getEditable() ?? getEditorTextarea();
+    const start = el?.selectionStart ?? lastSelectionStart;
+    const end = el?.selectionEnd ?? lastSelectionEnd;
+    if (el) {
+      lastSelectionStart = start;
+      lastSelectionEnd = end;
+    }
+    return { el, start, end };
+  }
+
   function updateCursorPosition() {
-    const editable = getEditable();
-    const pos = editable?.selectionStart ?? textContent.length;
+    const editable = getEditorTextarea();
+    if (editable) {
+      lastSelectionStart = editable.selectionStart ?? lastSelectionStart;
+      lastSelectionEnd = editable.selectionEnd ?? lastSelectionEnd;
+    }
+    const pos = editable?.selectionStart ?? lastSelectionStart;
     const before = textContent.slice(0, pos);
     const segments = before.split("\n");
     cursorLine = Math.max(segments.length, 1);
@@ -372,9 +401,7 @@
 
   async function cut() {
     try {
-      const el = getEditable();
-      const start = el ? (el.selectionStart ?? 0) : 0;
-      const end = el ? (el.selectionEnd ?? 0) : 0;
+      const { start, end } = getSelectionRange();
       if (start === end) return;
       const slice = textContent.slice(start, end);
       await navigator.clipboard.writeText(slice);
@@ -386,7 +413,7 @@
       suppress = false;
       prevContent = textContent;
       queueMicrotask(() => {
-        const t = getEditable();
+        const t = getEditorTextarea();
         if (t) t.selectionStart = t.selectionEnd = start;
       });
     } catch {
@@ -396,9 +423,7 @@
 
   async function copy() {
     try {
-      const el = getEditable();
-      const start = el ? (el.selectionStart ?? 0) : 0;
-      const end = el ? (el.selectionEnd ?? 0) : 0;
+      const { start, end } = getSelectionRange();
       if (start === end) return;
       const slice = textContent.slice(start, end);
       await navigator.clipboard.writeText(slice);
@@ -410,9 +435,7 @@
   async function paste() {
     try {
       const pasteText = await navigator.clipboard.readText();
-      const el = getEditable();
-      const start = el?.selectionStart ?? textContent.length;
-      const end = el?.selectionEnd ?? textContent.length;
+      const { start, end } = getSelectionRange();
       const next =
         textContent.slice(0, start) + pasteText + textContent.slice(end);
       pushHistory(textContent);
@@ -423,12 +446,28 @@
       prevContent = textContent;
       const caret = start + pasteText.length;
       queueMicrotask(() => {
-        const t = getEditable();
+        const t = getEditorTextarea();
         if (t) t.selectionStart = t.selectionEnd = caret;
       });
     } catch {
       addToast("danger", L?.notepad?.pasteError ?? "Error");
     }
+  }
+
+  function deleteSelection() {
+    const { start, end } = getSelectionRange();
+    if (start === end) return;
+    const next = textContent.slice(0, start) + textContent.slice(end);
+    pushHistory(textContent);
+    clearRedo();
+    suppress = true;
+    textContent = next;
+    suppress = false;
+    prevContent = textContent;
+    queueMicrotask(() => {
+      const t = getEditorTextarea();
+      if (t) t.selectionStart = t.selectionEnd = start;
+    });
   }
 
   function undo() {
@@ -511,6 +550,9 @@
       case "paste":
         paste();
         break;
+      case "delete":
+        deleteSelection();
+        break;
       case "about":
         showAbout();
         break;
@@ -575,11 +617,21 @@
     document.addEventListener("selectionchange", handler);
     return () => document.removeEventListener("selectionchange", handler);
   });
+
+  function handleContextMenu(event: MouseEvent) {
+    event.preventDefault();
+    const t = getEditorTextarea();
+    if (t) {
+      lastSelectionStart = t.selectionStart ?? lastSelectionStart;
+      lastSelectionEnd = t.selectionEnd ?? lastSelectionEnd;
+    }
+    contextMenu?.openAt(event);
+  }
 </script>
 
 <svelte:window onkeydown={handleHotkeys} />
 
-<div class={cx("block w-full min-w-full", externalClass)}>
+<div class={cx("flex flex-col w-full min-w-0 h-full", externalClass)}>
   <div
     class="overflow-x-auto overflow-y-visible w-full min-w-full bg-[var(--color-bg-surface)] border-b border-[var(--border-color-default)]"
   >
@@ -591,16 +643,25 @@
     />
   </div>
 
-  <CodeView
-    title=""
-    language={lang}
-    bind:code={textContent}
-    showCopyButton={false}
-    showLineNumbers={true}
-    editable={true}
-    activeLine={true}
-    {sz}
-  />
+  <div
+    class="flex-1 min-h-0"
+    role="region"
+    aria-label="Editor"
+    bind:this={editorEl}
+    oncontextmenu={handleContextMenu}
+  >
+    <CodeView
+      title=""
+      language={lang}
+      bind:code={textContent}
+      showCopyButton={false}
+      showLineNumbers={true}
+      editable={true}
+      activeLine={true}
+      {sz}
+      class="h-full"
+    />
+  </div>
 
   {#if showStatusBar}
     <div
@@ -679,4 +740,14 @@
       </div>
     </Dialog>
   {/if}
+
+  <ContextMenu
+    bind:this={contextMenu}
+    onUndo={undo}
+    onRedo={redo}
+    onCopy={copy}
+    onCut={cut}
+    onPaste={paste}
+    onDelete={deleteSelection}
+  />
 </div>
