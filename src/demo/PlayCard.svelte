@@ -1,14 +1,19 @@
 <!-- src/demo/PlayCard.svelte -->
 <script lang="ts">
   /**
-   * Public component props for PlayCard (playground wrapper).
+   * @component PlayCard
+   * @description Playground wrapper for live component previews.
    *
-   * Notes:
-   * - `component` selects component metadata (sizes/variants).
-   * - `title`/`subtitle` label the playground card.
-   * - `label`/`disabled` seed control defaults.
-   * - `children` is a snippet receiving size, variant, label, disabled, type, and boolean value flags.
-   * - `class` merges external classes on the root card.
+   * @prop component {ComponentName} - Component key used to read metadata.
+   * @prop title {string} - Card title (default: "").
+   * @prop subtitle {string} - Card subtitle (default: "").
+   * @prop class {string} - Extra wrapper classes (default: "").
+   * @prop label {string} - Initial label value (default: "").
+   * @prop disabled {boolean} - Initial disabled state (default: false).
+   * @prop children {Snippet<[SizeKey, string, string, boolean, string, boolean]>} - Render callback.
+   *
+   * @note Generates size/variant/label controls from component metadata.
+   * @note Uses lang context for control labels.
    */
   import type { Snippet } from "svelte";
   import { getContext } from "svelte";

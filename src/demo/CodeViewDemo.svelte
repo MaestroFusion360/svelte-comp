@@ -1,5 +1,14 @@
 <!-- src/demo/CodeViewDemo.svelte -->
 <script lang="ts">
+  /**
+   * @component CodeViewDemo
+   * @description Demo for CodeView with language switching and editable mode.
+   *
+   * @prop sz {SizeKey} - Size token forwarded to CodeView.
+   * @prop class {string} - Extra wrapper classes.
+   *
+   * @note Uses Select to switch language and Switch to toggle editing.
+   */
   import { CodeView, Select, Switch } from "$lib";
   import { cx } from "$utils";
   import type { SizeKey, Language, SelectOption } from "$lib/types";

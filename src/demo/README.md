@@ -8,7 +8,11 @@ This document provides a set of reusable Svelte 5 demo components with props, no
   - [App.svelte](#appsvelte)
     - [Notes (App)](#notes-app)
     - [Usage (App)](#usage-app)
+  - [AboutDemo.svelte](#aboutdemosvelte)
+    - [Notes (AboutDemo)](#notes-aboutdemo)
+    - [Usage (AboutDemo)](#usage-aboutdemo)
   - [CodeViewDemo.svelte](#codeviewdemosvelte)
+    - [Props (CodeViewDemo)](#props-codeviewdemo)
     - [Notes (CodeViewDemo)](#notes-codeviewdemo)
     - [Usage (CodeViewDemo)](#usage-codeviewdemo)
   - [Component.svelte](#componentsvelte)
@@ -19,10 +23,16 @@ This document provides a set of reusable Svelte 5 demo components with props, no
     - [Props (Container)](#props-container)
     - [Notes (Container)](#notes-container)
     - [Usage (Container)](#usage-container)
+  - [DialogDemo.svelte](#dialogdemosvelte)
+    - [Props (DialogDemo)](#props-dialogdemo)
+    - [Notes (DialogDemo)](#notes-dialogdemo)
+    - [Usage (DialogDemo)](#usage-dialogdemo)
   - [FormDemo.svelte](#formdemosvelte)
+    - [Props (FormDemo)](#props-formdemo)
     - [Notes (FormDemo)](#notes-formdemo)
     - [Usage (FormDemo)](#usage-formdemo)
   - [MenuDemo.svelte](#menudemosvelte)
+    - [Props (MenuDemo)](#props-menudemo)
     - [Notes (MenuDemo)](#notes-menudemo)
     - [Usage (MenuDemo)](#usage-menudemo)
   - [Notepad.svelte](#notepadsvelte)
@@ -33,6 +43,9 @@ This document provides a set of reusable Svelte 5 demo components with props, no
     - [Props (PlayCard)](#props-playcard)
     - [Notes (PlayCard)](#notes-playcard)
     - [Usage (PlayCard)](#usage-playcard)
+  - [SplitterDemo.svelte](#splitterdemosvelte)
+    - [Notes (SplitterDemo)](#notes-splitterdemo)
+    - [Usage (SplitterDemo)](#usage-splitterdemo)
 
 ---
 
@@ -74,9 +87,31 @@ export default app;
 
 ---
 
+## AboutDemo.svelte
+
+About panel used in the demo app, showing library details and metadata.
+
+### Notes (AboutDemo)
+
+- Reads localized copy from the lang context and renders it inside Card.
+- No public props; content comes from context.
+
+### Usage (AboutDemo)
+
+```svelte
+<AboutDemo />
+```
+
+---
+
 ## CodeViewDemo.svelte
 
 A small showcase for the CodeView component that demonstrates live syntax highlighting, language switching and optional editing.
+
+### Props (CodeViewDemo)
+
+- `sz?: SizeKey` - Size token forwarded to CodeView.
+- `class?: string` - Extra wrapper classes.
 
 ### Notes (CodeViewDemo)
 
@@ -190,9 +225,35 @@ Implements a responsive CSS Grid and theme-aware background/text colors.
 
 ---
 
+## DialogDemo.svelte
+
+Demo for Dialog with confirm/cancel flows and toast feedback.
+
+### Props (DialogDemo)
+
+- `sz?: SizeKey` - Size token forwarded to Dialog (default: `"sm"`).
+- `class?: string` - Extra classes passed to Dialog (default: `""`).
+- `message?: string` - Optional message shown in Dialog (default: `""`).
+
+### Notes (DialogDemo)
+
+- Uses lang context and toastStore to show confirm/cancel toasts.
+
+### Usage (DialogDemo)
+
+```svelte
+<DialogDemo sz="sm" message="Are you sure?" />
+```
+
+---
+
 ## FormDemo.svelte
 
 A complete demonstration of the Form component with validation, localization and a fully wired submit flow.
+
+### Props (FormDemo)
+
+- `onSubmit?: (data: FormValues) => void` - Called with form values on submit.
 
 ### Notes (FormDemo)
 
@@ -213,6 +274,11 @@ A complete demonstration of the Form component with validation, localization and
 ## MenuDemo.svelte
 
 A simple showcase of the Menu component with a couple of menu groups and basic action handling.
+
+### Props (MenuDemo)
+
+- `sz?: SizeKey` - Size token forwarded to Menu (default: `"sm"`).
+- `class?: string` - Extra wrapper classes (default: `""`).
 
 ### Notes (MenuDemo)
 
@@ -246,10 +312,10 @@ A compact text-editor component that renders a classic notepad-style UI with a m
 
 ### Props (Notepad)
 
-- `L?: Record<string, any>` localization source
-- `lang?: Language` active syntax mode
-- `sz?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'` UI size token
-- `class?: string` optional external class
+- `L?: NotepadLocale` localization source (default: `{}`)
+- `lang?: Language` active syntax mode (default: `"txt"`)
+- `sz?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'` UI size token (default: `"sm"`)
+- `class?: string` optional external class (default: `""`)
 
 ### Usage (Notepad)
 
@@ -285,10 +351,10 @@ An interactive playground wrapper for showcasing and testing UI components with 
   The component key from `componentMeta` that determines available sizes and variants.
 
 - **`title?`**: `string`
-  The title shown at the top of the card. Default: `"Play Component"`.
+  The title shown at the top of the card. Default: `""` (falls back to localized label).
 
 - **`subtitle?`**: `string`
-  The subtitle displayed under the title. Default: `"Interactive examples"`.
+  The subtitle displayed under the title. Default: `""` (falls back to localized label).
 
 - **`class?`**: `string`
   Additional CSS classes for the card wrapper.
@@ -299,7 +365,7 @@ An interactive playground wrapper for showcasing and testing UI components with 
 - **`disabled?`**: `boolean`
   The initial disabled state.
 
-- **`children?`**: `Snippet<[SizeKey, string, string, boolean, string]>`
+- **`children?`**: `Snippet<[SizeKey, string, string, boolean, string, boolean]>`
   A snippet invoked with the current control values to render the live preview.
 
 ### Notes (PlayCard)
@@ -340,6 +406,22 @@ An interactive playground wrapper for showcasing and testing UI components with 
   </PlayCard>
 </div>
 
+```
+
+---
+
+## SplitterDemo.svelte
+
+Demo showcasing horizontal and vertical Splitter layouts.
+
+### Notes (SplitterDemo)
+
+- No public props; uses internal snippets for panels.
+
+### Usage (SplitterDemo)
+
+```svelte
+<SplitterDemo />
 ```
 
 ---

@@ -1,5 +1,15 @@
 <!-- src/DialogDemo.svelte -->
 <script lang="ts">
+  /**
+   * @component DialogDemo
+   * @description Demo for Dialog with confirm/cancel flows.
+   *
+   * @prop sz {SizeKey} - Size token forwarded to Dialog (default: "sm").
+   * @prop class {string} - Extra classes passed to Dialog (default: "").
+   * @prop message {string} - Optional message shown in Dialog (default: "").
+   *
+   * @note Uses lang context and toastStore to show confirm/cancel toasts.
+   */
   import type { SizeKey } from "$lib/types";
   import { cx } from "$utils";
   import { Button, Dialog } from "$lib";

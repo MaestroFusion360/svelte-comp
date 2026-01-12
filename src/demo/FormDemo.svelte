@@ -1,5 +1,14 @@
 <!-- src/demo/FormDemo.svelte -->
 <script lang="ts">
+  /**
+   * @component FormDemo
+   * @description Demo form with validation, localization, and submit flow.
+   *
+   * @prop onSubmit {(data: FormValues) => void} - Called with form values on submit.
+   *
+   * @note Builds a schema with localized labels and validators.
+   * @note Exposes Form API to reset and autofill.
+   */
   import { getContext } from "svelte";
   import { Button, Card, Form, Tooltip } from "$lib";
   import type { FieldSchema, FormApi } from "$lib/types";

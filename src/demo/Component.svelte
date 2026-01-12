@@ -1,13 +1,16 @@
 <!-- src/demo/components/UI/Component.svelte -->
 <script lang="ts">
   /**
-   * Public component props for the generic UI Component wrapper.
+   * @component Component
+   * @description Generic demo wrapper that mirrors library sizing and variants.
    *
-   * Notes:
-   * - Applies shared button-like styles; `variant` and `sz` tune theme/sizing.
-   * - `disabled` toggles interaction styles.
-   * - `children` renders arbitrary content inside.
-   * - `class`/`...rest` spread to the root div for composition.
+   * @prop class {string} - Extra wrapper classes (default: "").
+   * @prop children {Snippet} - Content rendered inside.
+   * @prop disabled {boolean} - Apply disabled styles (default: false).
+   * @prop variant {ComponentVariant} - Visual style preset (default: "default").
+   * @prop sz {SizeKey} - Size preset (default: "md").
+   *
+   * @note Spreads remaining div attributes to the root element.
    */
   import type { Snippet } from "svelte";
   import type { HTMLAttributes } from "svelte/elements";

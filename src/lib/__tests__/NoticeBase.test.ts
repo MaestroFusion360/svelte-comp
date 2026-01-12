@@ -26,7 +26,9 @@ describe("NoticeBase", () => {
       props: { message: "Icon off", showIcon: false },
     });
 
-    expect(noIconContainer.querySelector('span[aria-hidden="true"]')).toBeNull();
+    expect(
+      noIconContainer.querySelector('span[aria-hidden="true"]'),
+    ).toBeNull();
   });
 
   it("applies inline and size styles", () => {

@@ -1,12 +1,17 @@
 <!-- src/demo/Container.svelte -->
 <script lang="ts">
   /**
-   * Public component props for Container.
+   * @component Container
+   * @description Layout shell with header, footer, sidebars, and main content.
    *
-   * Notes:
-   * - Provides page background and layout shell.
-   * - `header`/`footer`/`left`/`right`/`children` are layout slots.
-   * - `class` merges external utility classes on the root wrapper.
+   * @prop header {Snippet} - Header content.
+   * @prop footer {Snippet} - Footer content.
+   * @prop left {Snippet} - Left sidebar content.
+   * @prop right {Snippet} - Right sidebar content.
+   * @prop children {Snippet} - Main content.
+   * @prop class {string} - Extra wrapper classes (default: "").
+   *
+   * @note Sidebars render only at the lg breakpoint and above.
    */
   import type { Snippet } from "svelte";
   import { cx } from "$utils";

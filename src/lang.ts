@@ -3,7 +3,7 @@ import type { SelectOption } from "$lib/types";
 
 const enTexts = {
   app: {
-    version: "v1.3.2",
+    version: "v1.3.3",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     footerUrl: "https://github.com/MaestroFusion360",
@@ -384,7 +384,7 @@ const enTexts = {
 
 const ruTexts = {
   app: {
-    version: "v1.3.2",
+    version: "v1.3.3",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     footerUrl: "https://github.com/MaestroFusion360",
@@ -767,7 +767,7 @@ const ruTexts = {
 
 const esTexts = {
   app: {
-    version: "v1.3.2",
+    version: "v1.3.3",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     footerUrl: "https://github.com/MaestroFusion360",

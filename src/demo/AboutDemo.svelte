@@ -1,5 +1,12 @@
 <!-- src/demo/AboutDemo.svelte -->
 <script lang="ts">
+  /**
+   * @component AboutDemo
+   * @description About panel used in the demo app.
+   *
+   * @note Reads localized copy from lang context and renders it inside Card.
+   * @note No public props; content comes from context.
+   */
   import { getContext } from "svelte";
   import { Card } from "$lib";
   import { TEXTS } from "../lang";

@@ -1,21 +1,16 @@
 <!-- src/demo/Notepad.svelte -->
 <script lang="ts">
   /**
-   * Notepad component.
+   * @component Notepad
+   * @description Feature-rich notepad demo with menus, editor, and dialogs.
    *
-   * A small self-contained notepad app featuring:
-   * - editable CodeView with syntax highlighting,
-   * - language switching,
-   * - undo/redo with history tracking,
-   * - file operations: New, Open, Save (with File Picker API + fallback),
-   * - clipboard actions: Cut, Copy, Paste,
-   * - global hotkeys (Ctrl+N, Ctrl+O, Ctrl+S, Ctrl+Z, Ctrl+Y, F1, etc),
-   * - About and Options dialogs,
-   * - configurable status bar (cursor position, lines, words, chars),
-   * - adjustable UI size (sz),
-   * - optional localization through L.
+   * @prop L {NotepadLocale} - Optional localization source (default: {}).
+   * @prop lang {Language} - Active syntax mode (default: "txt").
+   * @prop sz {SizeKey} - UI size token (default: "sm").
+   * @prop class {string} - Extra wrapper classes (default: "").
    *
-   * Designed as a feature-rich demo of the component library.
+   * @note Supports undo/redo, file open/save, clipboard actions, and hotkeys.
+   * @note Uses Menu, CodeView, Dialog, Toast, and ContextMenu components.
    */
   import { Menu, Toast } from "$lib";
   import Dialog from "$lib/Dialog.svelte";

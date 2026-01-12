@@ -1,5 +1,14 @@
 <!-- src/demo/MenuDemo.svelte -->
 <script lang="ts">
+  /**
+   * @component MenuDemo
+   * @description Demo for Menu with nested actions and size switching.
+   *
+   * @prop sz {SizeKey} - Size token forwarded to Menu (default: "sm").
+   * @prop class {string} - Extra wrapper classes (default: "").
+   *
+   * @note Updates size when selecting view menu items.
+   */
   import { getContext } from "svelte";
   import { Menu } from "$lib";
   import { cx } from "$utils";

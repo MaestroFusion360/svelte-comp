@@ -1,5 +1,11 @@
 <!-- src/demo/SplitterDemo.svelte -->
 <script lang="ts">
+  /**
+   * @component SplitterDemo
+   * @description Demo showcasing horizontal and vertical Splitter layouts.
+   *
+   * @note No public props; uses internal snippets for panels.
+   */
   import Splitter from "$lib/Splitter.svelte";
 </script>
 
