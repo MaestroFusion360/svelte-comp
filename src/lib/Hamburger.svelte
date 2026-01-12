@@ -170,25 +170,31 @@
         </div>
       {/if}
 
-      <div class="flex-1 overflow-y-auto" tabindex="-1">
+      <div class="flex-1 overflow-y-auto pt-10" tabindex="-1">
         {#if menuItems.length === 0}
           <div class="text-xs opacity-70 px-3 py-2 text-center">No items</div>
         {:else}
           <ul class="grid gap-2 p-4">
             {#each menuItems as it (it.id)}
-              <li>
-                <button
-                  type="button"
-                  class="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--color-bg-hover)] focus:outline-[var(--border-color-focus)] focus:outline-2 transition-colors"
-                  aria-current={activeItem === it.id ? "page" : undefined}
-                  onclick={() => {
-                    onSelect?.(it.id);
-                    if (closeOnSelect) closeMenu();
-                  }}
-                >
+              {#if it.type === "section"}
+                <li class="px-3 pt-2 mt-3 text-[var(--color-text-muted)] text-[var(--text-xs)] lowercase tracking-wide opacity-70">
                   {it.label}
-                </button>
-              </li>
+                </li>
+              {:else}
+                <li>
+                  <button
+                    type="button"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--color-bg-hover)] focus:outline-[var(--border-color-focus)] focus:outline-2 transition-colors"
+                    aria-current={activeItem === it.id ? "page" : undefined}
+                    onclick={() => {
+                      onSelect?.(it.id);
+                      if (closeOnSelect) closeMenu();
+                    }}
+                  >
+                    {it.label}
+                  </button>
+                </li>
+              {/if}
             {/each}
           </ul>
         {/if}

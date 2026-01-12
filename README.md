@@ -1,4 +1,4 @@
-# svelte-comp
+﻿# svelte-comp
 
 Lightweight UI component library for **Svelte 5 (Runes API)** styled with **TailwindCSS**.
 Zero slots, simple props, themeable with CSS variables.
@@ -13,7 +13,7 @@ npm i svelte-comp
 
 ---
 
-## 🔧 Setup TailwindCSS
+## 🧰 Setup TailwindCSS
 
 ```bash
 npm i tailwindcss @tailwindcss/vite
@@ -29,7 +29,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    svelte() // Must be after tailwindcss()
+    svelte(), // Must be after tailwindcss()
   ],
 });
 ```
@@ -43,7 +43,7 @@ Add to `src/app.css`:
 
 ---
 
-## 🔧 Setup Prism
+## 🧰 Setup Prism
 
 ```bash
 npm i prismjs @types/prismjs
@@ -53,13 +53,14 @@ npm i prismjs @types/prismjs
 
 ## 📁 Components included
 
-Accordion • Button • Calendar • Card • Carousel • CheckBox • CodeView • ColorPicker •
-DatePicker • Dialog • Field • FilePicker • Form • Hamburger • Menu • PaginatedCard •
-Pagination • PrimaryColorSelect • ProgressBar • ProgressCircle • Radio • SearchInput •
-Select • Slider • Splitter • Switch • Tabs • Table • ThemeToggle • TimePicker •
-Toast • Tooltip
+Accordion, Badge, Button, Calendar, Card, Carousel, CheckBox, CodeView,
+ColorPicker, ContextMenu, DatePicker, Dialog, Field, FilePicker, Form,
+Hamburger, InstallPWA, Menu, NoticeBase, PaginatedCard, Pagination,
+PrimaryColorSelect, ProgressBar, ProgressCircle, Radio, SearchInput, Select,
+Slider, Splitter, Switch, Table, Tabs, ThemeToggle, TimePicker, Toast,
+Tooltip, Topbar.
 
-Full component list in repository
+Full component list in repository.
 
 ---
 
@@ -87,7 +88,7 @@ Accordion usage:
 
 ---
 
-## 📄 License
+## 📜 License
 
 MIT License
 

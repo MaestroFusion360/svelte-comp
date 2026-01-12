@@ -1,16 +1,32 @@
 <script lang="ts">
   import Accordion from "./lib/Accordion.svelte";
+  import Badge from "./lib/Badge.svelte";
   import Button from "./lib/Button.svelte";
+  import Calendar from "./lib/Calendar.svelte";
   import Card from "./lib/Card.svelte";
   import Carousel from "./lib/Carousel.svelte";
+  import CheckBox from "./lib/CheckBox.svelte";
+  import CodeView from "./lib/CodeView.svelte";
   import ColorPicker from "./lib/ColorPicker.svelte";
+  import ContextMenu from "./lib/ContextMenu.svelte";
   import DatePicker from "./lib/DatePicker.svelte";
+  import Dialog from "./lib/Dialog.svelte";
   import Field from "./lib/Field.svelte";
+  import FilePicker from "./lib/FilePicker.svelte";
+  import Form from "./lib/Form.svelte";
+  import InstallPWA from "./lib/InstallPWA.svelte";
+  import Menu from "./lib/Menu.svelte";
+  import NoticeBase from "./lib/NoticeBase.svelte";
+  import PaginatedCard from "./lib/PaginatedCard.svelte";
+  import Pagination from "./lib/Pagination.svelte";
   import PrimaryColorSelect from "./lib/PrimaryColorSelect.svelte";
   import ProgressBar from "./lib/ProgressBar.svelte";
   import ProgressCircle from "./lib/ProgressCircle.svelte";
+  import Radio from "./lib/Radio.svelte";
+  import SearchInput from "./lib/SearchInput.svelte";
   import Select from "./lib/Select.svelte";
   import Slider from "./lib/Slider.svelte";
+  import Splitter from "./lib/Splitter.svelte";
   import Switch from "./lib/Switch.svelte";
   import Table from "./lib/Table.svelte";
   import Tabs from "./lib/Tabs.svelte";
@@ -18,7 +34,8 @@
   import TimePicker from "./lib/TimePicker.svelte";
   import Toast from "./lib/Toast.svelte";
   import Tooltip from "./lib/Tooltip.svelte";
-  import type { ToastVariant } from "./lib/types";
+  import Topbar from "./lib/Topbar.svelte";
+  import type { FieldSchema, MenuAction, MenuItem, SizeKey, ToastVariant } from "./lib/types";
   import Container from "./Container.svelte";
 
   const tabs = [
@@ -122,6 +139,75 @@
     { name: "Oleg", role: "QA", focus: "Automation" },
   ];
 
+  const navItems = [
+    { id: "overview", label: "Overview" },
+    { id: "inputs", label: "Inputs" },
+    { id: "layout", label: "Layout" },
+    { id: "data", label: "Data" },
+  ];
+  let activeNav = $state(navItems[0].id);
+
+  let searchQuery = $state("");
+  let calendarValue = $state<string | null>(null);
+  let fileList = $state<FileList | null>(null);
+  let dialogOpen = $state(false);
+  let radioGroup = $state("daily");
+  let newsletterChecked = $state(false);
+  let mixedChecked = $state(false);
+  let mixedState = $state(true);
+  let menuSelection = $state("Pick an action from the menu bar");
+  let menuSize = $state<SizeKey>("sm");
+  let standalonePage = $state(1);
+  const standaloneTotal = 5;
+  let codeEditable = $state(false);
+  let codeSample = $state(
+    "const tokens = ['spacing', 'radius', 'colors'];\n\nexport function tokensReady() {\n  return tokens.length > 0;\n}\n"
+  );
+  let contextMenuStatus = $state("Right-click the panel to open the menu");
+  let contextMenuRef = $state<{
+    openAt: (event: MouseEvent) => void;
+    close: () => void;
+  } | null>(null);
+
+  const menuData: MenuItem[] = [
+    {
+      name: "File",
+      actions: [
+        { id: "new", label: "New", shortcut: "Ctrl+N" },
+        { id: "open", label: "Open", shortcut: "Ctrl+O" },
+        { type: "separator" },
+        { id: "export", label: "Export", shortcut: "Ctrl+E" },
+      ],
+    },
+    {
+      name: "View",
+      actions: [
+        { id: "xs", label: "XS" },
+        { id: "sm", label: "SM" },
+        { id: "md", label: "MD" },
+        { id: "lg", label: "LG" },
+        { id: "xl", label: "XL" },
+      ],
+    },
+  ];
+
+  const miniFormSchema: FieldSchema[] = [
+    { name: "project", type: "text", label: "Project", required: true },
+    { name: "owner", type: "email", label: "Owner email", required: true },
+    {
+      name: "priority",
+      type: "select",
+      label: "Priority",
+      options: [
+        { label: "Low", value: "low" },
+        { label: "Medium", value: "medium" },
+        { label: "High", value: "high" },
+      ],
+    },
+    { name: "subscribe", type: "checkbox", label: "Send updates" },
+  ];
+  let formResult = $state("Not submitted yet");
+
   type ToastItem = { id: number; title?: string; message: string; variant: ToastVariant };
   let toasts = $state<ToastItem[]>([]);
   let toastId = 0;
@@ -150,10 +236,38 @@
   function removeToast(id: number) {
     toasts = toasts.filter((t) => t.id !== id);
   }
+
+  function handleMenuSelect(menu: string, action: MenuAction) {
+    const label =
+      typeof action === "string"
+        ? action
+        : action.label || action.id || "Action";
+    const id = typeof action === "string" ? action : action.id;
+    if (id && ["xs", "sm", "md", "lg", "xl"].includes(id)) {
+      menuSize = id as SizeKey;
+    }
+    menuSelection = `${menu}: ${label}`;
+  }
+
+  function handleMiniSubmit(values: Record<string, unknown>) {
+    formResult = JSON.stringify(values, null, 2);
+  }
+
+  function handleContextAction(label: string, variant: ToastVariant) {
+    contextMenuStatus = `Last action: ${label}`;
+    pushToast(variant);
+  }
 </script>
 
+<Topbar
+  title="svelte-comp"
+  showHamburger={true}
+  menuItems={navItems}
+  onMenuSelect={(id) => (activeNav = id)}
+/>
+
 <Container>
-  <div class="relative mx-auto max-w-6xl space-y-8 px-6 py-10">
+  <div class="relative mx-auto max-w-6xl space-y-8 px-6 pb-10 pt-24">
     <section
       class="relative rounded-[28px] border border-[var(--border-color-default)] bg-gradient-to-br from-[var(--color-bg-surface)] via-white/70 to-[var(--color-bg-muted)] shadow-[0_20px_60px_-25px_var(--shadow-color)] dark:from-[var(--color-bg-surface)] dark:via-slate-900/70 dark:to-slate-900/50"
     >
@@ -537,6 +651,387 @@
         </Card>
       </div>
     </div>
+
+    {#snippet statusHeader()}
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+            Status
+          </p>
+          <h2 class="text-lg font-semibold leading-tight">Search and signals</h2>
+        </div>
+      </div>
+    {/snippet}
+
+    {#snippet optionsHeader()}
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+            Options
+          </p>
+          <h2 class="text-lg font-semibold leading-tight">Toggles and calendar</h2>
+        </div>
+      </div>
+    {/snippet}
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <Card header={statusHeader}>
+        <div class="space-y-4">
+          <SearchInput
+            label="Search components"
+            placeholder="Filter by name"
+            bind:value={searchQuery}
+          />
+
+          <div class="flex flex-wrap gap-2">
+            <Badge message="Live" variant="success" showIcon />
+            <Badge message="Needs review" variant="warning" showIcon />
+            <Badge message="Queued" variant="info" />
+          </div>
+
+          {#snippet noticeEnd()}
+            <Button variant="ghost" sz="xs">Undo</Button>
+          {/snippet}
+
+          <NoticeBase
+            title="Release note"
+            message="New components landed in the demo."
+            variant="info"
+            size="md"
+            end={noticeEnd}
+          />
+        </div>
+      </Card>
+
+      <Card header={optionsHeader}>
+        <div class="space-y-4">
+          <div class="space-y-2">
+            <Radio
+              label="Daily updates"
+              value="daily"
+              bind:group={radioGroup}
+            />
+            <Radio
+              label="Weekly updates"
+              value="weekly"
+              bind:group={radioGroup}
+            />
+            <Radio
+              label="Monthly updates"
+              value="monthly"
+              bind:group={radioGroup}
+            />
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <CheckBox
+              label="Send digest emails"
+              bind:checked={newsletterChecked}
+            />
+            <CheckBox
+              label="Mixed state"
+              indeterminate={mixedState}
+              checked={mixedChecked}
+              onChange={(v) => {
+                mixedChecked = v;
+                mixedState = false;
+              }}
+            />
+          </div>
+
+          <div class="grid gap-3 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+            <div class="min-w-0">
+              <Calendar
+                value={calendarValue}
+                onChange={(v) => (calendarValue = v)}
+                showOutsideDays={true}
+                class="w-full"
+              />
+            </div>
+            <div class="rounded-xl border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] p-4">
+              <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+                Selected date
+              </p>
+              <p class="text-lg font-semibold">
+                {calendarValue ?? "No date yet"}
+              </p>
+              <p class="text-sm text-[var(--color-text-muted)] mt-2">
+                Plan: {radioGroup}
+              </p>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+
+    {#snippet filesHeader()}
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+            Files
+          </p>
+          <h2 class="text-lg font-semibold leading-tight">Uploads and dialogs</h2>
+        </div>
+        <InstallPWA inline={true} alwaysShow={true} />
+      </div>
+    {/snippet}
+
+    {#snippet formGeneratorHeader()}
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+            Form
+          </p>
+          <h2 class="text-lg font-semibold leading-tight">Schema-driven form</h2>
+        </div>
+      </div>
+    {/snippet}
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <Card header={filesHeader}>
+        <div class="space-y-4">
+          <FilePicker
+            value={fileList}
+            onFilesSelected={(files) => (fileList = files)}
+            accept="image/*,.pdf"
+          />
+
+          <div class="flex items-center justify-between rounded-xl border border-[var(--border-color-default)] px-4 py-3">
+            <div>
+              <p class="text-sm font-medium">Confirm release</p>
+              <p class="text-xs text-[var(--color-text-muted)]">
+                Last file: {fileList?.[0]?.name ?? "none"}
+              </p>
+            </div>
+            <Button variant="primary" onClick={() => (dialogOpen = true)} sz="sm">
+              Open dialog
+            </Button>
+          </div>
+        </div>
+      </Card>
+
+      <Card header={formGeneratorHeader}>
+        <div class="space-y-4">
+          <Form
+            schema={miniFormSchema}
+            onSubmit={handleMiniSubmit}
+            validateOn="submit"
+          />
+          <div class="rounded-xl border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] p-3">
+            <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+              Last submit
+            </p>
+            <pre class="text-xs whitespace-pre-wrap text-[var(--color-text-default)]">
+{formResult}
+            </pre>
+          </div>
+        </div>
+      </Card>
+    </div>
+
+    {#snippet menuHeader()}
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+            Menu
+          </p>
+          <h2 class="text-lg font-semibold leading-tight">Navigation controls</h2>
+        </div>
+      </div>
+    {/snippet}
+
+    {#snippet layoutHeader()}
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+            Layout
+          </p>
+          <h2 class="text-lg font-semibold leading-tight">Splitter + context menu</h2>
+        </div>
+      </div>
+    {/snippet}
+
+    {#snippet firstPane()}
+      <div class="h-full grid place-items-center text-sm font-medium">
+        First panel
+      </div>
+    {/snippet}
+
+    {#snippet secondPane()}
+      <div class="h-full grid place-items-center text-sm font-medium">
+        Second panel
+      </div>
+    {/snippet}
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <Card header={menuHeader}>
+        <div class="space-y-4">
+          <Menu menus={menuData} sz={menuSize} onSelect={handleMenuSelect} />
+
+          <div class="text-sm text-[var(--color-text-muted)]">
+            {menuSelection}
+          </div>
+
+          <div class="rounded-xl border border-[var(--border-color-default)] p-4">
+            <Pagination
+              currentPage={standalonePage}
+              totalPages={standaloneTotal}
+              onPageChange={(p) => (standalonePage = p)}
+            />
+          </div>
+
+          {#snippet pageOne()}
+            <div class="p-4 rounded-xl border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]">
+              <p class="text-sm font-medium">Release notes</p>
+              <p class="text-xs text-[var(--color-text-muted)]">
+                Snapshot of changes across components.
+              </p>
+            </div>
+          {/snippet}
+          {#snippet pageTwo()}
+            <div class="p-4 rounded-xl border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]">
+              <p class="text-sm font-medium">Design tasks</p>
+              <p class="text-xs text-[var(--color-text-muted)]">
+                Review tokens and spacing.
+              </p>
+            </div>
+          {/snippet}
+          {#snippet pageThree()}
+            <div class="p-4 rounded-xl border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]">
+              <p class="text-sm font-medium">QA checklist</p>
+              <p class="text-xs text-[var(--color-text-muted)]">
+                Validate keyboard and focus behavior.
+              </p>
+            </div>
+          {/snippet}
+
+          <PaginatedCard
+            items={[pageOne, pageTwo, pageThree]}
+            itemsPerPage={1}
+          />
+        </div>
+      </Card>
+
+      <Card header={layoutHeader}>
+        <div class="space-y-4">
+          <div class="h-56 rounded-xl border border-[var(--border-color-default)] overflow-hidden">
+            <Splitter
+              direction="horizontal"
+              initialSize={45}
+              dividerSize={6}
+              minSize={20}
+              maxSize={80}
+              first={firstPane}
+              second={secondPane}
+            />
+          </div>
+
+          <div
+            class="rounded-xl border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] p-4 text-sm text-[var(--color-text-muted)]"
+            oncontextmenu={(e) => contextMenuRef?.openAt(e)}
+            role="button"
+            tabindex="0"
+          >
+            {contextMenuStatus}
+          </div>
+
+          <ContextMenu
+            bind:this={contextMenuRef}
+            onUndo={() => handleContextAction("Undo", "info")}
+            onRedo={() => handleContextAction("Redo", "info")}
+            onCopy={() => handleContextAction("Copy", "success")}
+            onCut={() => handleContextAction("Cut", "warning")}
+            onPaste={() => handleContextAction("Paste", "success")}
+            onDelete={() => handleContextAction("Delete", "danger")}
+          />
+        </div>
+      </Card>
+    </div>
+
+    {#snippet codeHeader()}
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+            Code
+          </p>
+          <h2 class="text-lg font-semibold leading-tight">CodeView editor</h2>
+        </div>
+        <Switch
+          checked={codeEditable}
+          onChange={(v) => (codeEditable = v)}
+          rightLabel={codeEditable ? "Editable" : "Read only"}
+          sz="sm"
+        />
+      </div>
+    {/snippet}
+
+    {#snippet quickHeader()}
+      <div class="flex items-center justify-between gap-2">
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+            Actions
+          </p>
+          <h2 class="text-lg font-semibold leading-tight">Quick actions</h2>
+        </div>
+      </div>
+    {/snippet}
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <Card header={codeHeader} class="min-h-[360px]">
+        <CodeView
+          bind:code={codeSample}
+          language="js"
+          title="tokens.js"
+          showCopyButton={true}
+          showLineNumbers={true}
+          editable={codeEditable}
+          activeLine={true}
+          class="h-[320px]"
+        />
+      </Card>
+
+      <Card header={quickHeader}>
+        <div class="space-y-4">
+          <div class="flex flex-wrap gap-2">
+            <Button variant="secondary" onClick={() => pushToast("info")}>
+              Notify
+            </Button>
+            <Button variant="success" onClick={() => pushToast("success")}>
+              Success
+            </Button>
+            <Button variant="danger" onClick={() => pushToast("danger")}>
+              Error
+            </Button>
+          </div>
+
+          <div class="rounded-xl border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] p-4">
+            <p class="text-xs uppercase tracking-[0.15em] text-[var(--color-text-muted)]">
+              Active nav
+            </p>
+            <p class="text-lg font-semibold">{activeNav}</p>
+            <p class="text-sm text-[var(--color-text-muted)]">
+              Search: {searchQuery || "empty"}
+            </p>
+          </div>
+        </div>
+      </Card>
+    </div>
+
+    <Dialog
+      open={dialogOpen}
+      title="Confirm release"
+      message="Ready to ship the selected files?"
+      onConfirm={() => {
+        dialogOpen = false;
+        pushToast("success");
+      }}
+      onCancel={() => {
+        dialogOpen = false;
+      }}
+      onClose={() => {
+        dialogOpen = false;
+      }}
+    />
   </div>
 
   {#each toasts as toast (toast.id)}

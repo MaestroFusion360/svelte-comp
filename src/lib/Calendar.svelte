@@ -86,20 +86,26 @@
     );
   }
 
-  let viewDate = $state(startOfDay(parseIso(value) ?? new Date()));
+  let internalValue = $state<string | null>(value ?? null);
+  let lastValue = $state<string | null>(value ?? null);
+  let viewDate = $state(startOfDay(new Date()));
   let viewMode = $state<ViewMode>("days");
 
-  const selectedDate = $derived(parseIso(value));
+  const selectedDate = $derived(parseIso(internalValue));
   const minDate = $derived(parseIso(min));
   const maxDate = $derived(parseIso(max));
   const today = $derived(startOfDay(new Date()));
 
-  let lastValue = $state<string | null>(value ?? null);
+  $effect(() => {
+    const next = value ?? null;
+    if (next !== lastValue) {
+      lastValue = next;
+      internalValue = next;
+    }
+  });
 
   $effect(() => {
-    if (value === lastValue) return;
-    lastValue = value;
-    const selected = parseIso(value);
+    const selected = parseIso(internalValue);
     if (!selected) return;
     viewDate = new Date(selected.getFullYear(), selected.getMonth(), 1);
   });
@@ -113,11 +119,9 @@
   const weekdayLabels = $derived.by(() => {
     const formatter = new Intl.DateTimeFormat(locale, { weekday: "short" });
     const labels: string[] = [];
-    const base = new Date(2023, 0, 1);
     for (let i = 0; i < 7; i += 1) {
       const offset = (weekStartsOn + i) % 7;
-      const date = new Date(base);
-      date.setDate(base.getDate() + offset);
+      const date = new Date(2023, 0, 1 + offset);
       labels.push(formatter.format(date));
     }
     return labels;
@@ -164,11 +168,9 @@
     const month = viewDate.getMonth();
     const first = new Date(year, month, 1);
     const startOffset = (first.getDay() - weekStartsOn + 7) % 7;
-    const start = new Date(year, month, 1 - startOffset);
     const cells: DayCell[] = [];
     for (let i = 0; i < 42; i += 1) {
-      const date = new Date(start);
-      date.setDate(start.getDate() + i);
+      const date = new Date(year, month, 1 - startOffset + i);
       const day = startOfDay(date);
       const inMonth = day.getMonth() === month;
       const isToday = isSameDay(day, today);
@@ -189,7 +191,7 @@
     return cells;
   });
 
-  function shift(delta: number) {
+  function handleShift(delta: number) {
     if (disabled) return;
     if (viewMode === "days") {
       viewDate = new Date(
@@ -208,8 +210,16 @@
     }
   }
 
+  function handleWheel(event: WheelEvent) {
+    if (disabled || viewMode !== "days") return;
+    if (event.deltaY === 0) return;
+    event.preventDefault();
+    handleShift(event.deltaY > 0 ? 1 : -1);
+  }
+
   function selectDay(cell: DayCell) {
     if (cell.isDisabled) return;
+    internalValue = cell.iso;
     value = cell.iso;
     onChange?.(cell.iso);
   }
@@ -229,21 +239,27 @@
   const wrapperClass = $derived(cx("w-full", externalClass));
 
   const headerButtonBase =
-    "px-1 py-0.5 rounded-[var(--radius-sm)] transition-colors text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed text-[var(--text-xs)]";
+    "px-1 py-0.5 rounded-[var(--radius-sm)] text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed text-[var(--text-xs)] transition-none";
 
   const arrowButtonBase =
-    "inline-flex items-center justify-center h-3 w-3 rounded-[var(--radius-sm)] text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center rounded-[var(--radius-sm)] text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed h-[var(--cal-cell)] w-[var(--cal-cell)] transition-none";
 
   const dayButtonBase =
-    "rounded-full flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] text-[var(--text-xs)]";
+    "rounded-full flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] text-[var(--text-xs)] text-[var(--color-text-default)] transition-none";
 </script>
 
-<div class={wrapperClass} style="width: 240px; max-width: 100%;" {...rest}>
-  <div class="flex items-center justify-between mb-[var(--spacing-sm)]">
+  <div
+  class={cx(
+    wrapperClass,
+    "w-full h-full text-[var(--color-text-default)] [--cal-cell:clamp(16px,4vw,20px)] [--cal-gap:clamp(1px,0.6vw,3px)] [--cal-gap-lg:clamp(2px,0.9vw,6px)]"
+  )}
+  {...rest}
+>
+  <div class="flex items-center justify-between mb-[var(--cal-gap-lg)]">
     <div class="flex items-center gap-1">
       <button
         type="button"
-          class={cx(headerButtonBase, TEXT.sm)}
+        class={cx(headerButtonBase, TEXT.sm)}
         onclick={() => (viewMode = viewMode === "months" ? "days" : "months")}
         disabled={disabled}
       >
@@ -251,7 +267,7 @@
       </button>
       <button
         type="button"
-          class={cx(headerButtonBase, TEXT.sm)}
+        class={cx(headerButtonBase, TEXT.sm)}
         onclick={() => (viewMode = viewMode === "years" ? "days" : "years")}
         disabled={disabled}
       >
@@ -264,7 +280,7 @@
         type="button"
         class={arrowButtonBase}
         aria-label="Previous"
-        onclick={() => shift(-1)}
+        onclick={() => handleShift(-1)}
         disabled={disabled}
       >
         ▲
@@ -273,7 +289,7 @@
         type="button"
         class={arrowButtonBase}
         aria-label="Next"
-        onclick={() => shift(1)}
+        onclick={() => handleShift(1)}
         disabled={disabled}
       >
         ▼
@@ -282,37 +298,34 @@
   </div>
 
   {#if viewMode === "days"}
-    <div
-      class={cx("text-center", TEXT.xs)}
-      style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--spacing-xs);"
-    >
+    <div class={cx("grid grid-cols-7 gap-[var(--cal-gap)] text-center", TEXT.xs)}>
       {#each weekdayLabels as label, i (i)}
-        <div class="py-[var(--spacing-xs)] [color:var(--color-text-muted)]">
+        <div class="py-[var(--cal-gap)] [color:var(--color-text-muted)]">
           {label}
         </div>
       {/each}
     </div>
 
     <div
-      style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--spacing-xs); margin-top: var(--spacing-xs);"
+      class="grid grid-cols-7 gap-[var(--cal-gap)] mt-[var(--cal-gap)]"
+      onwheel={handleWheel}
     >
       {#each days as cell (cell.iso)}
         <button
           type="button"
           class={cx(
             dayButtonBase,
-            cell.isSelected &&
-              "bg-[var(--color-bg-primary)] text-white hover:brightness-110",
-            !cell.isSelected && "text-[var(--color-text-default)]",
+            "text-[var(--color-text-default)]",
             cell.isToday &&
-              !cell.isSelected &&
+              "bg-[var(--color-bg-primary)] text-[var(--color-text-default)] hover:brightness-110",
+            cell.isSelected &&
               "border border-[var(--border-color-primary)]",
-            !cell.inMonth && "text-[var(--color-text-muted)]",
+            !cell.inMonth && "opacity-60",
             cell.isDisabled &&
               "opacity-[var(--opacity-disabled)] cursor-not-allowed",
-            !cell.isDisabled && "hover:bg-[var(--color-bg-hover)]"
+            !cell.isDisabled && "hover:bg-[var(--color-bg-hover)]",
+            "w-[var(--cal-cell)] h-[var(--cal-cell)] justify-self-center"
           )}
-          style="width: 22px; height: 22px; justify-self: center;"
           aria-pressed={cell.isSelected}
           aria-current={cell.isToday ? "date" : undefined}
           aria-label={dayLabelFormatter.format(cell.date)}
@@ -326,22 +339,19 @@
       {/each}
     </div>
   {:else if viewMode === "months"}
-    <div
-      style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-sm);"
-    >
+    <div class="grid grid-cols-4 gap-[var(--cal-gap-lg)]">
       {#each monthOptions as month (month.index)}
         <button
           type="button"
           class={cx(
-            "rounded-[var(--radius-md)] text-center transition-colors",
+            "rounded-[var(--radius-md)] text-center text-[var(--color-text-default)] w-[var(--cal-cell)] h-[var(--cal-cell)]",
             TEXT.xs,
             month.index === viewDate.getMonth() &&
-              "bg-[var(--color-bg-primary)] text-white",
+              "bg-[var(--color-bg-primary)]",
             month.index !== viewDate.getMonth() &&
-              "text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)]",
+              "hover:bg-[var(--color-bg-hover)]",
             disabled && "opacity-[var(--opacity-disabled)] cursor-not-allowed"
           )}
-          style="height: 22px; width: 22px;"
           onclick={() => selectMonth(month.index)}
           disabled={disabled}
         >
@@ -350,22 +360,19 @@
       {/each}
     </div>
   {:else}
-    <div
-      style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--spacing-sm);"
-    >
+    <div class="grid grid-cols-4 gap-[var(--cal-gap-lg)]">
       {#each yearOptions as year (year)}
         <button
           type="button"
           class={cx(
-            "rounded-[var(--radius-md)] text-center transition-colors",
+            "rounded-[var(--radius-md)] text-center text-[var(--color-text-default)] w-[var(--cal-cell)] h-[var(--cal-cell)] transition-none",
             TEXT.xs,
             year === viewDate.getFullYear() &&
-              "bg-[var(--color-bg-primary)] text-white",
+              "bg-[var(--color-bg-primary)]",
             year !== viewDate.getFullYear() &&
-              "text-[var(--color-text-default)] hover:bg-[var(--color-bg-hover)]",
+              "hover:bg-[var(--color-bg-hover)]",
             disabled && "opacity-[var(--opacity-disabled)] cursor-not-allowed"
           )}
-          style="height: 22px; width: 22px;"
           onclick={() => selectYear(year)}
           disabled={disabled}
         >

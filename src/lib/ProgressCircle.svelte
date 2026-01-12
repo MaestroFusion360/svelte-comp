@@ -7,20 +7,18 @@
    * @default 0
    * @prop indeterminate {boolean} - Enables spinning infinite mode
    * @default false
-   * @prop size {number} - Diameter in px
-   * @default 48
-   * @prop stroke {number} - Stroke width in px
-   * @default 4
+   * @prop sz {SizeKey} - Size preset (xs|sm|md|lg|xl)
+   * @default md
    * @prop variant {ComponentVariant} - Color/style variant
-   * @options default|neutral|success|warning|error
+   * @options default|neutral
    * @default default
-   * @prop label {string} - Optional text shown in center
+   * @prop label {string} - Optional text shown above the circle
    * @default ""
-   * @prop max {number} - Max progress value for normalization
-   * @default 100
+   * @prop disabled {boolean} - Apply disabled styles
+   * @default false
    * @prop class {string} - Extra wrapper classes
    * @default ""
-   * @note Clamps value between 0-max
+   * @note Clamps value between 0-100
    * @note Uses SVG stroke-dashoffset animation
    * @note Accessible role=progressbar with aria-valuenow
    * @note Works in both determinate/indeterminate modes

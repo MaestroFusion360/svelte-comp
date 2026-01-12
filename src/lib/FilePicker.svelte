@@ -25,8 +25,6 @@
    *
    * @prop onFilesSelected {(files: FileList | null) => void} - Fired when files are chosen
    *
-   * @prop onError {(error: string) => void} - Fired on validation errors
-   *
    * @prop class {string} - Additional classes for the wrapper
    * @default ""
    *

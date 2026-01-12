@@ -1,6 +1,6 @@
 {
   "name": "svelte-comp",
-  "version": "1.2.7",
+  "version": "1.3.3",
   "license": "MIT",
   "description": "A comprehensive component library built on Svelte 5 (runes) with design tokens (tailwind), accessibility focus, and TypeScript support",
   "devDependencies": {

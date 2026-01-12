@@ -16,6 +16,26 @@ const enTexts = {
       clear: "Clear",
       selectedDate: "Selected date",
     },
+    contextMenu: {
+      contextMenu: {
+        undo: "Undo",
+        redo: "Redo",
+        copy: "Copy",
+        cut: "Cut",
+        paste: "Paste",
+        delete: "Delete",
+      },
+      hotkeys: {
+        undo: "Ctrl+Z",
+        redo: "Ctrl+Y",
+        copy: "Ctrl+C",
+        cut: "Ctrl+X",
+        paste: "Ctrl+V",
+        delete: "Del",
+      },
+      insertSnippet: "Insert snippet",
+      snippets: {},
+    },
     dialog: {
       ok: "OK",
       cancel: "Cancel",
@@ -95,6 +115,27 @@ const ruTexts = {
       switchTo12h: "12ч",
       switchTo24h: "24ч",
     },
+
+    contextMenu: {
+      contextMenu: {
+        undo: "Undo",
+        redo: "Redo",
+        copy: "Copy",
+        cut: "Cut",
+        paste: "Paste",
+        delete: "Delete",
+      },
+      hotkeys: {
+        undo: "Ctrl+Z",
+        redo: "Ctrl+Y",
+        copy: "Ctrl+C",
+        cut: "Ctrl+X",
+        paste: "Ctrl+V",
+        delete: "Del",
+      },
+      insertSnippet: "Insert snippet",
+      snippets: {},
+    },
   },
 } as const;
 
@@ -143,6 +184,27 @@ const esTexts = {
       selectedTime: "Hora seleccionada",
       switchTo12h: "12h",
       switchTo24h: "24h",
+    },
+
+    contextMenu: {
+      contextMenu: {
+        undo: "Undo",
+        redo: "Redo",
+        copy: "Copy",
+        cut: "Cut",
+        paste: "Paste",
+        delete: "Delete",
+      },
+      hotkeys: {
+        undo: "Ctrl+Z",
+        redo: "Ctrl+Y",
+        copy: "Ctrl+C",
+        cut: "Ctrl+X",
+        paste: "Ctrl+V",
+        delete: "Del",
+      },
+      insertSnippet: "Insert snippet",
+      snippets: {},
     },
   },
 } as const;
