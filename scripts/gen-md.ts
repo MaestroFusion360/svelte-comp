@@ -1,6 +1,6 @@
 // scripts/gen-md.ts
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 type Prop = {
   id: string;
@@ -18,8 +18,8 @@ const isDir = fs.statSync(input).isDirectory();
 const files = isDir
   ? fs
       .readdirSync(input)
-      .filter((f) => f.endsWith(".svelte"))
-      .map((f) => path.join(input, f))
+      .filter((f: string) => f.endsWith(".svelte"))
+      .map((f: string) => path.join(input, f))
   : [input];
 
 function extract(file: string): string {
@@ -30,7 +30,9 @@ function extract(file: string): string {
   if (start < 0 || end < 0) throw new Error(`JSDoc not found in ${file}`);
 
   const jsdoc = code.slice(start + 3, end).trim();
-  const lines = jsdoc.split("\n").map((l) => l.trim().replace(/^\* ?/, ""));
+  const lines = jsdoc
+    .split("\n")
+    .map((line: string) => line.trim().replace(/^\* ?/, ""));
 
   let component = "";
   let description = "";

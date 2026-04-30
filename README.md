@@ -449,7 +449,6 @@ Collapsible content container with flexible sizing and optional multi-open behav
 - `onToggle?: (index: number, open: boolean) => void` - Callback fired when a section is toggled
 - `sz?: SizeKey` - Size variant (xs|sm|md|lg|xl) (default: `md`)
 - `class?: string` - Additional classes for the outer container (default: `""`)
-
 #### Notes (Accordion)
 
 - Smooth expand/collapse via CSS grid transitions
@@ -486,11 +485,10 @@ Compact status badge for inline labels and small indicators.
 
 #### Props (Badge)
 
-- `message: string` - Badge text
+- `message?: string` - Badge text
 - `variant?: ToastVariant` - Visual style (success|danger|warning|info) (default: `info`)
 - `showIcon?: boolean` - Shows a variant icon (default: `false`)
 - `class?: string` - Additional wrapper classes (default: `""`)
-
 #### Notes (Badge)
 
 - Intended for inline status labels.
@@ -523,7 +521,6 @@ Versatile button supporting multiple variants, sizes, loading state, and link be
 - `loaded?: boolean` - Shows loading spinner and blocks clicks (default: `false`)
 - `link?: string` - Navigates to a URL when clicked
 - `class?: string` - Additional classes for the button (default: `""`)
-
 #### Notes (Button)
 
 - `disabled` and `loaded` both prevent click events.
@@ -561,15 +558,14 @@ Monthly calendar grid with navigation and date selection.
 #### Props (Calendar)
 
 - `value?: string | null` - Selected date in ISO `YYYY-MM-DD` (bindable) (default: `null`)
-- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`) (default: `"1926-01-01"`)
+- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`)
 - `max?: string` - Maximum selectable date (ISO `YYYY-MM-DD`)
-- `locale?: string` - Locale for month/day labels (default: `"en-US"`)
+- `locale?: string` - Locale used for month/day labels (default: `"en-US"`)
 - `weekStartsOn?: 0|1|2|3|4|5|6` - First day of week (0=Sun ... 6=Sat) (default: `1`)
 - `showOutsideDays?: boolean` - Render days from adjacent months (default: `true`)
 - `disabled?: boolean` - Disables selection and navigation (default: `false`)
-- `onChange?: (value: string | null) => void` - Fired when a date is selected
+- `onChange?: (value: string | null) => void` - Fired on date selection
 - `class?: string` - Additional classes for the root wrapper (default: `""`)
-
 #### Notes (Calendar)
 
 - Selection value is always ISO `YYYY-MM-DD`.
@@ -605,7 +601,6 @@ Flexible layout component with optional `header` and `footer` sections. Supports
 - `sz?: SizeKey` - Padding and typography preset (xs|sm|md|lg|xl) (default: `md`)
 - `flushHeader?: boolean` - Removes padding and border from the header (default: `false`)
 - `flushFooter?: boolean` - Removes padding and border from the footer (default: `false`)
-
 #### Notes (Card)
 
 - Theme-aware: uses CSS variables (`--color-bg-surface`, `--border-color-default`).
@@ -650,7 +645,6 @@ A responsive carousel component to display a sequence of items with optional aut
 - `showDots?: boolean` - Shows navigation dots (default: `true`)
 - `showArrows?: boolean` - Shows navigation arrows (default: `true`)
 - `class?: string` - Additional classes for the carousel container (default: `""`)
-
 #### Notes (Carousel)
 
 - Supports touch gestures (swipe left/right).
@@ -692,7 +686,6 @@ Accessible custom checkbox with `indeterminate` support.
 - `class?: string` - Extra classes applied to the root container (default: `""`)
 - `invalid?: boolean` - Marks the field invalid and sets `aria-invalid` (default: `false`)
 - `describedBy?: string` - ID of helper or error text for accessibility
-
 #### Notes (CheckBox)
 
 - Fully bindable via `bind:checked`; `onChange` receives the final boolean.
@@ -740,7 +733,6 @@ CodeView is a small prism.js powered code block that supports syntax highlightin
 - `activeLine?: boolean` - Highlights the current cursor line in editable mode (default: `false`)
 - `sz?: SizeKey` - Size preset affecting spacing and typography (xs|sm|md|lg|xl) (default: `md`)
 - `class?: string` - Extra classes applied to the root container (default: `""`)
-
 #### Notes (CodeView)
 
 - Uses Prism for syntax highlighting; HTML/CSS/TXT grammars are bundled by default.
@@ -788,7 +780,6 @@ Accessible wrapper around the native `<input type="color">` with a trigger butto
 - `clearable?: boolean` - Shows a clear/reset button (default: `true`)
 - `onChange?: (value: string | null) => void` - Fired when the color changes
 - `class?: string` - Additional classes for the wrapper element (default: `""`)
-
 #### Notes (ColorPicker)
 
 - Uses the new `HTMLInputElement.showPicker()` API when available; falls back to focusing/clicking the hidden input.
@@ -827,7 +818,6 @@ Right-click context menu for editor actions.
 - `onCut?: () => void` - Fired when Cut is selected
 - `onPaste?: () => void` - Fired when Paste is selected
 - `onDelete?: () => void` - Fired when Delete is selected
-
 #### Notes (ContextMenu)
 
 - Call `openAt(event)` from the parent to show the menu at the pointer.
@@ -865,7 +855,7 @@ Button-driven date selector that formats the chosen value and supports min/max l
 #### Props (DatePicker)
 
 - `value?: string | null` - Selected date value (ISO `YYYY-MM-DD`) (default: `null`)
-- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`) (default: `"1926-01-01"`)
+- `min?: string` - Minimum selectable date (ISO `YYYY-MM-DD`)
 - `max?: string` - Maximum selectable date (ISO `YYYY-MM-DD`)
 - `label?: string` - Label text displayed above the picker
 - `placeholder?: string` - Placeholder shown when no date is selected
@@ -875,7 +865,6 @@ Button-driven date selector that formats the chosen value and supports min/max l
 - `clearable?: boolean` - Shows a clear button to reset the value (default: `true`)
 - `onChange?: (value: string | null) => void` - Fired when the date changes
 - `class?: string` - Additional classes for the wrapper element (default: `""`)
-
 #### Notes (DatePicker)
 
 - Uses `Calendar.svelte` in a popover panel for a consistent in-app UI.
@@ -919,7 +908,6 @@ Modal dialog for confirmations or alerts.
 - `class?: string` - Extra classes applied to the dialog container (default: `""`)
 - `sz?: SizeKey` - Size preset for padding and text (xs|sm|md|lg|xl) (default: `md`)
 - `children?: Snippet` - Custom dialog body content
-
 #### Notes (Dialog)
 
 - In modal mode the first interactive element is focused automatically and focus is trapped inside the dialog; `Escape` triggers cancel.
@@ -977,7 +965,6 @@ Unified input/textarea field with label, leading/trailing content, clear button,
 - `type?: string` - Input type when `as="input"`
 - `invalid?: boolean` - Marks the field invalid and sets `aria-invalid` (default: `false`)
 - `describedBy?: string` - ID of helper or error text for accessibility
-
 #### Notes (Field)
 
 - `bind:value` is supported; `onChange` receives cast value (`number` when `parseNumber` succeeds, otherwise `string` or `""`).
@@ -1036,11 +1023,12 @@ Lightweight file selector with click support and drag-and-drop. Internally uses 
 - `label?: string` - Button label; falls back to localized text
 - `disabled?: boolean` - Disables all interactions (default: `false`)
 - `clearable?: boolean` - Shows a clear button to reset selection (default: `true`)
+- `maxBytes?: number` - Maximum allowed file size in bytes
+- `onError?: (error: string) => void` - Fired when selected files are rejected
 - `placeholder?: string` - Placeholder text for the drop zone
 - `value?: FileList | null` - Controlled selected files (bindable) (default: `null`)
 - `onFilesSelected?: (files: FileList | null) => void` - Fired when files are chosen
 - `class?: string` - Additional classes for the wrapper (default: `""`)
-
 #### Notes (FilePicker)
 
 - The entire area is clickable and supports drag-and-drop.
@@ -1093,7 +1081,6 @@ Declarative, schema-driven form generator. Renders `Field`, `Select`, and `Check
 - `labelWeight?: LabelWeight` - Font weight for labels (normal|medium|semibold|bold) (default: `"medium"`)
 - `labelSize?: SizeKey` - Size preset for labels (xs|sm|md|lg|xl) (default: `"md"`)
 - `compact?: boolean` - Enables denser sizing across controls (default: `false`)
-
 #### Notes (Form)
 
 - Initial value for each field: `value[name]` → `schema.default` → `''` (or `false` for checkboxes).
@@ -1155,7 +1142,6 @@ Off-canvas navigation drawer controlled by a floating hamburger button.
 - `pressed?: boolean` - Controlled open state
 - `class?: string` - Extra classes applied to the trigger button (default: `""`)
 - `width?: number | string` - Drawer width (px or CSS value) (default: `300`)
-
 #### Notes (Hamburger)
 
 - Clicking outside the panel or pressing `Escape` closes the drawer.
@@ -1196,10 +1182,9 @@ Install button that triggers the browser PWA prompt.
 
 #### Props (InstallPWA)
 
-- `alwaysShow?: boolean` - Forces the button to be visible (default: `false`)
-- `inline?: boolean` - Render inline instead of fixed (default: `false`)
+- `alwaysShow?: boolean` - Forces the install button to be visible (default: `false`)
+- `inline?: boolean` - Renders the button inline instead of fixed (default: `false`)
 - `class?: string` - Additional button classes (default: `""`)
-
 #### Notes (InstallPWA)
 
 - Relies on the `beforeinstallprompt` event and HTTPS context.
@@ -1227,7 +1212,6 @@ A dropdown menu bar component with hover and click interactions.
 - `onSelect?: (menu: string, action: MenuAction) => void` - Fired when an action is chosen (default: `() => {}`)
 - `class?: string` - Extra classes applied to the menu bar (default: `""`)
 - `sz?: SizeKey` - Size preset for spacing and text (xs|sm|md|lg|xl) (default: `sm`)
-
 #### Notes (Menu)
 
 - Fully keyboard-safe for focus and mouse interactions.
@@ -1280,14 +1264,13 @@ Shared base used by Toast and Badge for consistent visuals.
 #### Props (NoticeBase)
 
 - `title?: string` - Optional title displayed above the message
-- `message: string` - Notice text content
+- `message?: string` - Notice text content
 - `variant?: ToastVariant` - Visual style (success|danger|warning|info) (default: `info`)
 - `showIcon?: boolean` - Shows an icon matching the variant (default: `true`)
 - `inline?: boolean` - Inline layout without overlay styling (default: `false`)
-- `size?: "sm" | "md"` - Size preset (default: `"sm"`)
+- `size?: "sm" | "md"` - Size preset for spacing and typography (default: `"sm"`)
 - `end?: Snippet` - Trailing content (e.g. close button)
 - `class?: string` - Additional wrapper classes (default: `""`)
-
 #### Notes (NoticeBase)
 
 - Intended as a low-level building block for notices.
@@ -1316,7 +1299,6 @@ A card component with built-in pagination. Renders items page by page inside a `
 - `header?: Snippet` - Optional `Card` header content
 - `footer?: Snippet` - Custom footer content shown above pagination
 - `class?: string` - Extra classes passed to the underlying `Card` (default: `""`)
-
 #### Notes (PaginatedCard)
 
 - Maintains internal `currentPage` state (starts at `1`).
@@ -1353,7 +1335,6 @@ Compact pagination component for table or list navigation.
 - `totalPages?: number` - Total number of pages available
 - `onPageChange?: (page: number) => void` - Fired when a page button is clicked
 - `class?: string` - Custom classes applied to the pagination wrapper (default: `""`)
-
 #### Notes (Pagination)
 
 - Displays “Page X of Y” and numbered page buttons.
@@ -1394,7 +1375,6 @@ Theme primary-color selector built on top of Select. Provides a fixed palette,
 - `sz?: SizeKey` - Sizing preset passed directly to Select (xs|sm|md|lg|xl) (default: `sm`)
 - `label?: string` - Custom label text. Falls back to localized copy when omitted.
 - `class?: string` - Extra classes forwarded to the underlying Select component (default: `""`)
-
 #### Notes (PrimaryColorSelect)
 
 - The palette is predefined internally (`{ value, label, swatch }`).
@@ -1427,7 +1407,6 @@ A simple and accessible progress bar component that visually represents task com
 - `class?: string` - Additional CSS classes for the wrapper element (default: `""`)
 - `label?: string` - Optional text label displayed above the bar (default: `""`)
 - `disabled?: boolean` - Applies a muted inactive visual style (default: `false`)
-
 #### Notes (ProgressBar)
 
 - Indeterminate animation for unknown progress.
@@ -1465,7 +1444,6 @@ Circular progress indicator for visualizing completion or load state (0-100). Su
 - `label?: string` - Optional text shown above the circle (default: `""`)
 - `disabled?: boolean` - Apply disabled styles (default: `false`)
 - `class?: string` - Extra wrapper classes (default: `""`)
-
 #### Notes (ProgressCircle)
 
 - Clamps value between 0-100
@@ -1504,7 +1482,6 @@ Single choice input with optional label, custom sizing and theme variants.
 - `class?: string` - Extra classes applied to the root container (default: `""`)
 - `describedBy?: string` - ID of helper or error text for accessibility
 - `value?: string` - Radio value (default: `"on"`)
-
 #### Notes (Radio)
 
 - Fully supports native radio grouping through `bind:group`
@@ -1539,12 +1516,11 @@ Search input field with a leading search icon.
 #### Props (SearchInput)
 
 - `label?: string` - Label text rendered above the field
-- `placeholder?: string` - Placeholder text (default: `"Search"`)
+- `placeholder?: string` - Placeholder text (localized by default)
 - `value?: string` - Controlled field value (bindable) (default: `""`)
 - `sz?: SizeKey` - Size preset for spacing and typography (xs|sm|md|lg|xl) (default: `sm`)
 - `variant?: FieldVariant` - Visual style variant (default|filled|neutral) (default: `filled`)
 - `class?: string` - Additional classes applied to the Field root (default: `""`)
-
 #### Notes (SearchInput)
 
 - Renders a leading search icon and uses `Field` with `type="search"` and `clearable`.
@@ -1588,7 +1564,6 @@ Accessible custom combobox with label, portal listbox, hidden form input, and co
 - `describedBy?: string` - Links to helper or error text ids
 - `open?: boolean` - Controlled dropdown visibility (bindable) (default: `false`)
 - `maxHeight?: number` - Max dropdown height before scrolling
-
 #### Notes (Select)
 
 - Fully keyboard navigable (`Arrow`, `Home/End`, `Enter/Space`, looped `Tab`) with roving tabindex buttons inside a listbox.
@@ -1643,7 +1618,6 @@ A customizable slider component for selecting a value from a range.
 - `showValue?: boolean` - Show the current value (default: `false`)
 - `onInput?: (value: number) => void` - Fires on value change
 - `class?: string` - Custom wrapper classes (default: `""`)
-
 #### Notes (Slider)
 
 - Works with both keyboard and mouse.
@@ -1676,7 +1650,6 @@ Resizable split panel container with horizontal or vertical orientation.
 - `maxSize?: number` - Maximum size of the first panel as percentage (default: `90`)
 - `first?: Snippet` - Content for the first panel
 - `second?: Snippet` - Content for the second panel
-
 #### Notes (Splitter)
 
 - Uses pointer events for smooth dragging with proper event delegation
@@ -1760,7 +1733,6 @@ A compact toggle switch component built on top of a native `<input type="checkbo
 - `topLabel?: string` - Optional label placed above the switch
 - `onChange?: (v: boolean) => void` - Fired on toggle with the new value
 - `class?: string` - External wrapper classes (default: `""`)
-
 #### Notes (Switch)
 
 - Built over a real checkbox so browser accessibility comes for free: keyboard (Space/Enter), focus ring, and screen reader semantics.
@@ -1803,7 +1775,6 @@ Sortable table with optional zebra striping, sticky header, and external paginat
 - `stickyHeader?: boolean` - Makes the header row sticky (default: `false`)
 - `sz?: SizeKey` - Size preset for spacing and text (xs|sm|md|lg|xl) (default: `md`)
 - `sz?: SizeKey` - Size preset for spacing and text (xs|sm|md|lg|xl) (default: `md`)
-
 #### Notes (Table)
 
 - Click a column header to toggle ascending or descending.
@@ -1856,7 +1827,6 @@ A tab navigation component for switching between sections of content.
 - `onChange?: (tabId: string) => void` - Callback when the active tab changes
 - `class?: string` - Custom class for the container (default: `""`)
 - `children?: Snippet` - Content panel rendered below the tabs
-
 #### Notes (Tabs)
 
 - Supports multiple visual styles (`default`, `pills`, `underline`).
@@ -1911,7 +1881,6 @@ Lightweight theme switcher to toggle between light and dark mode. Applies or rem
 - `class?: string` - Optional external class name (overrides default position) (default: `""`)
 - `sz?: SizeKey` - Adjusts button size and icon scale (xs|sm|md|lg|xl) (default: `md`)
 - `type?: string` - Button type attribute (default: `"button"`)
-
 #### Notes (ThemeToggle)
 
 - Uses `$effect` to sync the `dark` class on `<html>`.
@@ -1954,7 +1923,6 @@ Simple time selector that stores values in ISO `HH:MM` format. Supports a fixed 
 - `initialSystem?: "iso" | "english"` - Picker mode (24h vs 12h) (default: `"iso"`)
 - `onChange?: (value: string | null) => void` - Fired when value changes
 - `class?: string` - Wrapper classes (default: `""`)
-
 #### Notes (TimePicker)
 
 - ISO mode uses 24-hour time; English mode uses 12-hour time with AM/PM
@@ -1989,15 +1957,14 @@ Improved time picker implementation in `src/lib/TimePickerNew.svelte`. It keeps 
 #### Props (TimePickerNew)
 
 - `value?: string | null` - Stored time in ISO `HH:MM` (bindable) (default: `null`)
-- `step?: number` - Step in seconds for the minute grid (default: `60`)
-- `label?: string` - Label text; falls back to localized `timePicker.text`
-- `placeholder?: string` - Placeholder when value is null; falls back to localized `timePicker.placeholder`
+- `step?: number` - Step in seconds (default: `60`)
+- `label?: string` - Label text
+- `placeholder?: string` - Placeholder when value is null
 - `disabled?: boolean` - Disable all interactions (default: `false`)
-- `clearable?: boolean` - Show the clear action (default: `true`)
-- `initialSystem?: "iso" | "english"` - Initial display mode: 24h or 12h with AM/PM (default: `"iso"`)
-- `onChange?: (value: string | null) => void` - Fired with ISO `HH:MM` or `null`
+- `clearable?: boolean` - Show clear action (default: `true`)
+- `initialSystem?: "iso" | "english"` - Picker mode (24h vs 12h) (default: `"iso"`)
+- `onChange?: (value: string | null) => void` - Fired when value changes
 - `class?: string` - Wrapper classes (default: `""`)
-
 #### Notes (TimePickerNew)
 
 - The public stored value is always ISO `HH:MM`, including when the UI is in 12-hour mode.
@@ -2042,7 +2009,6 @@ Lightweight notification component for transient messages.
 - `timeout?: number` - Auto-hide timeout in milliseconds (default: `3000`)
 - `onClose?: () => void` - Fired when the toast closes (default: `() => {}`)
 - `class?: string` - Additional wrapper classes (default: `""`)
-
 #### Notes (Toast)
 
 - Automatically hides after `timeout`.
@@ -2087,7 +2053,6 @@ Context-aware hint for inline controls and labels.
 - `delay?: number` - Delay before showing the tooltip (ms) (default: `300`)
 - `open?: boolean` - Forces visibility when true (default: `false`)
 - `class?: string` - Wrapper classes (default: `""`)
-
 #### Notes (Tooltip)
 
 - Wraps any inline element and shows a floating bubble with `text`.
@@ -2129,15 +2094,14 @@ Responsive top navigation bar with optional hamburger menu and PWA install butto
 
 #### Props (Topbar)
 
-- `title?: string` - Title text in the center (default: `"App"`)
-- `menuItems?: Array<{ id: string; label: string }>` - Hamburger menu items (default: `[]`)
-- `onMenuSelect?: (id: string) => void` - Fired on menu selection
-- `hamburgerHeader?: Snippet` - Optional hamburger header content
-- `hamburgerFooter?: Snippet` - Optional hamburger footer content
-- `showHamburger?: boolean` - Show hamburger trigger (default: `false`)
-- `children?: Snippet` - Custom center content
-- `right?: Snippet` - Custom right content
-
+- `title?: string` - The title displayed in the center of the topbar (default: `[]`)
+- `title?: string` - The title displayed in the center of the topbar (default: `[]`)
+- `onMenuSelect?: (id: string) => void` - Callback when a menu item is selected (default: `() => {}`)
+- `hamburgerHeader?: import("svelte").Snippet` - Custom header content for the hamburger menu (default: `undefined`)
+- `hamburgerFooter?: import("svelte").Snippet` - Custom footer content for the hamburger menu (default: `undefined`)
+- `showHamburger?: boolean` - Whether to show the hamburger menu (default: `false`)
+- `children?: import("svelte").Snippet` - Custom content to display in the center of the topbar (default: `undefined`)
+- `right?: import("svelte").Snippet` - Custom content to display on the right side of the topbar (default: `undefined`)
 #### Notes (Topbar)
 
 - Fixed to the top of the viewport with a consistent height.

@@ -119,23 +119,23 @@
 
   const variants = $derived({
     default: {
-      base: "border-b-2 border-transparent text-[var(--color-text-muted)]",
+      base: "border-b-2 border-transparent text-[var(--color-text-default)]",
       active:
         "bg-[var(--color-bg-secondary)] !text-[var(--color-text-default)] border-[var(--border-color-strong)]",
       hover:
         "hover:text-[var(--color-text-default)] hover:bg-[var(--color-bg-muted)]",
     },
     underline: {
-      base: "border-b-2 border-transparent text-[var(--color-text-muted)]",
+      base: "border-b-2 border-transparent text-[var(--color-text-default)]",
       active:
         "border-[var(--border-color-focus)] !text-[var(--color-text-default)]",
       hover:
         "hover:text-[var(--color-text-default)] hover:border-[var(--border-color-strong)]",
     },
     pills: {
-      base: "text-[var(--color-text-muted)] border border-transparent font-medium",
+      base: "text-[var(--color-text-default)] border border-transparent font-medium",
       active:
-        "bg-[var(--color-bg-primary)] text-[var(--color-text-inverse,#fff)] border-[var(--color-bg-primary)]",
+        "bg-[var(--color-bg-primary)] text-[var(--color-text-default)] border-[var(--color-bg-primary)] font-[var(--font-weight-semibold)]",
       hover:
         "hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-default)]",
     },

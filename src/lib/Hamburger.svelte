@@ -177,7 +177,7 @@
       <ul class="grid gap-[var(--spacing-sm)] p-[var(--spacing-md)]">
             {#each menuItems as it (it.id)}
               {#if it.type === "section"}
-          <li class="px-[calc(var(--spacing-sm)+var(--spacing-xs))] pt-[var(--spacing-sm)] mt-[calc(var(--spacing-sm)+var(--spacing-xs))] text-[var(--color-text-muted)] text-[var(--text-xs)] lowercase tracking-wide opacity-70">
+          <li class="px-[calc(var(--spacing-sm)+var(--spacing-xs))] pt-[var(--spacing-sm)] mt-[calc(var(--spacing-sm)+var(--spacing-xs))] text-[var(--color-text-muted)] [font-size:var(--text-xs)] lowercase tracking-wide opacity-70">
                   {it.label}
                 </li>
               {:else}

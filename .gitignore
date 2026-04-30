@@ -14,8 +14,7 @@ dist-ssr
 *.local
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+.vscode/
 .idea
 .DS_Store
 *.suo
@@ -23,7 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-AGENTS.md
+.omx
 *storybook.log
 storybook-static
 chromatic.config.json
@@ -31,7 +30,3 @@ chromatic.config.json
 #SvelteKit
 .svelte-kit/
 
-# Scripts
-
-# omx
-.omx
