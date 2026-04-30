@@ -148,7 +148,9 @@ describe("Menu", () => {
     const { getByText } = render(Menu, { props: { menus, sz: "md" } });
     const nav = getByText("View").closest("nav");
 
-    expect(nav?.className).toContain("h-9");
+    expect(nav?.className).toContain(
+      "h-[calc(var(--spacing-xl)+var(--spacing-xs))]",
+    );
     expect(nav?.className).toContain("[font-size:var(--text-md)]");
   });
 

@@ -18,6 +18,10 @@
    * @prop clearable {boolean} - Shows a clear button to reset selection
    * @default true
    *
+   * @prop maxBytes {number} - Maximum allowed file size in bytes
+   *
+   * @prop onError {(error: string) => void} - Fired when selected files are rejected
+   *
    * @prop placeholder {string} - Placeholder text for the drop zone
    *
    * @prop value {FileList | null} - Controlled selected files (bindable)
@@ -30,7 +34,7 @@
    *
    * @note The entire area is clickable and supports drag-and-drop.
    * @note After a selection, the underlying input resets its value, so choosing the same file twice still triggers updates.
-   * @note `accept` does not apply to dropped files, only to the picker UI; validate files inside `onFilesSelected`.
+   * @note `accept` and `maxBytes` are enforced for both input and dropped files.
    * @note When `clearable=true`, the user can clear selected files and the callback receives `null`.
    * @note When `disabled=true`, clicks, drag events, focus, and keyboard input are blocked.
    */
@@ -47,6 +51,7 @@
     clearable?: boolean;
     placeholder?: string;
     value?: FileList | null;
+    maxBytes?: number;
     onFilesSelected?: (files: FileList | null) => void;
     onError?: (error: string) => void;
     class?: string;
@@ -60,7 +65,9 @@
     clearable = true,
     placeholder,
     value = $bindable<FileList | null>(null),
+    maxBytes = Number.POSITIVE_INFINITY,
     onFilesSelected,
+    onError,
     class: externalClass = "",
     ...rest
   }: Props = $props();
@@ -97,11 +104,7 @@
 
   function handleFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
-    const files = target.files;
-    value = files;
-    if (files && files.length > 0) {
-      onFilesSelected?.(files);
-    }
+    selectFiles(target.files);
     if (inputEl) {
       inputEl.value = "";
     }
@@ -111,11 +114,7 @@
     event.preventDefault();
     isDragOver = false;
     if (disabled) return;
-    const files = event.dataTransfer?.files;
-    value = files || null;
-    if (files && files.length > 0) {
-      onFilesSelected?.(files);
-    }
+    selectFiles(event.dataTransfer?.files ?? null);
     if (inputEl) {
       inputEl.value = "";
     }
@@ -152,6 +151,62 @@
       inputEl.value = "";
     }
     onFilesSelected?.(null);
+  }
+
+  function selectFiles(files: FileList | null) {
+    const acceptedFiles = filterFiles(files);
+    value = acceptedFiles;
+    if (acceptedFiles && acceptedFiles.length > 0) {
+      onFilesSelected?.(acceptedFiles);
+    }
+  }
+
+  function filterFiles(files: FileList | null) {
+    if (!files || files.length === 0) return null;
+
+    const selected = Array.from(files);
+    const accepted = selected.filter(isAllowedFile);
+
+    if (accepted.length !== selected.length) {
+      onError?.("Some files were rejected by type or size constraints.");
+    }
+
+    if (accepted.length === 0) return null;
+    if (accepted.length === selected.length) return files;
+
+    return toFileList(accepted);
+  }
+
+  function isAllowedFile(file: File) {
+    if (Number.isFinite(maxBytes) && file.size > maxBytes) return false;
+    return matchesAccept(file, accept);
+  }
+
+  function matchesAccept(file: File, acceptValue: string) {
+    const rules = acceptValue
+      .split(",")
+      .map((rule) => rule.trim().toLowerCase())
+      .filter(Boolean);
+
+    if (rules.length === 0 || rules.includes("*/*")) return true;
+
+    const fileName = file.name.toLowerCase();
+    const fileType = file.type.toLowerCase();
+
+    return rules.some((rule) => {
+      if (rule.startsWith(".")) return fileName.endsWith(rule);
+      if (rule.endsWith("/*")) return fileType.startsWith(rule.slice(0, -1));
+      return fileType === rule;
+    });
+  }
+
+  function toFileList(files: File[]) {
+    if (typeof DataTransfer === "undefined") return null;
+    const transfer = new DataTransfer();
+    for (const file of files) {
+      transfer.items.add(file);
+    }
+    return transfer.files;
   }
 </script>
 

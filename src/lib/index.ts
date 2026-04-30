@@ -32,6 +32,7 @@ export { default as Table } from "./Table.svelte";
 export { default as Tabs } from "./Tabs.svelte";
 export { default as ThemeToggle } from "./ThemeToggle.svelte";
 export { default as TimePicker } from "./TimePicker.svelte";
+export { default as TimePickerNew } from "./TimePickerNew.svelte";
 export { default as Toast } from "./Toast.svelte";
 export { default as Tooltip } from "./Tooltip.svelte";
 export { default as Topbar } from "./Topbar.svelte";

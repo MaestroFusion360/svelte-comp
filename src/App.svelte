@@ -51,6 +51,7 @@
     Table,
     Tabs,
     TimePicker,
+    TimePickerNew,
     Toast,
     Tooltip,
     ThemeToggle,
@@ -59,6 +60,7 @@
   // Demo components
   import {
     AboutDemo,
+    Calculator,
     CodeViewDemo,
     Container,
     DialogDemo,
@@ -67,6 +69,7 @@
     Notepad,
     PlayCard,
     SplitterDemo,
+    Todolist,
   } from "./demo";
 
   // Locale init
@@ -84,9 +87,10 @@
         label: L.pageLabels[id as keyof typeof L.pageLabels],
       }));
     const about = items.filter((it) => it.id === "about");
-    const apps = items.filter((it) => it.id === "notepad");
+    const appIds = new Set<PageId>(["notepad", "calculator", "todolist"]);
+    const apps = items.filter((it) => appIds.has(it.id));
     const components = items.filter(
-      (it) => it.id !== "about" && it.id !== "notepad"
+      (it) => it.id !== "about" && !appIds.has(it.id),
     );
     return [
       ...about,
@@ -123,7 +127,7 @@
       item: `${L.table.positionPrefix} ${i + 1}`,
       qty: (i % 7) + 1,
       price: ((i % 9) + 1) * 100,
-    }))
+    })),
   );
 
   // Table column config
@@ -159,12 +163,13 @@
 
   // Slice rows for current page
   const pageRows = $derived(
-    allRows.slice((currentPage - 1) * perPage, currentPage * perPage)
+    allRows.slice((currentPage - 1) * perPage, currentPage * perPage),
   );
 
   // Misc component state
   let selectedColor = $state(null);
   let selectedDate = $state(null);
+  let useNewTimePicker = $state(true);
   let selectedTime = $state(null);
   let selectedCountry = $state("en");
   const todayIso = new Date().toISOString().split("T")[0];
@@ -192,8 +197,8 @@
   const searchItems = $derived([...L.snippets.searchInput.items]);
   const filteredSearchItems = $derived(
     searchItems.filter((item) =>
-      item.toLowerCase().includes(searchTerm.trim().toLowerCase())
-    )
+      item.toLowerCase().includes(searchTerm.trim().toLowerCase()),
+    ),
   );
 </script>
 
@@ -252,7 +257,7 @@
   <div
     class={cx(
       "flex items-center justify-between text-[var(--color-text-muted)]",
-      TEXT.xs
+      TEXT.xs,
     )}
   >
     <span>{L.snippets.card.updated}</span>
@@ -305,7 +310,7 @@
   variant: string,
   label: string,
   disabled: boolean,
-  type: string
+  type: string,
 )}
   <div class={cx("grid gap-4")}>
     {#if type === "input"}
@@ -347,7 +352,7 @@
 {#snippet tableSnippet(sz: SizeKey, variant: string)}
   <div
     class={cx(
-      "w-full max-w-3xl max-h-[320px] md:max-h-[480px] lg:max-h-[480px] overflow-auto"
+      "w-full max-w-3xl max-h-[320px] md:max-h-[480px] lg:max-h-[480px] overflow-auto",
     )}
   >
     <Table {columns} rows={pageRows} {sz} variant={variant as TableVariant} />
@@ -400,7 +405,12 @@
     </div>
   </div>
 
-  <div class={cx("max-w-[640px] min-h-[560px] mx-auto p-4 md:p-6 lg:p-10")}>
+  <div
+    class={cx(
+      "w-full max-w-[min(100%,760px)] min-h-[560px] mx-auto px-3 py-4 sm:px-4 md:p-6 lg:p-10",
+      "transition-[padding] duration-[var(--transition-normal)] ease-[var(--timing-default)]",
+    )}
+  >
     <main class={cx("grid gap-4 md:gap-6 lg:gap-8")}>
       {#if active === "about"}
         <AboutDemo />
@@ -424,7 +434,7 @@
             sz: SizeKey,
             variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <Tooltip text={label || `${variant} ${sz}`}>
               <Button {sz} variant={variant as ButtonVariant} {disabled}>
@@ -443,7 +453,7 @@
             _sz: SizeKey,
             variant: string,
             label: string,
-            _disabled: boolean
+            _disabled: boolean,
           )}
             <Badge
               message={label || L.snippets.badge.label}
@@ -489,7 +499,7 @@
             sz: SizeKey,
             variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <Tooltip text={label || `${variant} ${sz}`}
               ><CheckBox
@@ -521,7 +531,7 @@
             _sz: SizeKey,
             _variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <ColorPicker
               label={label || L.components.colorPicker.label}
@@ -541,10 +551,14 @@
             _sz: SizeKey,
             _variant: string,
             _label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <div class="w-[240px] aspect-square">
-              <Calendar {disabled} bind:value={selectedDate} class="w-full h-full" />
+              <Calendar
+                {disabled}
+                bind:value={selectedDate}
+                class="w-full h-full"
+              />
             </div>
           {/snippet}
         </PlayCard>
@@ -558,7 +572,7 @@
             _sz: SizeKey,
             _variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <DatePicker
               label={label || L.components.datePicker.label}
@@ -590,14 +604,14 @@
             variant: string,
             label: string,
             disabled: boolean,
-            type: string
+            type: string,
           )}
             {@render fieldSnippet(
               sz,
               variant,
               label,
               disabled,
-              type as FieldTypeOption
+              type as FieldTypeOption,
             )}
           {/snippet}
         </PlayCard>
@@ -611,7 +625,7 @@
             _sz: SizeKey,
             _variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <FilePicker
               label={label || L.components.filePicker.label}
@@ -638,6 +652,14 @@
         <div class="w-full h-[320px] md:h-[480px] overflow-x-auto">
           <Notepad {L} class="h-full min-w-0" />
         </div>
+      {:else if active === "calculator"}
+        <div class="w-full min-h-[320px] md:min-h-[480px] overflow-x-auto">
+          <Calculator {L} class="min-w-0" />
+        </div>
+      {:else if active === "todolist"}
+        <div class="w-full min-h-[320px] md:min-h-[480px] overflow-x-auto">
+          <Todolist {L} class="min-w-0" />
+        </div>
       {:else if active === "progressBar"}
         <PlayCard
           component="ProgressBar"
@@ -648,7 +670,7 @@
             sz: SizeKey,
             variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <ProgressBar
               value={75}
@@ -670,7 +692,7 @@
             sz: SizeKey,
             variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <ProgressCircle
               value={75}
@@ -692,7 +714,7 @@
             sz: SizeKey,
             variant: string,
             _label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <div class="flex flex-col gap-2">
               <Radio
@@ -729,7 +751,7 @@
             sz: SizeKey,
             variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <div class="grid gap-3">
               <Tooltip text={label || L.snippets.searchInput.label}>
@@ -745,7 +767,7 @@
               <div
                 class={cx(
                   "rounded-md border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] px-3 py-2",
-                  TEXT.sm
+                  TEXT.sm,
                 )}
               >
                 {#if filteredSearchItems.length === 0}
@@ -775,7 +797,7 @@
             label: string,
             disabled: boolean,
             _type: string,
-            showVal: boolean
+            showVal: boolean,
           )}
             <Tooltip text={String(value)}>
               <Slider
@@ -803,7 +825,7 @@
             sz: SizeKey,
             variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <Tooltip text={label || L.snippets.select.label}>
               <Select
@@ -835,7 +857,7 @@
             sz: SizeKey,
             variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <Tooltip text={label || `${L.snippets.switch.labelPrefix} ${sz}`}>
               <Switch
@@ -877,7 +899,7 @@
             sz: SizeKey,
             variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
             <Tooltip text={label}>
               <ThemeToggle
@@ -900,14 +922,32 @@
             _sz: SizeKey,
             _variant: string,
             label: string,
-            disabled: boolean
+            disabled: boolean,
           )}
-            <TimePicker
-              label={label || L.components.timePicker.label}
-              {disabled}
-              placeholder={L.components.timePicker.placeholder}
-              bind:value={selectedTime}
-            />
+            <div class="flex flex-col gap-[var(--spacing-md)]">
+              <CheckBox
+                label="New picker"
+                bind:checked={useNewTimePicker}
+                {disabled}
+              />
+
+              {#if useNewTimePicker}
+                <TimePickerNew
+                  label={label || L.components.timePicker.label}
+                  {disabled}
+                  placeholder={L.components.timePicker.placeholder}
+                  bind:value={selectedTime}
+                />
+              {:else}
+                <TimePicker
+                  label={label || L.components.timePicker.label}
+                  {disabled}
+                  placeholder={L.components.timePicker.placeholder}
+                  bind:value={selectedTime}
+                  initialSystem="english"
+                />
+              {/if}
+            </div>
           {/snippet}
         </PlayCard>
       {:else if active === "toast"}

@@ -4,8 +4,8 @@ import { fireEvent, render } from "@testing-library/svelte";
 import { describe, it, expect, vi } from "vitest";
 import FilePicker from "../FilePicker.svelte";
 
-function createFile(name: string) {
-  return new File(["content"], name, { type: "text/plain" });
+function createFile(name: string, type = "text/plain", content = "content") {
+  return new File([content], name, { type });
 }
 
 describe("FilePicker", () => {
@@ -54,6 +54,52 @@ describe("FilePicker", () => {
 
     await fireEvent.drop(dropZone, { dataTransfer: fakeDataTransfer });
     expect(handle).toHaveBeenCalled();
+  });
+
+  it("rejects dropped files that do not match accept", async () => {
+    const handle = vi.fn();
+    const handleError = vi.fn();
+    const files = createFileList(
+      createFile("malware.exe", "application/x-msdownload"),
+    );
+    const fakeDataTransfer = { files };
+    const { container, getByText } = render(FilePicker, {
+      props: {
+        accept: ".txt",
+        onFilesSelected: handle,
+        onError: handleError,
+      },
+    });
+    const dropZone = container.querySelector('[role="button"]') as HTMLElement;
+
+    await fireEvent.drop(dropZone, { dataTransfer: fakeDataTransfer });
+
+    expect(handle).not.toHaveBeenCalled();
+    expect(handleError).toHaveBeenCalled();
+    expect(getByText("No files selected")).toBeTruthy();
+  });
+
+  it("rejects files larger than maxBytes before callback", async () => {
+    const handle = vi.fn();
+    const handleError = vi.fn();
+    const files = createFileList(
+      createFile("large.txt", "text/plain", "12345"),
+    );
+    const { container } = render(FilePicker, {
+      props: {
+        maxBytes: 4,
+        onFilesSelected: handle,
+        onError: handleError,
+      },
+    });
+    const input = container.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
+
+    await fireEvent.change(input, { target: { files } });
+
+    expect(handle).not.toHaveBeenCalled();
+    expect(handleError).toHaveBeenCalled();
   });
 
   it("does not open picker when disabled", async () => {

@@ -173,6 +173,10 @@ The toolkit is built for engineers: no hidden behavior, no opaque abstractions, 
       - [Props (TimePicker)](#props-timepicker)
       - [Notes (TimePicker)](#notes-timepicker)
       - [Usage (TimePicker)](#usage-timepicker)
+    - [TimePickerNew.svelte](#timepickernewsvelte)
+      - [Props (TimePickerNew)](#props-timepickernew)
+      - [Notes (TimePickerNew)](#notes-timepickernew)
+      - [Usage (TimePickerNew)](#usage-timepickernew)
     - [Toast.svelte](#toastsvelte)
       - [Props (Toast)](#props-toast)
       - [Notes (Toast)](#notes-toast)
@@ -274,18 +278,18 @@ npm i prismjs @types/prismjs
 ```plaintext
 scripts/                   # Scripts
 src/
-├── demo/                  # Demo components
-├── lib/                   # Component library
-│   ├── __tests__/         # Component tests
-│   ├── types/             # Component types
-│   ├── *.svelte           # Component files
-│   └── index.ts           # Public exports
-
-├── stories/               # Storybook stories
-├── utils/                 # Utility functions
-├── App.svelte             # Demo application
-├── lang.ts                # Localization
-└── app.css                # Theme tokens (CSS variables)
+|-- demo/                  # Demo components and demo apps (Notepad, Calculator, Todo List)
+|   `-- __tests__/         # Demo app tests
+|-- lib/                   # Component library
+|   |-- __tests__/         # Component tests
+|   |-- types/             # Component types
+|   |-- *.svelte           # Component files
+|   `-- index.ts           # Public exports
+|-- stories/               # Storybook stories
+|-- utils/                 # Utility functions
+|-- App.svelte             # Demo application
+|-- lang.ts                # Localization
+`-- app.css                # Theme tokens (CSS variables)
 ```
 
 ## 🎨 Global Styles (Theme Tokens)
@@ -1969,6 +1973,52 @@ Simple time selector that stores values in ISO `HH:MM` format. Supports a fixed 
 <TimePicker
   label="Pick a time"
   step={300}
+  bind:value={time}
+  initialSystem="english"
+/>
+
+<p>Stored: {time ?? 'None'}</p>
+```
+
+---
+
+### TimePickerNew.svelte
+
+Improved time picker implementation in `src/lib/TimePickerNew.svelte`. It keeps the stored value as ISO `HH:MM`, supports 24-hour and 12-hour display modes, includes Now/Clear/OK actions, and renders the selected-time preview inside the component.
+
+#### Props (TimePickerNew)
+
+- `value?: string | null` - Stored time in ISO `HH:MM` (bindable) (default: `null`)
+- `step?: number` - Step in seconds for the minute grid (default: `60`)
+- `label?: string` - Label text; falls back to localized `timePicker.text`
+- `placeholder?: string` - Placeholder when value is null; falls back to localized `timePicker.placeholder`
+- `disabled?: boolean` - Disable all interactions (default: `false`)
+- `clearable?: boolean` - Show the clear action (default: `true`)
+- `initialSystem?: "iso" | "english"` - Initial display mode: 24h or 12h with AM/PM (default: `"iso"`)
+- `onChange?: (value: string | null) => void` - Fired with ISO `HH:MM` or `null`
+- `class?: string` - Wrapper classes (default: `""`)
+
+#### Notes (TimePickerNew)
+
+- The public stored value is always ISO `HH:MM`, including when the UI is in 12-hour mode.
+- The popup is positioned with viewport clamping and updates on scroll/resize.
+- `Now` snaps minutes to the configured `step`.
+- `Clear` resets the value to `null`; `OK`, outside click and `Escape` close the popup.
+- Uses localized labels from `src/lib/lang.ts` through the library lang context.
+- Uses CSS variables for colors, spacing, radius, shadows, typography and transitions.
+
+#### Usage (TimePickerNew)
+
+```svelte
+<script lang="ts">
+  import TimePickerNew from '$lib/TimePickerNew.svelte';
+
+  let time: string | null = '13:30';
+</script>
+
+<TimePickerNew
+  label="Meeting time"
+  step={900}
   bind:value={time}
   initialSystem="english"
 />

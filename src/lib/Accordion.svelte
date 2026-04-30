@@ -51,22 +51,22 @@
   }: Props = $props();
 
   const base =
-    "w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] shadow-sm";
+    "w-full border border-[var(--border-color-default)] bg-[var(--color-bg-surface)] shadow-[0_1px_2px_var(--shadow-color)]";
 
   const sizes: Record<SizeKey, string> = {
-    xs: "rounded-[var(--radius-md)] text-sm",
-    sm: "rounded-[var(--radius-md)] text-base",
-    md: "rounded-[var(--radius-lg)] text-lg",
-    lg: "rounded-[var(--radius-lg)] text-xl",
-    xl: "rounded-[var(--radius-xl)] text-2xl",
+    xs: cx("rounded-[var(--radius-md)]", TEXT.xs),
+    sm: cx("rounded-[var(--radius-md)]", TEXT.sm),
+    md: cx("rounded-[var(--radius-lg)]", TEXT.md),
+    lg: cx("rounded-[var(--radius-lg)]", TEXT.lg),
+    xl: cx("rounded-[var(--radius-xl)]", TEXT.xl),
   };
 
   const contentSize: Record<SizeKey, string> = {
-    xs: "px-4 pb-4 mt-1",
-    sm: "px-5 pb-5 mt-2",
-    md: "px-6 pb-6 mt-3",
-    lg: "px-8 pb-8 mt-4",
-    xl: "px-10 pb-10 mt-5",
+    xs: "px-[var(--spacing-md)] pb-[var(--spacing-md)] mt-[var(--spacing-xs)]",
+    sm: "px-[calc(var(--spacing-md)+var(--spacing-xs))] pb-[calc(var(--spacing-md)+var(--spacing-xs))] mt-[var(--spacing-sm)]",
+    md: "px-[calc(var(--spacing-md)+var(--spacing-sm))] pb-[calc(var(--spacing-md)+var(--spacing-sm))] mt-[calc(var(--spacing-sm)+var(--spacing-xs))]",
+    lg: "px-[var(--spacing-xl)] pb-[var(--spacing-xl)] mt-[var(--spacing-md)]",
+    xl: "px-[calc(var(--spacing-xl)+var(--spacing-sm))] pb-[calc(var(--spacing-xl)+var(--spacing-sm))] mt-[calc(var(--spacing-md)+var(--spacing-xs))]",
   };
 
   const iconSize: Record<SizeKey, string> = {
@@ -110,14 +110,14 @@
       <h3>
         <button
           type="button"
-          class="flex w-full items-center justify-between gap-3 p-2 text-left font-medium text-[var(--color-text-default)] bg-transparent transition-colors hover:bg-[var(--color-bg-hover)] active:bg-[var(--color-bg-active)] focus:outline-none focus:ring-2 focus:ring-[var(--border-color-focus)] focus:ring-inset"
+          class="flex w-full items-center justify-between gap-[calc(var(--spacing-sm)+var(--spacing-xs))] p-[var(--spacing-sm)] text-left font-medium text-[var(--color-text-default)] bg-transparent transition-colors hover:bg-[var(--color-bg-hover)] active:bg-[var(--color-bg-active)] focus:outline-none focus:ring-2 focus:ring-[var(--border-color-focus)] focus:ring-inset"
           aria-expanded={isOpen(i)}
           onclick={() => toggle(i)}
         >
           <span>{item.title}</span>
           <svg
             class={cx(
-              "shrink-0 transition-transform duration-200 text-[var(--color-text-muted)]",
+              "shrink-0 transition-transform duration-[var(--transition-fast)] text-[var(--color-text-muted)]",
               iconClass
             )}
             class:rotate-180={isOpen(i)}
@@ -135,7 +135,7 @@
       </h3>
 
       <div
-        class="grid overflow-hidden transition-[grid-template-rows] duration-200"
+        class="grid overflow-hidden transition-[grid-template-rows] duration-[var(--transition-fast)]"
         class:grid-rows-[1fr]={isOpen(i)}
         class:grid-rows-[0fr]={!isOpen(i)}
       >

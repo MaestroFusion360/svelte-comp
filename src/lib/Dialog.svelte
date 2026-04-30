@@ -98,7 +98,7 @@
   }
 
   const panelBase =
-    "fusion-dialog bg-[var(--color-bg-surface)] rounded-[var(--radius-lg)] shadow-lg min-w-80 max-w-md w-full border border-[var(--border-color-default)]";
+    "fusion-dialog bg-[var(--color-bg-surface)] rounded-[var(--radius-lg)] shadow-[0_8px_24px_var(--shadow-color)] min-w-0 max-w-[min(100%,28rem)] max-h-[calc(100svh-var(--spacing-lg)*2)] overflow-auto w-full border border-[var(--border-color-default)]";
 
   const paddingBySize: Record<SizeKey, string> = {
     xs: "p-[var(--spacing-sm)]",
@@ -164,7 +164,7 @@
 {#if open}
   {#if modal}
     <div
-      class="fixed inset-0 z-[var(--z-modal)] bg-oklch(0_0_0/var(--opacity-overlay)) flex items-center justify-center p-4"
+      class="fixed inset-0 z-[var(--z-modal)] bg-[oklch(0_0_0/var(--opacity-overlay))] flex items-center justify-center p-[var(--spacing-md)]"
       role="presentation"
       tabindex="-1"
       onkeydown={handleKeydown}
@@ -195,7 +195,7 @@
     </div>
   {:else}
     <div
-      class="fixed top-4 right-4 z-[var(--z-modal)]"
+      class="fixed top-[var(--spacing-md)] right-[var(--spacing-md)] z-[var(--z-modal)] max-w-[calc(100vw-var(--spacing-md)*2)]"
       role="dialog"
       aria-modal="false"
       aria-label={title}

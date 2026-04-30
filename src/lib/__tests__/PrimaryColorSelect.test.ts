@@ -2,7 +2,7 @@
 import "./setupLangContext";
 import { render, fireEvent } from "@testing-library/svelte";
 import { describe, it, expect } from "vitest";
-import PrimaryColorSelect from "$lib/PrimaryColorSelect.svelte";
+import PrimaryColorSelect from "../PrimaryColorSelect.svelte";
 
 describe("PrimaryColorSelect", () => {
   it("renders default label and sets data-primary", async () => {

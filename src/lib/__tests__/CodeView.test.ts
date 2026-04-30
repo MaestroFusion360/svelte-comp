@@ -1,7 +1,11 @@
 // $lib/__tests__/CodeView.test.ts
-import { render } from "@testing-library/svelte";
-import { describe, it, expect } from "vitest";
+import { fireEvent, render } from "@testing-library/svelte";
+import { afterEach, describe, it, expect, vi } from "vitest";
 import CodeView from "../CodeView.svelte";
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
 
 describe("CodeView", () => {
   const sample = "<div>Hello</div>";
@@ -64,6 +68,15 @@ describe("CodeView", () => {
     });
 
     expect(queryByText("Copy")).toBeNull();
+  });
+
+  it("does not throw when clipboard API is unavailable", async () => {
+    vi.stubGlobal("navigator", {});
+    const { getByText } = render(CodeView, {
+      props: { code: sample, language: "html" },
+    });
+
+    await expect(fireEvent.click(getByText("Copy"))).resolves.toBeTruthy();
   });
 
   it("updates textarea when code prop changes", async () => {

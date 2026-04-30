@@ -69,8 +69,8 @@
 
   const sizeClasses = $derived(
     size === "md"
-      ? "gap-3 px-4 py-3 rounded-[var(--radius-lg)]"
-      : "gap-2 px-3 py-1.5 rounded-[var(--radius-md)]"
+      ? "gap-[calc(var(--spacing-sm)+var(--spacing-xs))] px-[var(--spacing-md)] py-[calc(var(--spacing-sm)+var(--spacing-xs))] rounded-[var(--radius-lg)]"
+      : "gap-[var(--spacing-sm)] px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[calc(var(--spacing-sm)+var(--spacing-xs)/2)] rounded-[var(--radius-md)]"
   );
 
   const iconClass = $derived(size === "md" ? "w-5 h-5" : "w-4 h-4");
@@ -78,20 +78,20 @@
   const titleClass = $derived(
     size === "md"
       ? "font-[var(--font-weight-medium)] truncate [font-size:var(--text-md)] max-sm:[font-size:var(--text-sm)]"
-      : "font-[var(--font-weight-medium)] truncate text-sm"
+      : "font-[var(--font-weight-medium)] truncate [font-size:var(--text-sm)]"
   );
 
   const messageClass = $derived(
     size === "md"
       ? "line-clamp-3 [font-size:var(--text-sm)] max-sm:[font-size:var(--text-xs)]"
-      : "truncate text-xs"
+      : "truncate [font-size:var(--text-xs)]"
   );
 
   const rootClass = $derived(
     cx(
       "flex items-center border border-[var(--border-color-default)]",
       sizeClasses,
-      !inline && "shadow-lg backdrop-blur-sm",
+      !inline && "shadow-[0_8px_16px_var(--shadow-color)] backdrop-blur-sm",
       variantClasses(variant),
       externalClass
     )

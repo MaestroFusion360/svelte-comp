@@ -90,7 +90,7 @@
       0,
       enabled.findIndex((t) => t.id === activeTab)
     );
-    let next = idx;
+    let next: number;
 
     if (e.key === "ArrowRight") next = (idx + 1) % enabled.length;
     else if (e.key === "ArrowLeft")
@@ -115,7 +115,7 @@
   };
 
   const base =
-    "inline-flex items-center justify-center font-medium transition-colors duration-150 focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:ring-offset-0 focus:outline-none disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center font-medium transition-colors duration-[var(--transition-fast)] focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:ring-offset-0 focus:outline-none disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed [@media(pointer:coarse)]:min-h-11";
 
   const variants = $derived({
     default: {
@@ -135,7 +135,7 @@
     pills: {
       base: "text-[var(--color-text-muted)] border border-transparent font-medium",
       active:
-        "bg-[var(--color-bg-primary)] text-white border-[var(--color-bg-primary)]",
+        "bg-[var(--color-bg-primary)] text-[var(--color-text-inverse,#fff)] border-[var(--color-bg-primary)]",
       hover:
         "hover:bg-[var(--color-bg-secondary)] hover:text-[var(--color-text-default)]",
     },

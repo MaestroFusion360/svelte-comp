@@ -116,12 +116,12 @@
       ? state === "checked" || state === "mixed"
         ? "var(--border-color-strong)"
         : "var(--border-color-default)"
-      : "white"
+      : "var(--color-text-inverse,#fff)"
   );
 
   const rootClass = $derived(
     cx(
-      "inline-flex items-center cursor-pointer select-none",
+      "inline-flex items-center cursor-pointer select-none [@media(pointer:coarse)]:min-h-11",
       gapBySize[sz],
       externalClass
     )

@@ -86,11 +86,15 @@ export function times<T>(count: number, fn: (i: number) => T): T[] {
 //                             FORMAT FILE SIZE
 // -------------------------------------------------------------------------------
 export function formatFileSize(bytes: number): string {
+  if (!Number.isFinite(bytes) || bytes < 0) return "0 Bytes";
   if (bytes === 0) return "0 Bytes";
 
   const k = 1024;
   const sizes = ["Bytes", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const i = Math.min(
+    sizes.length - 1,
+    Math.floor(Math.log(bytes) / Math.log(k)),
+  );
 
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
 }
@@ -132,9 +136,14 @@ export function throttle<Args extends unknown[]>(
 //                              STORAGE HELPERS
 // -------------------------------------------------------------------------------
 
-const hasBrowserStorage =
-  typeof window !== "undefined" && !!window.localStorage;
-const getLocalStorage = () => (hasBrowserStorage ? window.localStorage : null);
+const getLocalStorage = () => {
+  if (typeof window === "undefined") return null;
+  try {
+    return window.localStorage ?? null;
+  } catch {
+    return null;
+  }
+};
 
 export const storage = {
   get: <T>(key: string, defaultValue: T): T => {

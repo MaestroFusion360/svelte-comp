@@ -5,8 +5,10 @@ export { default as Component } from "./Component.svelte";
 export { default as Container } from "./Container.svelte";
 export { default as DialogDemo } from "./DialogDemo.svelte";
 export { default as FormDemo } from "./FormDemo.svelte";
+export { default as Calculator } from "./Calculator.svelte";
 export { default as MenuDemo } from "./MenuDemo.svelte";
 export { default as Notepad } from "./Notepad.svelte";
+export { default as Todolist } from "./Todolist.svelte";
 export { default as PlayCard } from "./PlayCard.svelte";
 export { default as SplitterDemo } from "./SplitterDemo.svelte";
 
@@ -33,6 +35,8 @@ export const pageIds = [
   "form",
   "menu",
   "notepad",
+  "calculator",
+  "todolist",
   "progressBar",
   "progressCircle",
   "radio",
@@ -177,6 +181,11 @@ export const componentMeta = {
     supports: { label: false, disabled: false },
   },
   TimePicker: {
+    variants: [],
+    sizes: [],
+    supports: { label: true, disabled: true },
+  },
+  TimePickerNew: {
     variants: [],
     sizes: [],
     supports: { label: true, disabled: true },

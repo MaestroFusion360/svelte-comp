@@ -3,7 +3,7 @@ import { render, fireEvent } from "@testing-library/svelte";
 import { describe, it, expect } from "vitest";
 import { createRawSnippet, type Snippet } from "svelte";
 import { tick } from "svelte";
-import PaginatedCard from "$lib/PaginatedCard.svelte";
+import PaginatedCard from "../PaginatedCard.svelte";
 
 const textSnippet = (text: string): Snippet =>
   createRawSnippet(() => ({ render: () => `<span>${text}</span>` }));

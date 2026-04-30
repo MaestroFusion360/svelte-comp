@@ -50,4 +50,20 @@ describe("storage helper", () => {
     storage.remove("user");
     expect(mockLocalStorage.getItem("user")).toBeNull();
   });
+
+  it("is safe when localStorage getter throws", async () => {
+    vi.stubGlobal("window", {});
+    Object.defineProperty(window, "localStorage", {
+      configurable: true,
+      get: () => {
+        throw new Error("storage disabled");
+      },
+    });
+
+    const storage = await loadStorage();
+
+    expect(storage.get("missing", "fallback")).toBe("fallback");
+    expect(() => storage.set("k", "v")).not.toThrow();
+    expect(() => storage.remove("k")).not.toThrow();
+  });
 });

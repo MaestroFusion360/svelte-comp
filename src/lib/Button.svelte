@@ -70,6 +70,7 @@
     relative inline-flex items-center justify-center gap-2 rounded-[var(--radius-md)] border font-medium
     transition-all duration-[var(--transition-fast)] ease-[var(--timing-default)] whitespace-nowrap select-none
     focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)]
+    [@media(pointer:coarse)]:min-h-11 [@media(pointer:coarse)]:min-w-11
     disabled:opacity-[var(--opacity-disabled)]
     disabled:cursor-not-allowed
     disabled:brightness-100
@@ -87,20 +88,20 @@
 
   const variants: Record<ButtonVariant, string> = {
     primary:
-      "bg-[var(--color-bg-primary)] text-white border-[var(--border-color-primary)] hover:brightness-110 active:scale-95",
+      "bg-[var(--color-bg-primary)] text-[var(--color-text-inverse,#fff)] border-[var(--border-color-primary)] hover:brightness-110 active:scale-95",
     secondary:
       "bg-[var(--color-bg-secondary)] [color:var(--color-text-default)] border-[var(--border-color-default)] hover:bg-[var(--color-bg-hover)] active:scale-95",
-    pill: "bg-[var(--color-bg-primary)] text-white border-[var(--border-color-primary)] rounded-full hover:brightness-110 active:scale-95",
+    pill: "bg-[var(--color-bg-primary)] text-[var(--color-text-inverse,#fff)] border-[var(--border-color-primary)] rounded-full hover:brightness-110 active:scale-95",
     danger:
-      "bg-[var(--color-bg-danger)] text-white border-[var(--color-bg-danger)] hover:brightness-110 active:scale-95",
+      "bg-[var(--color-bg-danger)] text-[var(--color-text-inverse,#fff)] border-[var(--color-bg-danger)] hover:brightness-110 active:scale-95",
     success:
-      "bg-[var(--color-bg-success)] text-white border-[var(--color-bg-success)] hover:brightness-110 active:scale-95",
+      "bg-[var(--color-bg-success)] text-[var(--color-text-inverse,#fff)] border-[var(--color-bg-success)] hover:brightness-110 active:scale-95",
     warning:
-      "bg-[var(--color-bg-warning)] text-white border-[var(--color-bg-warning)] hover:brightness-110 active:scale-95",
+      "bg-[var(--color-bg-warning)] text-[var(--color-text-inverse,#fff)] border-[var(--color-bg-warning)] hover:brightness-110 active:scale-95",
     ghost:
       "bg-transparent [color:var(--color-text-default)] border-transparent hover:bg-[var(--color-bg-hover)] active:bg-[var(--color-bg-active)] active:scale-95",
     link: "bg-transparent underline border-transparent [color:var(--color-text-link)] hover:brightness-110 active:scale-95 transition-transform ",
-    info: "bg-[var(--color-bg-secondary)] text-white border-[var(--border-color-default)] hover:bg-[var(--color-bg-hover)] active:scale-95",
+    info: "bg-[var(--color-bg-secondary)] text-[var(--color-text-inverse,#fff)] border-[var(--border-color-default)] hover:bg-[var(--color-bg-hover)] active:scale-95",
   };
 
   const buttonClass = $derived(
@@ -132,15 +133,29 @@
 
   function navigateToLink() {
     if (!link || typeof window === "undefined") return;
+    const safeLink = getSafeLink(link);
+    if (!safeLink) return;
 
     const restAttrs = rest as Record<string, unknown>;
     const target =
       typeof restAttrs.target === "string" ? restAttrs.target : undefined;
 
     if (target === "_blank") {
-      window.open(link, "_blank", "noopener,noreferrer");
+      window.open(safeLink, "_blank", "noopener,noreferrer");
     } else {
-      window.location.assign(link);
+      window.location.assign(safeLink);
+    }
+  }
+
+  function getSafeLink(value: string) {
+    try {
+      const url = new URL(value, window.location.href);
+      if (!["http:", "https:", "mailto:", "tel:"].includes(url.protocol)) {
+        return null;
+      }
+      return value;
+    } catch {
+      return null;
     }
   }
 </script>

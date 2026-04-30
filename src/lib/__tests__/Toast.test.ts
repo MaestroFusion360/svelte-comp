@@ -1,7 +1,7 @@
 // $lib/__tests__/Toast.test.ts
 import { render, fireEvent } from "@testing-library/svelte";
 import { describe, it, expect, vi } from "vitest";
-import Toast from "$lib/Toast.svelte";
+import Toast from "../Toast.svelte";
 
 if (!Element.prototype.animate) {
   Element.prototype.animate = () =>

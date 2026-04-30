@@ -61,20 +61,20 @@
   let subMenuLeft = $state(0);
 
   const sizes: Record<SizeKey, string> = {
-    xs: "h-7 px-3",
-    sm: "h-8 px-3",
-    md: "h-9 px-4",
-    lg: "h-10 px-4",
-    xl: "h-11 px-5",
+    xs: "h-[calc(var(--spacing-md)+var(--spacing-sm)+var(--spacing-xs))] px-[calc(var(--spacing-sm)+var(--spacing-xs))]",
+    sm: "h-[var(--spacing-xl)] px-[calc(var(--spacing-sm)+var(--spacing-xs))]",
+    md: "h-[calc(var(--spacing-xl)+var(--spacing-xs))] px-[var(--spacing-md)]",
+    lg: "h-[calc(var(--spacing-xl)+var(--spacing-sm))] px-[var(--spacing-md)]",
+    xl: "h-[calc(var(--spacing-xl)+var(--spacing-sm)+var(--spacing-xs))] px-[calc(var(--spacing-md)+var(--spacing-xs))]",
   };
 
   const navBase =
-    "flex items-stretch pl-2 gap-1 border-b relative z-10 bg-[var(--color-bg-surface)] text-[var(--color-text-default)] border-[var(--border-color-default)]";
+    "flex items-stretch pl-[var(--spacing-sm)] gap-[var(--spacing-xs)] border-b relative z-10 bg-[var(--color-bg-surface)] text-[var(--color-text-default)] border-[var(--border-color-default)]";
 
   const subMenuGutter = 8;
 
   const topButtonBase =
-    "px-4 rounded-xs leading-none transition-colors outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]";
+    "px-[var(--spacing-md)] rounded-[var(--radius-sm)] leading-none transition-colors outline-none [@media(pointer:coarse)]:min-h-11 focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]";
 
   const topButtonActive =
     "bg-[var(--color-bg-muted)] text-[var(--color-text-default)]";
@@ -480,7 +480,7 @@
       <div
         bind:this={menuRefs[menuItem.name]}
         class={cx(
-          "fixed z-50 min-w-44 p-2 rounded-xs shadow-[0_2px_4px_var(--shadow-color)] ",
+          "fixed z-50 min-w-44 p-[var(--spacing-sm)] rounded-[var(--radius-sm)] shadow-[0_2px_4px_var(--shadow-color)] ",
           "border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]"
         )}
         style={menuStyle}
@@ -491,7 +491,7 @@
         {#each menuItem.actions as action, i (actionKey(action, i))}
           {#if isSeparator(action)}
             <div
-              class="my-1 mx-1 border-t border-[var(--border-color-default)]"
+              class="my-[var(--spacing-xs)] mx-[var(--spacing-xs)] border-t border-[var(--border-color-default)]"
               role="separator"
             ></div>
           {:else}
@@ -501,8 +501,8 @@
                 type="button"
                 role="menuitem"
                 class={cx(
-                  "relative text-left rounded-xs transition-colors outline-none px-1.5 py-0.5 my-1 mr-1 min-w-full flex items-center",
-                  "gap-3 hover:bg-[var(--color-bg-muted)] focus-visible:bg-[var(--color-bg-muted)]",
+                  "relative text-left rounded-[var(--radius-sm)] transition-colors outline-none px-[calc(var(--spacing-sm)+var(--spacing-xs)/2)] py-[calc(var(--spacing-xs)/2)] my-[var(--spacing-xs)] mr-[var(--spacing-xs)] min-w-full flex items-center",
+                  "gap-[calc(var(--spacing-sm)+var(--spacing-xs))] hover:bg-[var(--color-bg-muted)] focus-visible:bg-[var(--color-bg-muted)]",
                   "focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]",
                   textCls
                 )}
@@ -528,11 +528,11 @@
                   focusMenuAction(menuItem, i);
                 }}
               >
-                <span class="flex items-center gap-2 flex-1 min-w-0">
+                <span class="flex items-center gap-[var(--spacing-sm)] flex-1 min-w-0">
                   <span class="truncate">{actionText(action)}</span>
                 </span>
 
-                <span class="flex items-center shrink-0 ml-auto gap-1">
+                <span class="flex items-center shrink-0 ml-auto gap-[var(--spacing-xs)]">
                   {#if actionShortcut(action)}
                     <span
                       class={cx(
@@ -562,7 +562,7 @@
                 <div
                   bind:this={subMenuRefs[actionId(action)]}
                   class={cx(
-                    "fixed z-50 min-w-44 p-2 rounded-xs shadow-[0_2px_4px_var(--shadow-color)]",
+                    "fixed z-50 min-w-44 p-[var(--spacing-sm)] rounded-[var(--radius-sm)] shadow-[0_2px_4px_var(--shadow-color)]",
                     "border border-[var(--border-color-default)] bg-[var(--color-bg-surface)]"
                   )}
                   style={subMenuStyle}
@@ -574,7 +574,7 @@
                   {#each action.submenu as sub, j (actionKey(sub, j))}
                     {#if isSeparator(sub)}
                       <div
-                        class="my-1 mx-1 border-t border-[var(--border-color-default)]"
+                        class="my-[var(--spacing-xs)] mx-[var(--spacing-xs)] border-t border-[var(--border-color-default)]"
                         role="separator"
                       ></div>
                     {:else}
@@ -583,8 +583,8 @@
                         type="button"
                         role="menuitem"
                         class={cx(
-                          "relative text-left rounded-xs transition-colors outline-none px-1.5 py-0.5",
-                          "my-1 mr-1 w-full flex items-center justify-between gap-3",
+                          "relative text-left rounded-[var(--radius-sm)] transition-colors outline-none px-[calc(var(--spacing-sm)+var(--spacing-xs)/2)] py-[calc(var(--spacing-xs)/2)]",
+                          "my-[var(--spacing-xs)] mr-[var(--spacing-xs)] w-full flex items-center justify-between gap-[calc(var(--spacing-sm)+var(--spacing-xs))]",
                           "hover:bg-[var(--color-bg-muted)] focus-visible:bg-[var(--color-bg-muted)]",
                           "focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]",
                           "decoration-[var(--color-text-default)]",
@@ -595,7 +595,7 @@
                         onmouseenter={() => (activeSubIndex = j)}
                         onfocus={() => (activeSubIndex = j)}
                       >
-                        <span class="flex items-center gap-2 flex-1 min-w-0">
+                        <span class="flex items-center gap-[var(--spacing-sm)] flex-1 min-w-0">
                           <span class="truncate">{actionText(sub)}</span>
                         </span>
 

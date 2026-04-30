@@ -1,7 +1,7 @@
 // $lib/__tests__/Dialog.test.ts
 import { render, fireEvent } from "@testing-library/svelte";
 import { describe, it, expect, vi } from "vitest";
-import Dialog from "$lib/Dialog.svelte";
+import Dialog from "../Dialog.svelte";
 
 describe("Dialog", () => {
   it("renders modal dialog when open=true", () => {
@@ -113,7 +113,8 @@ describe("Dialog", () => {
 
     const dialog = getByRole("dialog");
     expect(dialog.getAttribute("aria-modal")).toBe("false");
-    expect(dialog.className).toContain("fixed top-4 right-4");
+    expect(dialog.className).toContain("top-[var(--spacing-md)]");
+    expect(dialog.className).toContain("right-[var(--spacing-md)]");
   });
 
   it("applies correct aria-label", () => {
