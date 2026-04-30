@@ -14,9 +14,11 @@ function Run-Git {
   }
 }
 
-$repoRoot = (& git rev-parse --show-toplevel).Trim()
-if ($LASTEXITCODE -ne 0 -or -not $repoRoot) {
-  throw "This script must be run inside a git repository."
+$repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot "..")).ProviderPath
+
+& git -C $repoRoot rev-parse --is-inside-work-tree *> $null
+if ($LASTEXITCODE -ne 0) {
+  throw "Script location must be inside a git repository."
 }
 
 Set-Location $repoRoot
