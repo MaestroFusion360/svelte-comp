@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "sessions": {
+    "omx-1777530565836-py32n5": {
+      "session_id": "omx-1777530565836-py32n5",
+      "leader_thread_id": "019ddd15-5a4d-7552-b68c-619f862e2390",
+      "updated_at": "2026-04-30T06:40:34.815Z",
+      "threads": {
+        "019ddd15-5a4d-7552-b68c-619f862e2390": {
+          "thread_id": "019ddd15-5a4d-7552-b68c-619f862e2390",
+          "kind": "leader",
+          "first_seen_at": "2026-04-30T06:34:38.455Z",
+          "last_seen_at": "2026-04-30T06:34:38.455Z",
+          "last_turn_id": "019ddd15-5a99-7f73-a7cf-eb5c8f3c2437",
+          "turn_count": 1
+        },
+        "019ddd15-5aa6-71f1-a220-1c493d034f1b": {
+          "thread_id": "019ddd15-5aa6-71f1-a220-1c493d034f1b",
+          "kind": "subagent",
+          "first_seen_at": "2026-04-30T06:40:34.815Z",
+          "last_seen_at": "2026-04-30T06:40:34.815Z",
+          "last_turn_id": "019ddd15-5aec-74d2-a169-677d0527473c",
+          "turn_count": 1
+        }
+      }
+    }
+  }
+}

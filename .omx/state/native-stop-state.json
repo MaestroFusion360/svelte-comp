@@ -1,0 +1,8 @@
+{
+  "sessions": {
+    "019ddd14-0c83-7c63-9703-58cbb48bf99a": {
+      "last_signature": "ralph-stop|019ddd14-0c83-7c63-9703-58cbb48bf99a|no-thread|019ddd58-c452-7e22-bf4b-33830fc2787e|\\\\?\\C:\\codex-home\\sessions\\2026\\04\\30\\rollout-2026-04-30T09-29-31-019ddd14-0c83-7c63-9703-58cbb48bf99a.jsonl|verification evidence ralph 'calculator' 'todolist' 'app svelte' 'notepad' 'calculator' 'todolist' 'apps' 'calculator svelte' regression test apps demo apps 'npm cmd run check' 0 errors 0 warnings 'npm cmd run lint' 'npm cmd run test run' 41 files 319 tests 'npm cmd run build' evidence 'src app svelte' 'appids notepad calculator todolist ' 'src demo index ts' 'calculator' 'todolist' 'src lang ts' labels en ru es 'src app test ts' apps 'calculator' 'todolist'|starting",
+      "updated_at": "2026-04-30T07:49:42.520Z"
+    }
+  }
+}

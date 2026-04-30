@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "active": true,
+  "skill": "ralph",
+  "keyword": "",
+  "phase": "reviewing",
+  "activated_at": "2026-04-30T06:30:36.039Z",
+  "updated_at": "2026-04-30T12:06:32.957Z",
+  "source": "state-operations",
+  "input_lock": null
+}

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "branch_name": "dev",
+      "worktree_path": "C:\\Users\\Юрий\\my_files\\test\\svelte-comp",
+      "status": "active",
+      "created_at": "2026-04-30T06:34:38.657Z",
+      "updated_at": "2026-04-30T06:40:35.027Z"
+    }
+  ]
+}

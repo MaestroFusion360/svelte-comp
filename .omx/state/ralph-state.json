@@ -1,0 +1,22 @@
+{
+  "active": false,
+  "iteration": 2,
+  "max_iterations": 10,
+  "current_phase": "complete",
+  "started_at": "2026-04-30T03:29:26Z",
+  "task_description": "Полный анализ и рефакторинг проекта в директории src",
+  "context_snapshot_path": ".omx/context/src-full-analysis-refactor-20260430T032926Z.md",
+  "planning_gate": "PRD and test spec will be created before implementation",
+  "last_turn_at": "2026-04-30T07:05:30.274Z",
+  "latest_artifact": ".omx/audit-report.md",
+  "verification": [
+    "npm.cmd run check: passed, 0 errors/warnings",
+    "npm.cmd run lint: passed",
+    "npm.cmd run test -- --run: passed, 41 files / 318 tests",
+    "npm.cmd run build: passed"
+  ],
+  "scope": "src/lib component audit",
+  "run_outcome": "finish",
+  "completed_at": "2026-04-30T07:18:20Z",
+  "lifecycle_outcome": "finished"
+}

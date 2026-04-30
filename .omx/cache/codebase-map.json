@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "worktreeRoot": "C:\\Users\\Юрий\\my_files\\test\\svelte-comp",
+  "gitDir": "C:\\Users\\Юрий\\my_files\\test\\svelte-comp\\.git",
+  "indexMtimeMs": 1768802550920.9373,
+  "indexSize": 16453,
+  "map": "  src/: App.test, lang, main\n  src/demo/: toastStore\n  src/lib/: Accordion.test, Badge.test, Button.test, Calendar.test, Card.test, Carousel.test, CheckBox.test, CodeView.test, ColorPicker.test, ContextMenu.test\n  src/utils/: index\n  scripts/: gen-md\n  (root): eslint.config, svelte.config, vite.config, vitest.config, vitest.shims.d\n  .storybook/: main, preview, vitest.setup",
+  "createdAt": "2026-04-30T05:46:11.644Z"
+}

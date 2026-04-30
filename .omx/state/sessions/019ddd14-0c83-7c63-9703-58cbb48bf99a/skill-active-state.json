@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "active": true,
+  "skill": "ralph",
+  "keyword": "$ralph",
+  "phase": "planning",
+  "activated_at": "2026-04-30T06:29:42.280Z",
+  "updated_at": "2026-04-30T07:18:44.019Z",
+  "source": "keyword-detector",
+  "session_id": "019ddd14-0c83-7c63-9703-58cbb48bf99a",
+  "turn_id": "019ddd14-32ed-7191-825b-c3b8fcc69da6",
+  "active_skills": [
+    {
+      "skill": "ralph",
+      "phase": "planning",
+      "active": true,
+      "activated_at": "2026-04-30T06:29:42.280Z",
+      "updated_at": "2026-04-30T06:29:42.280Z",
+      "session_id": "019ddd14-0c83-7c63-9703-58cbb48bf99a",
+      "turn_id": "019ddd14-32ed-7191-825b-c3b8fcc69da6"
+    }
+  ],
+  "initialized_mode": "ralph",
+  "initialized_state_path": ".omx/state/sessions/019ddd14-0c83-7c63-9703-58cbb48bf99a/ralph-state.json"
+}
