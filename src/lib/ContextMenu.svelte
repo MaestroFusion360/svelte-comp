@@ -120,25 +120,31 @@
   const doCut = () => (onCut(), close());
   const doPaste = () => (onPaste(), close());
   const doDelete = () => (onDelete(), close());
+
+  const menuPanelClass =
+    "fixed bg-[var(--color-bg-surface)] border border-[var(--border-color-default)] rounded-[var(--radius-md)] min-w-[160px] max-w-[260px] py-[var(--spacing-xs)] z-[9999] box-border text-[var(--text-sm)] shadow-[0_2px_4px_var(--shadow-color)] font-[var(--font-sans)] text-[var(--color-text-default)] m-0 scale-90 origin-top-left";
+  const itemClass =
+    "w-full flex items-center justify-between bg-transparent border-0 text-[var(--color-text-default)] px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[var(--spacing-sm)] m-0 font-inherit cursor-pointer rounded-[var(--radius-sm)] whitespace-nowrap leading-[var(--line-height-normal)] gap-[calc(var(--spacing-sm)+var(--spacing-xs))] outline-none shadow-none relative hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-text-default)] active:bg-[color-mix(in_srgb,var(--color-primary)_12%,var(--color-bg-hover)_88%)] active:text-[var(--color-text-default)] transition-colors duration-[var(--transition-fast)]";
+  const itemContentClass = "flex items-center gap-[calc(var(--spacing-sm)+var(--spacing-xs)/2)]";
 </script>
 
 {#if visible}
   <div
     id="ctx-menu"
-    class="fixed bg-[var(--color-bg-surface)] border border-[var(--border-color-default)] rounded-[var(--radius-md)] min-w-[160px] max-w-[260px] py-1 z-[9999] box-border text-[var(--text-sm)] shadow-md font-[var(--font-sans)] text-[var(--color-text-default)] m-0 scale-90 origin-top-left"
+    class={menuPanelClass}
     style="top: {y}px; left: {x}px;"
     role="menu"
     tabindex="-1"
   >
     <button 
-      class="w-full flex items-center justify-between bg-transparent border-0 text-[var(--color-text-default)] px-3 py-2 m-0 font-inherit cursor-pointer rounded-[var(--radius-sm)] whitespace-nowrap leading-[1.3] gap-3 outline-none shadow-none relative hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-text-default)] active:bg-[color-mix(in_srgb,var(--color-primary)_12%,var(--color-bg-hover)_88%)] active:text-[var(--color-text-default)] transition-colors duration-150"
+      class={itemClass}
       onclick={(e) => {
         e.stopPropagation();
         doUndo();
       }}
       title={L.hotkeys.undo}
     >
-      <div class="flex items-center gap-2.5">
+      <div class={itemContentClass}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -161,14 +167,14 @@
     </button>
 
     <button 
-      class="w-full flex items-center justify-between bg-transparent border-0 text-[var(--color-text-default)] px-3 py-2 m-0 font-inherit cursor-pointer rounded-[var(--radius-sm)] whitespace-nowrap leading-[1.3] gap-3 outline-none shadow-none relative hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-text-default)] active:bg-[color-mix(in_srgb,var(--color-primary)_12%,var(--color-bg-hover)_88%)] active:text-[var(--color-text-default)] transition-colors duration-150"
+      class={itemClass}
       onclick={(e) => {
         e.stopPropagation();
         doRedo();
       }}
       title={L.hotkeys.redo}
     >
-      <div class="flex items-center gap-2.5">
+      <div class={itemContentClass}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -191,14 +197,14 @@
     </button>
 
     <button 
-      class="w-full flex items-center justify-between bg-transparent border-0 text-[var(--color-text-default)] px-3 py-2 m-0 font-inherit cursor-pointer rounded-[var(--radius-sm)] whitespace-nowrap leading-[1.3] gap-3 outline-none shadow-none relative hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-text-default)] active:bg-[color-mix(in_srgb,var(--color-primary)_12%,var(--color-bg-hover)_88%)] active:text-[var(--color-text-default)] transition-colors duration-150"
+      class={itemClass}
       onclick={(e) => {
         e.stopPropagation();
         doCopy();
       }}
       title={L.hotkeys.copy}
     >
-      <div class="flex items-center gap-2.5">
+      <div class={itemContentClass}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -221,14 +227,14 @@
     </button>
 
     <button 
-      class="w-full flex items-center justify-between bg-transparent border-0 text-[var(--color-text-default)] px-3 py-2 m-0 font-inherit cursor-pointer rounded-[var(--radius-sm)] whitespace-nowrap leading-[1.3] gap-3 outline-none shadow-none relative hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-text-default)] active:bg-[color-mix(in_srgb,var(--color-primary)_12%,var(--color-bg-hover)_88%)] active:text-[var(--color-text-default)] transition-colors duration-150"
+      class={itemClass}
       onclick={(e) => {
         e.stopPropagation();
         doCut();
       }}
       title={L.hotkeys.cut}
     >
-      <div class="flex items-center gap-2.5">
+      <div class={itemContentClass}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -254,14 +260,14 @@
     </button>
 
     <button 
-      class="w-full flex items-center justify-between bg-transparent border-0 text-[var(--color-text-default)] px-3 py-2 m-0 font-inherit cursor-pointer rounded-[var(--radius-sm)] whitespace-nowrap leading-[1.3] gap-3 outline-none shadow-none relative hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-text-default)] active:bg-[color-mix(in_srgb,var(--color-primary)_12%,var(--color-bg-hover)_88%)] active:text-[var(--color-text-default)] transition-colors duration-150"
+      class={itemClass}
       onclick={(e) => {
         e.stopPropagation();
         doPaste();
       }}
       title={L.hotkeys.paste}
     >
-      <div class="flex items-center gap-2.5">
+      <div class={itemContentClass}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -287,14 +293,14 @@
     </button>
 
     <button 
-      class="w-full flex items-center justify-between bg-transparent border-0 text-[var(--color-text-default)] px-3 py-2 m-0 font-inherit cursor-pointer rounded-[var(--radius-sm)] whitespace-nowrap leading-[1.3] gap-3 outline-none shadow-none relative hover:bg-[var(--color-bg-hover)] hover:text-[var(--color-text-default)] active:bg-[color-mix(in_srgb,var(--color-primary)_12%,var(--color-bg-hover)_88%)] active:text-[var(--color-text-default)] transition-colors duration-150"
+      class={itemClass}
       onclick={(e) => {
         e.stopPropagation();
         doDelete();
       }}
       title={L.hotkeys.delete}
     >
-      <div class="flex items-center gap-2.5">
+      <div class={itemContentClass}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

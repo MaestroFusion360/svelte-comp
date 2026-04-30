@@ -57,8 +57,8 @@ Accordion, Badge, Button, Calendar, Card, Carousel, CheckBox, CodeView,
 ColorPicker, ContextMenu, DatePicker, Dialog, Field, FilePicker, Form,
 Hamburger, InstallPWA, Menu, NoticeBase, PaginatedCard, Pagination,
 PrimaryColorSelect, ProgressBar, ProgressCircle, Radio, SearchInput, Select,
-Slider, Splitter, Switch, Table, Tabs, ThemeToggle, TimePicker, Toast,
-Tooltip, Topbar.
+Slider, Splitter, Switch, Table, Tabs, ThemeToggle, TimePicker, TimepickerNew,
+Toast, Tooltip, Topbar.
 
 Full component list in repository.
 

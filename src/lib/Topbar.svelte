@@ -59,7 +59,7 @@
 </script>
 
 {#snippet mobileHamburgerHeader()}
-  <div class="flex flex-col gap-2 items-center pt-10">
+  <div class="flex flex-col gap-2 items-center">
     {@render hamburgerHeader?.()}
     <InstallPWA alwaysShow={true} inline={true} class="w-auto self-center" />
   </div>

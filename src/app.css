@@ -1,9 +1,6 @@
 /* src/app.css */
-
 @import "tailwindcss";
 
-/* src/styles.css */
-@import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -15,6 +12,7 @@
   --color-text-warning: oklch(95% 0.05 90deg);
   --color-text-link: oklch(35% 0.3 250deg);
   --color-text-red: oklch(50% 0.25 30deg);
+  --color-text-inverse: oklch(100% 0 0deg);
 
   /* COLORS — BG */
   --color-bg-page: oklch(98% 0 0deg);
@@ -108,6 +106,7 @@
   --color-text-warning: oklch(95% 0.05 90deg);
   --color-text-link: oklch(65% 0.3 250deg);
   --color-text-red: oklch(50% 0.25 30deg);
+  --color-text-inverse: oklch(100% 0 0deg);
 
   /* COLORS — BG */
   --color-bg-page: oklch(15% 0 0deg);

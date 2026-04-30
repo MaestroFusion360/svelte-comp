@@ -139,6 +139,7 @@
   });
 
   async function copyToClipboard() {
+    if (typeof navigator === "undefined" || !navigator.clipboard) return;
     await navigator.clipboard.writeText(code);
     copied = true;
     setTimeout(() => (copied = false), 1200);
@@ -155,7 +156,7 @@
   {#if title}
     <div
       class={cx(
-        "px-3 py-1 bg-[var(--color-bg-muted)] font-semibold uppercase flex items-center justify-between",
+            "px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[var(--spacing-xs)] bg-[var(--color-bg-muted)] font-semibold uppercase flex items-center justify-between",
         TEXT[sz]
       )}
     >
@@ -165,7 +166,7 @@
         <button
           onclick={copyToClipboard}
           class={cx(
-            "px-3 py-0.5 text-xs rounded bg-[var(--color-primary)] text-white hover:opacity-[var(--opacity-hover)]",
+            "px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[calc(var(--spacing-xs)/2)] [font-size:var(--text-xs)] rounded-[var(--radius-sm)] bg-[var(--color-primary)] text-[var(--color-text-inverse,#fff)] hover:opacity-[var(--opacity-hover)]",
             "transition focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none"
           )}
           class:!bg-green-600={copied}
@@ -187,7 +188,7 @@
       <div
         bind:this={gutterEl}
         class={cx(
-          "select-none px-3 py-[12px] border-r border-[var(--border-color-default)]",
+          "select-none px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[calc(var(--spacing-sm)+var(--spacing-xs))] border-r border-[var(--border-color-default)]",
           "text-[var(--color-text-muted)] text-right overflow-hidden",
           "cv-gutter bg-[var(--color-bg-surface)] tabular-nums h-full min-h-0"
         )}
@@ -232,8 +233,8 @@
 <style>
   .cv-layer {
     position: absolute;
-    padding: 12px;
-    white-space: pre;
+    padding: calc(var(--spacing-sm) + var(--spacing-xs));
+    white-space: var(--code-white-space, pre);
     box-sizing: border-box;
     font: inherit;
     line-height: inherit;

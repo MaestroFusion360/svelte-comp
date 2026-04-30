@@ -74,19 +74,19 @@
   });
 
   const positionClass: Record<Position, string> = {
-    top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
-    bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
-    left: "right-full top-1/2 -translate-y-1/2 mr-2",
-    right: "left-full top-1/2 -translate-y-1/2 ml-2",
+    top: "bottom-full left-1/2 -translate-x-1/2 mb-[var(--spacing-sm)]",
+    bottom: "top-full left-1/2 -translate-x-1/2 mt-[var(--spacing-sm)]",
+    left: "right-full top-1/2 -translate-y-1/2 mr-[var(--spacing-sm)]",
+    right: "left-full top-1/2 -translate-y-1/2 ml-[var(--spacing-sm)]",
   };
 
   const rootClass = $derived(cx("relative inline-block", externalClass));
 
   const bubbleClass = $derived(
     cx(
-      "absolute z-20 p-0.5 italic text-xs font-medium whitespace-nowrap rounded-[var(--radius-xs)]",
-      "bg-[var(--color-bg-surface)] text-[var(--color-text-default)] shadow-lg border border-[var(--border-color-default)]",
-      "transition-opacity duration-150 ease-linear",
+      "absolute z-20 p-[calc(var(--spacing-xs)/2)] italic [font-size:var(--text-xs)] font-medium whitespace-nowrap rounded-[var(--radius-sm)]",
+      "bg-[var(--color-bg-surface)] text-[var(--color-text-default)] shadow-[0_8px_16px_var(--shadow-color)] border border-[var(--border-color-default)]",
+      "transition-opacity duration-[var(--transition-fast)] ease-linear",
       visible ? "opacity-100" : "opacity-0 pointer-events-none"
     )
   );

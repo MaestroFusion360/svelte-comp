@@ -53,16 +53,16 @@
   }: Props = $props();
 
   const paddingSizes: Record<SizeKey, string> = {
-    xs: "px-3 py-2",
-    sm: "px-4 py-2",
-    md: "px-5 py-3",
-    lg: "px-6 py-4",
-    xl: "px-7 py-5",
+    xs: "px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[var(--spacing-sm)]",
+    sm: "px-[var(--spacing-md)] py-[var(--spacing-sm)]",
+    md: "px-[calc(var(--spacing-md)+var(--spacing-xs))] py-[calc(var(--spacing-sm)+var(--spacing-xs))]",
+    lg: "px-[calc(var(--spacing-md)+var(--spacing-sm))] py-[var(--spacing-md)]",
+    xl: "px-[calc(var(--spacing-md)+var(--spacing-sm)+var(--spacing-xs))] py-[calc(var(--spacing-md)+var(--spacing-xs))]",
   };
 
   const cardClass = $derived(
     cx(
-      "bg-[var(--color-bg-surface)] border border-[var(--border-color-default)] rounded-xl shadow-sm overflow-hidden",
+      "bg-[var(--color-bg-surface)] border border-[var(--border-color-default)] rounded-[var(--radius-xl)] shadow-[0_1px_2px_var(--shadow-color)] overflow-hidden",
       TEXT[sz],
       "flex flex-col",
       externalClass
