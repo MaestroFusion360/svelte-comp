@@ -46,7 +46,7 @@ describe("NoticeBase", () => {
     });
 
     const sizedRoot = sized.firstElementChild as HTMLElement;
-    expect(sizedRoot.className).toContain("px-4");
+    expect(sizedRoot.className).toContain("px-[var(--spacing-md)]");
   });
 
   it("applies variant styling classes", () => {

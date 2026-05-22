@@ -65,6 +65,8 @@ const enTexts = {
       selectedTime: "Selected time",
       switchTo12h: "12h",
       switchTo24h: "24h",
+      now: "Now",
+      ok: "OK",
     },
   },
 } as const;
@@ -184,6 +186,8 @@ const esTexts = {
       selectedTime: "Hora seleccionada",
       switchTo12h: "12h",
       switchTo24h: "24h",
+      now: "Ahora",
+      ok: "OK",
     },
 
     contextMenu: {

@@ -233,7 +233,7 @@
               <button
                 type="button"
                 class={cx(
-                  "flex w-full items-center gap-2 select-none hover:bg-[var(--color-bg-hover)] rounded-none px-1 py-0.5 border border-transparent focus-visible:border-[var(--border-color-focus)] focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:outline-none",
+                  "flex w-full items-center gap-2 select-none rounded-none px-1 py-0.5 border border-transparent focus-visible:border-[var(--border-color-focus)] focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:outline-none",
                   alignTh(col.align)
                 )}
                 onclick={() => toggleSort(col)}

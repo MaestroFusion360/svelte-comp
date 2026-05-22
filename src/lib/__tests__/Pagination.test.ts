@@ -120,7 +120,9 @@ describe("Pagination", () => {
     expect(currentPageButton.className).toContain(
       "bg-[var(--color-bg-primary)]",
     );
-    expect(currentPageButton.className).toContain("text-white");
+    expect(currentPageButton.className).toContain(
+      "text-[var(--color-text-inverse,#fff)]",
+    );
   });
 
   it("sets aria-current for current page", () => {

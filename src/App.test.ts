@@ -143,6 +143,36 @@ describe("App", () => {
     expect(screen.getByText(TEXTS.en.about.meta)).toBeTruthy();
   });
 
+  it("groups demo apps in the hamburger and opens Calculator/Todolist", async () => {
+    render(App);
+
+    const drawer = await openDrawer();
+    expect(
+      within(drawer).getByText(TEXTS.en.app.menuSections.apps),
+    ).toBeTruthy();
+    expect(
+      within(drawer).getByRole("button", {
+        name: TEXTS.en.pageLabels.notepad,
+      }),
+    ).toBeTruthy();
+
+    const calculator = within(drawer).getByRole("button", {
+      name: TEXTS.en.pageLabels.calculator,
+    });
+    expect(
+      within(drawer).getByRole("button", {
+        name: TEXTS.en.pageLabels.todolist,
+      }),
+    ).toBeTruthy();
+
+    await fireEvent.click(calculator);
+    await tick();
+    expect(await screen.findByLabelText("Calculator")).toBeTruthy();
+
+    await goToPage(TEXTS.en.pageLabels.todolist);
+    expect(await screen.findByText("Todo List")).toBeTruthy();
+  });
+
   it("toggles theme and syncs html.dark", async () => {
     render(App);
 

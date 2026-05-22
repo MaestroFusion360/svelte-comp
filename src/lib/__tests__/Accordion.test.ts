@@ -1,7 +1,7 @@
 // $lib/__tests__/Accordion.test.ts
 import { render, fireEvent } from "@testing-library/svelte";
 import { describe, it, expect, vi } from "vitest";
-import Accordion from "$lib/Accordion.svelte";
+import Accordion from "../Accordion.svelte";
 
 describe("Accordion", () => {
   const sampleItems = [

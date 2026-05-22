@@ -172,7 +172,7 @@
     if (disabled) return;
     const span = max - min;
     const big = Math.max(step || 1, Math.round(span / 10));
-    let v = value;
+    let v: number;
 
     switch (e.key) {
       case "ArrowLeft":

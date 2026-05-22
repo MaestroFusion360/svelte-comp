@@ -48,6 +48,7 @@
     border border-[var(--border-color-default)] bg-[var(--color-bg-secondary)]
     hover:bg-[var(--color-bg-hover)] focus-visible:outline-none focus-visible:ring-2
     focus-visible:ring-[var(--border-color-focus)] transition-colors
+    [@media(pointer:coarse)]:min-h-11 [@media(pointer:coarse)]:min-w-11
     disabled:opacity-[var(--opacity-disabled)]
     disabled:cursor-not-allowed
     disabled:brightness-100

@@ -1,79 +1,43 @@
 # Demo components
 
-This document provides a set of reusable Svelte 5 demo components with props, notes and usage examples. It’s meant as a quick reference for developers exploring the UI library.
+This document describes the reusable Svelte 5 demo components in `src/demo`. It is a quick reference for developers exploring the UI library and the demo application.
 
 ---
 
 - [Demo components](#demo-components)
   - [App.svelte](#appsvelte)
-    - [Notes (App)](#notes-app)
-    - [Usage (App)](#usage-app)
   - [AboutDemo.svelte](#aboutdemosvelte)
-    - [Notes (AboutDemo)](#notes-aboutdemo)
-    - [Usage (AboutDemo)](#usage-aboutdemo)
+  - [Calculator.svelte](#calculatorsvelte)
   - [CodeViewDemo.svelte](#codeviewdemosvelte)
-    - [Props (CodeViewDemo)](#props-codeviewdemo)
-    - [Notes (CodeViewDemo)](#notes-codeviewdemo)
-    - [Usage (CodeViewDemo)](#usage-codeviewdemo)
   - [Component.svelte](#componentsvelte)
-    - [Props (Component)](#props-component)
-    - [Notes (Component)](#notes-component)
-    - [Usage (Component)](#usage-component)
   - [Container.svelte](#containersvelte)
-    - [Props (Container)](#props-container)
-    - [Notes (Container)](#notes-container)
-    - [Usage (Container)](#usage-container)
   - [DialogDemo.svelte](#dialogdemosvelte)
-    - [Props (DialogDemo)](#props-dialogdemo)
-    - [Notes (DialogDemo)](#notes-dialogdemo)
-    - [Usage (DialogDemo)](#usage-dialogdemo)
   - [FormDemo.svelte](#formdemosvelte)
-    - [Props (FormDemo)](#props-formdemo)
-    - [Notes (FormDemo)](#notes-formdemo)
-    - [Usage (FormDemo)](#usage-formdemo)
   - [MenuDemo.svelte](#menudemosvelte)
-    - [Props (MenuDemo)](#props-menudemo)
-    - [Notes (MenuDemo)](#notes-menudemo)
-    - [Usage (MenuDemo)](#usage-menudemo)
   - [Notepad.svelte](#notepadsvelte)
-    - [Notes (Notepad)](#notes-notepad)
-    - [Props (Notepad)](#props-notepad)
-    - [Usage (Notepad)](#usage-notepad)
   - [PlayCard.svelte](#playcardsvelte)
-    - [Props (PlayCard)](#props-playcard)
-    - [Notes (PlayCard)](#notes-playcard)
-    - [Usage (PlayCard)](#usage-playcard)
   - [SplitterDemo.svelte](#splitterdemosvelte)
-    - [Notes (SplitterDemo)](#notes-splitterdemo)
-    - [Usage (SplitterDemo)](#usage-splitterdemo)
+  - [Todolist.svelte](#todolistsvelte)
 
 ---
 
 ## App.svelte
 
 The main application shell that wires together global state, locale handling, navigation, demo components, and all UI building blocks of the library.
-It acts as the interactive showcase for every component: forms, tables, dialogs, sliders, menus, pickers, and the entire demo suite.
 
-### Notes (App)
+### Notes
 
-- Initializes the global locale using Svelte context so that deeply nested components receive translated labels and messages.
-- Generates the navigation menu dynamically from localized page labels, then binds it to a Hamburger-driven sidebar.
-- Maintains state for every interactive element displayed in the demo: pagination, dialogs, toasts, color pickers, date/time pickers, selects, tables, tabs, sliders and field variations.
-- Renders the correct demo or PlayCard preview based on the current `active` page, enabling fast switching between example screens.
-- Provides helper functions like `addToast`, `dialogConfirm`, `dialogCancel`, and pagination logic to replicate real application flows.
-- Uses snippets (`{#snippet}` / `{@render}`) extensively to keep the layout declarative and avoid prop-drilling.
-- Includes complete demo flows:
-  • table pagination with live derived rows
-  • dialogs with confirm/cancel
-  • toast system with variants
-  • form submission with notifications
-  • random autofill via FormDemo
-- Wraps everything inside the shared `Container` layout so that the demo UI inherits theming, spacing and responsiveness.
+- Initializes the global locale through Svelte context so nested components receive translated labels and messages.
+- Generates localized navigation for the Hamburger sidebar.
+- Keeps the app examples grouped by purpose; Notepad, Calculator and Todo List are exposed in the `apps` burger group.
+- Renders the selected demo or PlayCard preview by the active page id.
+- Maintains interactive demo state for dialogs, toasts, forms, tables, pickers, sliders and demo applications.
+- Uses snippets to keep the layout declarative and avoid prop-drilling.
+- Wraps content inside the shared `Container` layout so demos inherit theming, spacing and responsive behavior.
 
-### Usage (App)
+### Usage
 
 ```ts
-// main.ts
 import { mount } from "svelte";
 import "./app.css";
 import App from "./App.svelte";
@@ -89,14 +53,9 @@ export default app;
 
 ## AboutDemo.svelte
 
-About panel used in the demo app, showing library details and metadata.
+About panel used in the demo app, showing localized library details and metadata inside a Card.
 
-### Notes (AboutDemo)
-
-- Reads localized copy from the lang context and renders it inside Card.
-- No public props; content comes from context.
-
-### Usage (AboutDemo)
+### Usage
 
 ```svelte
 <AboutDemo />
@@ -104,24 +63,55 @@ About panel used in the demo app, showing library details and metadata.
 
 ---
 
+## Calculator.svelte
+
+Card-contained calculator demo with basic and scientific modes, memory controls and expression history.
+
+### Props
+
+- `L?: typeof TEXTS[keyof typeof TEXTS]` - Optional localization source.
+- `sz?: SizeKey` - UI size token (default: `"sm"`).
+- `class?: string` - Additional wrapper classes.
+
+### Notes
+
+- The complete UI is rendered inside a library `Card`.
+- User-facing labels come from `L.calculator`; no keyboard hint text is rendered.
+- Supports arithmetic operations, percent, sign toggle, square root, square, reciprocal and memory actions (`MC`, `MR`, `M+`, `M-`).
+- Stores recent history in `localStorage` and exposes a clear-history action.
+- Uses `min-w-0`, wrapping controls and overflow guards so the layout remains usable at 320px and 768px.
+- Uses CSS variables through library components and Tailwind arbitrary token utilities.
+
+### Usage
+
+```svelte
+<script lang="ts">
+  import Calculator from "./demo/Calculator.svelte";
+  import { TEXTS } from "./lang";
+</script>
+
+<Calculator L={TEXTS.en} sz="sm" class="w-full" />
+```
+
+---
+
 ## CodeViewDemo.svelte
 
-A small showcase for the CodeView component that demonstrates live syntax highlighting, language switching and optional editing.
+Showcase for the CodeView component: live syntax highlighting, language switching and optional editing.
 
-### Props (CodeViewDemo)
+### Props
 
 - `sz?: SizeKey` - Size token forwarded to CodeView.
 - `class?: string` - Extra wrapper classes.
 
-### Notes (CodeViewDemo)
+### Notes
 
-- Includes a language selector powered by the library’s `<Select>`.
-- Toggles editing mode via a `<Switch>`, revealing the transparent textarea overlay.
-- Uses a predefined set of code snippets (HTML, CSS, JS, JSON, Python, TXT) to show how Prism handles different grammars.
-- Line numbers and active-line highlight remain synchronized while typing.
-- The demo updates reactively when the selected language or edit mode changes.
+- Uses the library `Select` for language changes.
+- Toggles editing through `Switch`.
+- Demonstrates HTML, CSS, JS, JSON, Python and TXT snippets.
+- Keeps line numbers and active-line highlighting synchronized while editing.
 
-### Usage (CodeViewDemo)
+### Usage
 
 ```svelte
 <CodeViewDemo sz="sm" />
@@ -131,95 +121,44 @@ A small showcase for the CodeView component that demonstrates live syntax highli
 
 ## Component.svelte
 
-A low-level primitive that provides the same theming, sizing, and disabled states as the rest of the library.
-Use it to prototype brand-new surfaces without re-implementing all of the design tokens.
+Low-level themed primitive for prototyping new surfaces without re-implementing design-token behavior.
 
-### Props (Component)
+### Props
 
-- `class?: string` - Additional Tailwind/CSS classes appended to the computed styles.
-- `children?: Snippet` - Default slot content rendered inside the wrapper.
-- `disabled?: boolean` - Puts the component into a non-interactive state (default: `false`).
-- `variant?: 'default' | 'neutral'` - Background/border scheme, using CSS variables (default: `'default'`).
-- `sz?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'` - Controls gap, padding, and font-size scale (default: `'md'`).
-- Inherits all native `<div>` attributes through rest props (e.g., `role`, `tabindex`, events).
+- `class?: string` - Additional classes.
+- `children?: Snippet` - Default content.
+- `disabled?: boolean` - Disabled state.
+- `variant?: "default" | "neutral"` - Background/border scheme.
+- `sz?: "xs" | "sm" | "md" | "lg" | "xl"` - Size token.
 
-### Notes (Component)
-
-- Renders an `inline-flex` container with rounded borders and smooth transitions that match other components.
-- `disabled` sets both `data-disabled` and `aria-disabled`, so CSS selectors and assistive tech stay in sync.
-- Variants are built from the shared CSS variables in `src/app.css`, making it easy to keep light/dark themes consistent.
-- Size presets reuse the same spacing tokens as buttons/cards, which keeps typography rhythm aligned.
-
-### Usage (Component)
+### Usage
 
 ```svelte
-<script lang="ts">
-  import Component from "./demo/Component.svelte"
-</script>
-
-<div class="flex flex-col h-screen">
-  <Component
-    sz="lg"
-    class="w-full flex-col items-center justify-center gap-1 px-4 py-3"
-  >
-    <span class="font-semibold">Server status</span>
-    <span class="text-sm text-[var(--color-text-muted)]">All systems go</span>
-  </Component>
-
-  <div class="flex grow justify-center items-center">
-    <Component disabled sz="sm" class="gap-2 px-4 py-1.5">
-      <span>Offline mode</span>
-      <span class="text-xs uppercase tracking-wide opacity-70">Temporarily disabled</span>
-    </Component>
-  </div>
-</div>
+<Component sz="lg" class="w-full justify-center">
+  <span>Server status</span>
+</Component>
 ```
 
 ---
 
 ## Container.svelte
 
-A base layout component that defines the main page structure: `header`, `main`, `footer`, and optional `left` and `right` panels.
-Implements a responsive CSS Grid and theme-aware background/text colors.
+Responsive page layout with `header`, `main`, `footer`, and optional side panels.
 
-### Props (Container)
+### Props
 
-- `header?`: `Snippet` - top section content.
-- `footer?`: `Snippet` - bottom section content.
-- `left?`: `Snippet` - left sidebar (hidden on small screens).
-- `right?`: `Snippet` - right sidebar (hidden on small screens).
-- `children?`: `Snippet` - main content (`<main>`).
-- `class?`: `string` - optional Tailwind class for the outer container.
+- `header?: Snippet` - Top section.
+- `footer?: Snippet` - Bottom section.
+- `left?: Snippet` - Left sidebar.
+- `right?: Snippet` - Right sidebar.
+- `children?: Snippet` - Main content.
+- `class?: string` - Outer class.
 
-### Notes (Container)
-
-- Uses `grid-rows-[auto_1fr_auto]` to define layout rows: header, main, footer.
-- Responsive sidebars become visible at `lg` breakpoints.
-- Background and text colors are controlled via CSS variables (`--color-bg-page`, `--color-text-default`).
-- Main content is centered using `max-w-*` inside `<main>`.
-
-### Usage (Container)
+### Usage
 
 ```svelte
-<script lang="ts">
-  import Container from './demo/Container.svelte';
-  import Card from '$lib/Card.svelte';
-</script>
-
-{#snippet header()}
-  <h1 class="text-center font-bold text-lg">Page Header</h1>
-{/snippet}
-
-{#snippet footer()}
-  <p class="text-center text-sm">Page Footer</p>
-{/snippet}
-
 <Container {header} {footer}>
-  <div class="max-w-[400px] mx-auto text-center space-y-4">
-    <Card sz="md">
-      <p>Card content inside a themed container.</p>
-    </Card>
-  </div>
+  <Card sz="md">Card content</Card>
 </Container>
 ```
 
@@ -227,19 +166,15 @@ Implements a responsive CSS Grid and theme-aware background/text colors.
 
 ## DialogDemo.svelte
 
-Demo for Dialog with confirm/cancel flows and toast feedback.
+Demo for Dialog confirm/cancel flows and toast feedback.
 
-### Props (DialogDemo)
+### Props
 
-- `sz?: SizeKey` - Size token forwarded to Dialog (default: `"sm"`).
-- `class?: string` - Extra classes passed to Dialog (default: `""`).
-- `message?: string` - Optional message shown in Dialog (default: `""`).
+- `sz?: SizeKey` - Size token forwarded to Dialog.
+- `class?: string` - Extra classes passed to Dialog.
+- `message?: string` - Optional dialog message.
 
-### Notes (DialogDemo)
-
-- Uses lang context and toastStore to show confirm/cancel toasts.
-
-### Usage (DialogDemo)
+### Usage
 
 ```svelte
 <DialogDemo sz="sm" message="Are you sure?" />
@@ -249,21 +184,19 @@ Demo for Dialog with confirm/cancel flows and toast feedback.
 
 ## FormDemo.svelte
 
-A complete demonstration of the Form component with validation, localization and a fully wired submit flow.
+Complete Form demonstration with validation, localization and submit handling.
 
-### Props (FormDemo)
+### Props
 
-- `onSubmit?: (data: FormValues) => void` - Called with form values on submit.
+- `onSubmit?: (data: FormValues) => void` - Called with validated form values.
 
-### Notes (FormDemo)
+### Notes
 
-- Builds a full form schema with text fields, email, number validation, selects, checkboxes and custom validators.
-- Uses localized labels and messages via the `lang` context and the `TEXTS` dictionary.
-- Exposes the underlying Form API to trigger resets and programmatic value changes.
-- Includes a helper that auto-fills the form with valid random data for testing.
-- Wrapped in a Card with header and footer snippets for a more realistic layout.
+- Covers text, email, password, number, select and checkbox fields.
+- Uses localized labels/messages through lang context.
+- Includes random autofill for fast demo testing.
 
-### Usage (FormDemo)
+### Usage
 
 ```svelte
 <FormDemo onSubmit={(data) => console.log(data)} />
@@ -273,21 +206,14 @@ A complete demonstration of the Form component with validation, localization and
 
 ## MenuDemo.svelte
 
-A simple showcase of the Menu component with a couple of menu groups and basic action handling.
+Small showcase of the Menu component with grouped actions and select callbacks.
 
-### Props (MenuDemo)
+### Props
 
-- `sz?: SizeKey` - Size token forwarded to Menu (default: `"sm"`).
-- `class?: string` - Extra wrapper classes (default: `""`).
+- `sz?: SizeKey` - Size token forwarded to Menu.
+- `class?: string` - Extra wrapper classes.
 
-### Notes (MenuDemo)
-
-- Demonstrates how to define menu sections with mixed string and object actions.
-- Shows how the `onSelect` callback receives both the menu name and the selected action.
-- Uses the shared size token (`sz`) to keep spacing and typography consistent with the rest of the UI.
-- Wrapped in a bordered container to imitate a small application window.
-
-### Usage (MenuDemo)
+### Usage
 
 ```svelte
 <MenuDemo sz="sm" />
@@ -297,115 +223,53 @@ A simple showcase of the Menu component with a couple of menu groups and basic a
 
 ## Notepad.svelte
 
-A compact text-editor component that renders a classic notepad-style UI with a menu bar, basic editing actions, and a live editable CodeView.
+Compact notepad-style text editor with a menu bar, editable CodeView, status bar and dialogs.
 
-### Notes (Notepad)
+### Props
 
-- The top menu bar is provided by the library’s Menu component and receives a fully prebuilt `menus` structure.
-- Supports the actions New, Open, Save, Undo, Redo, Cut, Copy, Paste and About.
-- File operations use the File System Access API when available, with fallbacks to classic downloads for unsupported environments.
-- Maintains a small undo/redo stack using simple string snapshots without diffing.
-- Localization is handled through the optional `L` prop, which supplies dynamic labels for menu groups and actions.
-- The UI size token `sz` (XS–XL) controls typography and spacing across both the menu bar and the editor.
-- Syntax highlighting and editor behavior depend on the selected `lang` value.
-- The component manages its own internal text state and file handle, with auto-tracking of user edits.
+- `L?: NotepadLocale` - Optional localization source.
+- `lang?: Language` - Active syntax mode (default: `"txt"`).
+- `sz?: "xs" | "sm" | "md" | "lg" | "xl"` - UI size token.
+- `class?: string` - Additional wrapper classes.
 
-### Props (Notepad)
+### Notes
 
-- `L?: NotepadLocale` localization source (default: `{}`)
-- `lang?: Language` active syntax mode (default: `"txt"`)
-- `sz?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'` UI size token (default: `"sm"`)
-- `class?: string` optional external class (default: `""`)
+- Uses the library `Menu`, `CodeView`, `Dialog`, `Toast` and `ContextMenu` components.
+- Supports New, Open, Save, Undo, Redo, Cut, Copy, Paste, language switching, status-bar toggle and About.
+- File operations use the File System Access API when available, with download/input fallbacks.
+- Maintains a small undo/redo stack with string snapshots.
+- Localized through the optional `L` prop.
 
-### Usage (Notepad)
+### Usage
 
 ```svelte
-<script lang="ts">
-  import Notepad from "./demo/Notepad.svelte";
-
-  const L = {
-    notepad: {
-      menu: { file: "File", edit: "Edit" },
-      actions: { new: "New", open: "Open" }
-    }
-  };
-</script>
-
-<Notepad
-  L={L}
-  lang="txt"
-  sz="sm"
-  class="w-full h-full"
-/>
+<Notepad L={TEXTS.en} lang="txt" sz="sm" class="w-full h-full" />
 ```
 
 ---
 
 ## PlayCard.svelte
 
-An interactive playground wrapper for showcasing and testing UI components with live controls (`size`, `variant`, `label`, `disabled`, `type`, etc.).
+Interactive playground wrapper for showcasing UI components with live controls.
 
-### Props (PlayCard)
+### Props
 
-- **`component`**: `ComponentName`
-  The component key from `componentMeta` that determines available sizes and variants.
+- `component: ComponentName` - Component key from `componentMeta`.
+- `title?: string` - Card title.
+- `subtitle?: string` - Card subtitle.
+- `class?: string` - Additional wrapper classes.
+- `label?: string` - Initial label control value.
+- `disabled?: boolean` - Initial disabled state.
+- `children?: Snippet<[SizeKey, string, string, boolean, string, boolean]>` - Preview renderer.
 
-- **`title?`**: `string`
-  The title shown at the top of the card. Default: `""` (falls back to localized label).
-
-- **`subtitle?`**: `string`
-  The subtitle displayed under the title. Default: `""` (falls back to localized label).
-
-- **`class?`**: `string`
-  Additional CSS classes for the card wrapper.
-
-- **`label?`**: `string`
-  The initial label value.
-
-- **`disabled?`**: `boolean`
-  The initial disabled state.
-
-- **`children?`**: `Snippet<[SizeKey, string, string, boolean, string, boolean]>`
-  A snippet invoked with the current control values to render the live preview.
-
-### Notes (PlayCard)
-
-- Automatically displays the correct set of controls based on `componentMeta`.
-- When `component === "Field"`, shows an additional `Select` for choosing field type (`input`, `number`, `textarea`).
-- All control changes are reactive - the snippet updates instantly.
-
-### Usage (PlayCard)
+### Usage
 
 ```svelte
-<script lang="ts">
-  import { setContext } from "svelte";
-  import PlayCard from "./demo/PlayCard.svelte";
-  import Accordion from "$lib/Accordion.svelte";
-  import { TEXTS } from "./lang";
-  import type { SizeKey } from "$lib/types";
-  // Locale init
-  type Locale = keyof typeof TEXTS;
-  const lang = $state<{ value: Locale }>({ value: "en" });
-  setContext("lang", lang);
-  const L = $derived(TEXTS[lang.value]);
-
-  const accordionItems = $derived([...L.snippets.accordion.items]);
-</script>
-
-<div
-  class="grid min-h-dvh place-items-center bg-[var(--color-bg-page)] p-[var(--spacing-lg)]"
->
-  <PlayCard
-    component="Accordion"
-    title={L.pageLabels.accordion}
-    subtitle={L.snippets.accordionPlay.subtitle}
-  >
-    {#snippet children(sz: SizeKey, cls: string)}
-      <Accordion {sz} class={cls} items={accordionItems} />
-    {/snippet}
-  </PlayCard>
-</div>
-
+<PlayCard component="Accordion" title="Accordion">
+  {#snippet children(sz, cls)}
+    <Accordion {sz} class={cls} items={items} />
+  {/snippet}
+</PlayCard>
 ```
 
 ---
@@ -414,14 +278,39 @@ An interactive playground wrapper for showcasing and testing UI components with 
 
 Demo showcasing horizontal and vertical Splitter layouts.
 
-### Notes (SplitterDemo)
-
-- No public props; uses internal snippets for panels.
-
-### Usage (SplitterDemo)
+### Usage
 
 ```svelte
 <SplitterDemo />
 ```
 
 ---
+
+## Todolist.svelte
+
+Card-contained todo application demo with priority filtering and toast feedback.
+
+### Props
+
+- `L?: typeof TEXTS[keyof typeof TEXTS]` - Optional localization source.
+- `sz?: SizeKey` - UI size token (default: `"sm"`).
+- `class?: string` - Additional wrapper classes.
+
+### Notes
+
+- The component owns its outer `Card`, so it can be mounted directly in the Apps area.
+- Supports add, delete, toggle complete, clear completed, status filters and priority filters.
+- Uses localized labels/messages from `L.todolist`.
+- Uses `min-w-0`, wrapping layout and overflow guards for 320px and 768px widths.
+- Emits toasts for validation, add/delete and clear actions.
+
+### Usage
+
+```svelte
+<script lang="ts">
+  import Todolist from "./demo/Todolist.svelte";
+  import { TEXTS } from "./lang";
+</script>
+
+<Todolist L={TEXTS.en} sz="sm" class="w-full" />
+```

@@ -34,7 +34,7 @@
    */
   import Card from "./Card.svelte";
   import type { HTMLAttributes } from "svelte/elements";
-  import type { SizeKey, CarouselItem } from "./types";
+  import { TEXT, type SizeKey, type CarouselItem } from "./types";
   import { cx } from "../utils";
 
   type Props = HTMLAttributes<HTMLDivElement> & {
@@ -66,19 +66,19 @@
     "relative w-full overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-bg-surface)]";
 
   const sizes: Record<SizeKey, string> = {
-    xs: "rounded-[var(--radius-md)] text-sm",
-    sm: "rounded-[var(--radius-md)] text-base",
-    md: "rounded-[var(--radius-lg)] text-lg",
-    lg: "rounded-[var(--radius-lg)] text-xl",
-    xl: "rounded-[var(--radius-xl)] text-2xl",
+    xs: cx("rounded-[var(--radius-md)]", TEXT.xs),
+    sm: cx("rounded-[var(--radius-md)]", TEXT.sm),
+    md: cx("rounded-[var(--radius-lg)]", TEXT.md),
+    lg: cx("rounded-[var(--radius-lg)]", TEXT.lg),
+    xl: cx("rounded-[var(--radius-xl)]", TEXT.xl),
   };
 
   const contentSize: Record<SizeKey, string> = {
-    xs: "p-3 gap-2",
-    sm: "p-4 gap-2.5",
-    md: "p-5 gap-3",
-    lg: "p-6 gap-4",
-    xl: "p-8 gap-5",
+    xs: "p-[calc(var(--spacing-sm)+var(--spacing-xs))] gap-[var(--spacing-sm)]",
+    sm: "p-[var(--spacing-md)] gap-[calc(var(--spacing-sm)+var(--spacing-xs)/2)]",
+    md: "p-[calc(var(--spacing-md)+var(--spacing-xs))] gap-[calc(var(--spacing-sm)+var(--spacing-xs))]",
+    lg: "p-[calc(var(--spacing-md)+var(--spacing-sm))] gap-[var(--spacing-md)]",
+    xl: "p-[var(--spacing-xl)] gap-[calc(var(--spacing-md)+var(--spacing-xs))]",
   };
 
   const arrowSize: Record<SizeKey, string> = {
@@ -123,14 +123,14 @@
   const arrowClass = $derived(
     cx(
       arrowSize[sz],
-      "rounded-full bg-[var(--color-bg-surface)] shadow-lg flex items-center justify-center [color:var(--color-text-default)] hover:bg-[var(--color-bg-hover)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none"
+      "rounded-full bg-[var(--color-bg-surface)] shadow-[0_8px_16px_var(--shadow-color)] flex items-center justify-center [color:var(--color-text-default)] hover:bg-[var(--color-bg-hover)] transition-colors focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none"
     )
   );
 
   const dotClass = $derived(
     cx(
       dotSize[sz],
-      "rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none"
+      "rounded-full transition-all duration-[var(--transition-fast)] focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus:outline-none"
     )
   );
 
@@ -156,7 +156,7 @@
 
   $effect(() => {
     if (autoplay && hasItems && items.length > 1) {
-      autoplayTimer = setInterval(next, interval);
+      autoplayTimer = setInterval(next, Math.max(1000, interval));
     }
     return () => {
       if (autoplayTimer) {
@@ -203,7 +203,7 @@
         {/snippet}
 
         <div
-          class="transition-opacity duration-300 ease-in-out"
+          class="transition-opacity duration-[var(--transition-normal)] ease-in-out"
           class:opacity-100={i === current}
           class:opacity-0={i !== current}
           class:block={i === current}
@@ -275,7 +275,7 @@
   </div>
 
   {#if showDots && hasItems && items.length > 1}
-    <div class="flex justify-center gap-2 p-4">
+    <div class="flex justify-center gap-[var(--spacing-sm)] p-[var(--spacing-md)]">
       {#each items as item, i (item.id ?? i)}
         <button
           type="button"

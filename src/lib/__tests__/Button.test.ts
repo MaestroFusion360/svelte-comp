@@ -145,6 +145,28 @@ describe("Button", () => {
     locationSpy.mockRestore();
   });
 
+  it("blocks unsafe javascript links", async () => {
+    const assignMock = vi.fn();
+    const openMock = vi.spyOn(window, "open");
+    const locationSpy = vi.spyOn(window, "location", "get");
+    locationSpy.mockReturnValue({
+      ...window.location,
+      assign: assignMock,
+    } as any);
+
+    const { getByRole } = render(Button, {
+      props: { link: "javascript:alert(1)", target: "_blank" } as any,
+    });
+
+    await fireEvent.click(getByRole("button"));
+
+    expect(assignMock).not.toHaveBeenCalled();
+    expect(openMock).not.toHaveBeenCalled();
+
+    openMock.mockRestore();
+    locationSpy.mockRestore();
+  });
+
   it("does not navigate on modifier keys (Ctrl/Cmd/Shift)", async () => {
     const assignMock = vi.fn();
     const locationSpy = vi.spyOn(window, "location", "get");

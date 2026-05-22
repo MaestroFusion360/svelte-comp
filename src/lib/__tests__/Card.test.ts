@@ -16,11 +16,11 @@ describe("Card", () => {
     expect(card.className).toContain("bg-[var(--color-bg-surface)]");
     expect(card.className).toContain("border");
     expect(card.className).toContain("border-[var(--border-color-default)]");
-    expect(card.className).toContain("rounded-xl");
-    expect(card.className).toContain("shadow-sm");
+    expect(card.className).toContain("rounded-[var(--radius-xl)]");
+    expect(card.className).toContain("shadow-[0_1px_2px_var(--shadow-color)]");
     expect(card.className).toContain("overflow-hidden");
 
-    const content = card.querySelector("[class*='px-']");
+    const content = card.querySelector("[class*='flex-1']");
     expect(content).toBeTruthy();
   });
 
@@ -87,8 +87,8 @@ describe("Card", () => {
 
     expect(header.className).toContain("border-[var(--border-color-default)]");
     expect(footer.className).toContain("border-[var(--border-color-default)]");
-    expect(header.className).toMatch(/px-\d/);
-    expect(footer.className).toMatch(/px-\d/);
+    expect(header.className).toContain("px-[");
+    expect(footer.className).toContain("px-[");
   });
 
   it("removes borders and padding when flushHeader/flushFooter true", () => {
@@ -110,10 +110,10 @@ describe("Card", () => {
     expect(card?.lastElementChild).toBe(footer);
 
     expect(header.className).not.toContain("border-b");
-    expect(header.className).not.toMatch(/px-\d/);
+    expect(header.className).not.toContain("px-[");
 
     expect(footer.className).not.toContain("border-t");
-    expect(footer.className).not.toMatch(/px-\d/);
+    expect(footer.className).not.toContain("px-[");
   });
 
   it("uses correct default text size (md)", () => {
@@ -138,25 +138,41 @@ describe("Card", () => {
 
   it("applies correct padding to content for each size", () => {
     const cases = [
-      { sz: "xs", pad: "px-3 py-2" },
-      { sz: "sm", pad: "px-4 py-2" },
-      { sz: "md", pad: "px-5 py-3" },
-      { sz: "lg", pad: "px-6 py-4" },
-      { sz: "xl", pad: "px-7 py-5" },
+      {
+        sz: "xs",
+        pad: "px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[var(--spacing-sm)]",
+      },
+      { sz: "sm", pad: "px-[var(--spacing-md)] py-[var(--spacing-sm)]" },
+      {
+        sz: "md",
+        pad: "px-[calc(var(--spacing-md)+var(--spacing-xs))] py-[calc(var(--spacing-sm)+var(--spacing-xs))]",
+      },
+      {
+        sz: "lg",
+        pad: "px-[calc(var(--spacing-md)+var(--spacing-sm))] py-[var(--spacing-md)]",
+      },
+      {
+        sz: "xl",
+        pad: "px-[calc(var(--spacing-md)+var(--spacing-sm)+var(--spacing-xs))] py-[calc(var(--spacing-md)+var(--spacing-xs))]",
+      },
     ] as const;
 
     cases.forEach(({ sz, pad }) => {
       const { container } = render(Card, {
         props: { sz, children: textSnippet("X") },
       });
-      const content = container.querySelector(`.${pad.replace(" ", ".")}`);
-      expect(content).toBeTruthy();
+      const content = container.querySelector(
+        "[class*='flex-1']",
+      ) as HTMLElement;
+      for (const cls of pad.split(" ")) {
+        expect(content.className).toContain(cls);
+      }
     });
   });
 
   it("content area always has flex-1 and min-h-0", () => {
     const { container } = render(Card);
-    const content = container.querySelector("[class*='px-']") as HTMLElement;
+    const content = container.querySelector("[class*='flex-1']") as HTMLElement;
 
     expect(content.className).toContain("flex-1");
     expect(content.className).toContain("min-h-0");

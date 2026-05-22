@@ -117,7 +117,7 @@
   });
 
   const triggerBase =
-    "fixed top-4 left-4 inline-flex items-center justify-center h-8 w-8 rounded-md border border-[var(--border-color-default)] bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] transition-colors z-[var(--z-modal)]";
+    "fixed top-4 left-4 inline-flex items-center justify-center h-8 w-8 rounded-[var(--radius-md)] [@media(pointer:coarse)]:min-h-11 [@media(pointer:coarse)]:min-w-11 border border-[var(--border-color-default)] bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] transition-colors z-[var(--z-modal)]";
 
   const triggerClass = $derived(cx(triggerBase, externalClass));
 </script>
@@ -133,19 +133,19 @@
   <span class="relative block w-5 h-3.5">
     <span
       class={cx(
-        "absolute left-0 top-1/2 h-[2px] w-full bg-current transition-transform duration-200",
+    "absolute left-0 top-1/2 h-[2px] w-full bg-current transition-transform duration-[var(--transition-fast)]",
         open ? "translate-y-[-50%] rotate-45" : "translate-y-[calc(-50%_-_6px)]"
       )}
     ></span>
     <span
       class={cx(
-        "absolute left-0 top-1/2 h-[2px] w-full bg-current transition-opacity duration-200 translate-y-[-50%]",
+    "absolute left-0 top-1/2 h-[2px] w-full bg-current transition-opacity duration-[var(--transition-fast)] translate-y-[-50%]",
         open ? "opacity-0" : "opacity-100"
       )}
     ></span>
     <span
       class={cx(
-        "absolute left-0 top-1/2 h-[2px] w-full bg-current transition-transform duration-200",
+    "absolute left-0 top-1/2 h-[2px] w-full bg-current transition-transform duration-[var(--transition-fast)]",
         open
           ? "translate-y-[-50%] -rotate-45"
           : "translate-y-[calc(-50%_+_6px)]"
@@ -165,26 +165,26 @@
       style={`width:${typeof width === "number" ? `${width}px` : width}`}
     >
       {#if header}
-        <div class="p-4 border-b border-[var(--border-color-default)]">
+    <div class="p-[var(--spacing-md)] border-b border-[var(--border-color-default)]">
           {@render header?.()}
         </div>
       {/if}
 
       <div class="flex-1 overflow-y-auto" tabindex="-1">
         {#if menuItems.length === 0}
-          <div class="text-xs opacity-70 px-3 py-2 text-center">No items</div>
+        <div class="[font-size:var(--text-xs)] opacity-70 px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[var(--spacing-sm)] text-center">No items</div>
         {:else}
-          <ul class="grid gap-2 p-4">
+      <ul class="grid gap-[var(--spacing-sm)] p-[var(--spacing-md)]">
             {#each menuItems as it (it.id)}
               {#if it.type === "section"}
-                <li class="px-3 pt-2 mt-3 text-[var(--color-text-muted)] text-[var(--text-xs)] lowercase tracking-wide opacity-70">
+          <li class="px-[calc(var(--spacing-sm)+var(--spacing-xs))] pt-[var(--spacing-sm)] mt-[calc(var(--spacing-sm)+var(--spacing-xs))] text-[var(--color-text-muted)] [font-size:var(--text-xs)] lowercase tracking-wide opacity-70">
                   {it.label}
                 </li>
               {:else}
                 <li>
                   <button
                     type="button"
-                    class="w-full text-left px-3 py-2 rounded-md hover:bg-[var(--color-bg-hover)] focus:outline-[var(--border-color-focus)] focus:outline-2 transition-colors"
+              class="w-full text-left px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[var(--spacing-sm)] rounded-[var(--radius-md)] hover:bg-[var(--color-bg-hover)] focus:outline-[var(--border-color-focus)] focus:outline-2 transition-colors"
                     aria-current={activeItem === it.id ? "page" : undefined}
                     onclick={() => {
                       onSelect?.(it.id);
@@ -201,7 +201,7 @@
       </div>
 
       {#if footer}
-        <div class="p-4 border-t border-[var(--border-color-default)]">
+    <div class="p-[var(--spacing-md)] border-t border-[var(--border-color-default)]">
           {@render footer?.()}
         </div>
       {/if}
@@ -209,7 +209,7 @@
 
     <button
       type="button"
-      class="flex-1 bg-black/40"
+        class="flex-1 bg-[oklch(0_0_0/0.4)]"
       aria-hidden="true"
       onclick={closeMenu}
     ></button>

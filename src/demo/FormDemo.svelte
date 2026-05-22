@@ -220,10 +220,11 @@
 <Card header={formHeader} footer={formFooter}>
   <Form
     {schema}
-    rowGap="xl"
+    rowGap="sm"
     onSubmit={handleSubmit}
     {formId}
     expose={grabExpose}
+    labelSize="sm"
     labelAlign="left"
     compact={false}
   />

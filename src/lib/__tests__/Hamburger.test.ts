@@ -1,6 +1,6 @@
 import { render, fireEvent } from "@testing-library/svelte";
 import { describe, it, expect, vi } from "vitest";
-import Hamburger from "$lib/Hamburger.svelte";
+import Hamburger from "../Hamburger.svelte";
 
 const items = [
   { id: "home", label: "Home" },

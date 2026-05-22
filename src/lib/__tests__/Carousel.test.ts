@@ -8,7 +8,7 @@ import {
 } from "@testing-library/svelte";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import Carousel from "../Carousel.svelte";
-import type { CarouselItem } from "$lib/types";
+import type { CarouselItem } from "../types";
 
 describe("Carousel Component", () => {
   const mockItems: CarouselItem[] = [
@@ -59,7 +59,7 @@ describe("Carousel Component", () => {
       const { container } = render(Carousel, { items: mockItems, sz: "lg" });
 
       const carousel = container.firstChild as HTMLElement;
-      expect(carousel.classList.contains("text-xl")).toBe(true);
+      expect(carousel.className).toContain("[font-size:var(--text-lg)]");
     });
 
     it("renders images when provided", () => {
@@ -236,6 +236,24 @@ describe("Carousel Component", () => {
       expect(screen.getByText("Slide 2")).toBeTruthy();
     });
 
+    it("clamps too-small autoplay intervals", async () => {
+      render(Carousel, {
+        items: mockItems,
+        autoplay: true,
+        interval: 0,
+      });
+
+      await act(() => {
+        vi.advanceTimersByTime(999);
+      });
+      expect(screen.getByText("Slide 1")).toBeTruthy();
+
+      await act(() => {
+        vi.advanceTimersByTime(1);
+      });
+      expect(screen.getByText("Slide 2")).toBeTruthy();
+    });
+
     it("stops autoplay when component unmounts", () => {
       const { unmount } = render(Carousel, {
         items: mockItems,
@@ -325,7 +343,7 @@ describe("Carousel Component", () => {
       });
 
       const carousel = container.firstChild as HTMLElement;
-      expect(carousel.classList.contains("text-2xl")).toBe(true);
+      expect(carousel.className).toContain("[font-size:var(--text-xl)]");
     });
 
     it("merges external classes correctly", () => {

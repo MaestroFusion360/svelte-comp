@@ -83,7 +83,7 @@
   }
 
   function onDrag(e: PointerEvent): void {
-    if (!isDragging) return;
+    if (!isDragging || containerSize <= 0) return;
 
     const currentPos = direction === "horizontal" ? e.clientX : e.clientY;
     const delta = currentPos - startPos;
@@ -124,8 +124,11 @@
     </div>
 
     <div
-      class="touch-none select-none z-10 cursor-col-resize bg-[var(--color-bg-muted)] hover:bg-[var(--color-bg-hover)] transition-colors"
-      style="width: {dividerSize}px"
+      role="separator"
+      aria-orientation="vertical"
+      aria-label="Resize handle"
+      class="touch-none select-none z-10 cursor-col-resize bg-[var(--color-bg-muted)] hover:bg-[var(--color-bg-hover)] transition-colors [@media(pointer:coarse)]:min-w-11"
+      style="width: {dividerSize}px; min-width: {dividerSize}px"
       onpointerdown={startDrag}
     ></div>
 
@@ -138,12 +141,18 @@
     </div>
 
     <div
-      class="touch-none select-none z-10 cursor-row-resize bg-[var(--color-bg-muted)] hover:bg-[var(--color-bg-hover)] transition-colors"
-      style="height: {dividerSize}px"
+      role="separator"
+      aria-orientation="horizontal"
+      aria-label="Resize handle"
+      class="touch-none select-none z-10 cursor-row-resize bg-[var(--color-bg-muted)] hover:bg-[var(--color-bg-hover)] transition-colors [@media(pointer:coarse)]:min-h-11"
+      style="height: {dividerSize}px; min-height: {dividerSize}px"
       onpointerdown={startDrag}
     ></div>
 
-    <div class="overflow-auto min-w-0 min-h-0" style="height: calc(100% - {size}% - {dividerSize}px)">
+    <div
+      class="overflow-auto min-w-0 min-h-0"
+      style="height: calc(100% - {size}% - {dividerSize}px)"
+    >
       {@render second?.()}
     </div>
   {/if}

@@ -103,6 +103,7 @@
       isDisabled
         ? "opacity-[var(--opacity-disabled)] cursor-not-allowed"
         : "cursor-pointer",
+      "[@media(pointer:coarse)]:min-h-11 [@media(pointer:coarse)]:min-w-11",
       justifyClass
     )
   );
@@ -114,21 +115,21 @@
   const knobClass = $derived(
     cx(
       knob[sz],
-      "rounded-full bg-white border border-[var(--border-color-default)] shadow-sm"
+      "rounded-full bg-[var(--color-text-inverse,#fff)] border border-[var(--border-color-default)] shadow-[0_1px_2px_var(--shadow-color)]"
     )
   );
 </script>
 
 <label class={rootClass} for={inputId}>
   {#if topLabel}
-    <span class="text-[var(--color-text-muted)] {TEXT[sz]}">
+    <span class={cx("text-[var(--color-text-muted)]", TEXT[sz])}>
       {topLabel}
     </span>
   {/if}
 
   <div class="inline-flex items-center gap-2">
     {#if leftLabel}
-      <span class="text-[var(--color-text-muted)] {TEXT[sz]}">
+      <span class={cx("text-[var(--color-text-muted)]", TEXT[sz])}>
         {leftLabel}
       </span>
     {/if}
@@ -159,7 +160,7 @@
     </button>
 
     {#if rightLabel}
-      <span class="text-[var(--color-text-muted)] {TEXT[sz]}">
+      <span class={cx("text-[var(--color-text-muted)]", TEXT[sz])}>
         {rightLabel}
       </span>
     {/if}
