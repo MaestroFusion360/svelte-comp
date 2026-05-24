@@ -121,7 +121,7 @@
 
   const rootClass = $derived(
     cx(
-      "inline-flex items-center cursor-pointer select-none [@media(pointer:coarse)]:min-h-11",
+      "inline-flex items-center cursor-pointer select-none",
       gapBySize[sz],
       externalClass
     )

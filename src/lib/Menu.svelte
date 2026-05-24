@@ -17,6 +17,9 @@
    * @options xs|sm|md|lg|xl
    * @default sm
    *
+   * @prop activeValue {string} - Optional action value marked with a dot indicator
+   * @default sz
+   *
    * @note Fully keyboard-safe for focus and mouse interactions.
    * @note Submenus open on hover when another menu is already open.
    * @note Actions that match size keys (`xs`, `sm`, `md`, `lg`, `xl`) are automatically highlighted to reflect the current UI size.
@@ -32,6 +35,7 @@
     onSelect?: (menu: string, action: MenuAction) => void;
     class?: string;
     sz?: SizeKey;
+    activeValue?: string;
   };
 
   let {
@@ -39,6 +43,7 @@
     onSelect = () => {},
     class: externalClass = "",
     sz = "sm",
+    activeValue = sz,
   }: Props = $props();
 
   let open = $state<string>("");
@@ -69,12 +74,12 @@
   };
 
   const navBase =
-    "flex items-stretch pl-[var(--spacing-sm)] gap-[var(--spacing-xs)] border-b relative z-10 bg-[var(--color-bg-surface)] text-[var(--color-text-default)] border-[var(--border-color-default)]";
+    "flex items-center pl-[var(--spacing-sm)] gap-[var(--spacing-xs)] relative z-10 bg-[var(--color-bg-surface)] text-[var(--color-text-default)]";
 
   const subMenuGutter = 8;
 
   const topButtonBase =
-    "px-[var(--spacing-md)] rounded-[var(--radius-sm)] leading-none transition-colors outline-none [@media(pointer:coarse)]:min-h-11 focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]";
+    "inline-flex items-center justify-center rounded-[var(--radius-sm)] leading-[var(--line-height-normal)] transition-colors outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--border-color-focus)]";
 
   const topButtonActive =
     "bg-[var(--color-bg-muted)] text-[var(--color-text-default)]";
@@ -102,6 +107,15 @@
   function actionId(a: MenuAction) {
     if (typeof a === "string") return a;
     return a.id ?? a.label ?? "";
+  }
+
+  function actionValue(a: MenuAction) {
+    if (typeof a === "string") return a;
+    return a.real ?? a.id ?? a.label ?? "";
+  }
+
+  function isActiveAction(a: MenuAction) {
+    return actionValue(a) === activeValue;
   }
 
   function actionShortcut(a: MenuAction) {
@@ -529,6 +543,15 @@
                 }}
               >
                 <span class="flex items-center gap-[var(--spacing-sm)] flex-1 min-w-0">
+                  <span
+                    class={cx(
+                      "size-1.5 shrink-0 rounded-full",
+                      isActiveAction(action)
+                        ? "bg-[var(--color-text-default)]"
+                        : "bg-transparent"
+                    )}
+                    aria-hidden="true"
+                  ></span>
                   <span class="truncate">{actionText(action)}</span>
                 </span>
 
@@ -596,6 +619,15 @@
                         onfocus={() => (activeSubIndex = j)}
                       >
                         <span class="flex items-center gap-[var(--spacing-sm)] flex-1 min-w-0">
+                          <span
+                            class={cx(
+                              "size-1.5 shrink-0 rounded-full",
+                              isActiveAction(sub)
+                                ? "bg-[var(--color-text-default)]"
+                                : "bg-transparent"
+                            )}
+                            aria-hidden="true"
+                          ></span>
                           <span class="truncate">{actionText(sub)}</span>
                         </span>
 

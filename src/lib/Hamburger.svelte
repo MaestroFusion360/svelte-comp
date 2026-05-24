@@ -117,7 +117,7 @@
   });
 
   const triggerBase =
-    "fixed top-4 left-4 inline-flex items-center justify-center h-8 w-8 rounded-[var(--radius-md)] [@media(pointer:coarse)]:min-h-11 [@media(pointer:coarse)]:min-w-11 border border-[var(--border-color-default)] bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] transition-colors z-[var(--z-modal)]";
+    "fixed top-4 left-4 inline-flex items-center justify-center h-8 w-8 rounded-[var(--radius-md)] border border-[var(--border-color-default)] bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] transition-colors z-[var(--z-modal)]";
 
   const triggerClass = $derived(cx(triggerBase, externalClass));
 </script>
@@ -165,7 +165,7 @@
       style={`width:${typeof width === "number" ? `${width}px` : width}`}
     >
       {#if header}
-    <div class="p-[var(--spacing-md)] border-b border-[var(--border-color-default)]">
+    <div class="p-[var(--spacing-sm)] border-b border-[var(--border-color-default)]">
           {@render header?.()}
         </div>
       {/if}
@@ -174,17 +174,17 @@
         {#if menuItems.length === 0}
         <div class="[font-size:var(--text-xs)] opacity-70 px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[var(--spacing-sm)] text-center">No items</div>
         {:else}
-      <ul class="grid gap-[var(--spacing-sm)] p-[var(--spacing-md)]">
+      <ul class="grid gap-[var(--spacing-xs)] p-[var(--spacing-sm)]">
             {#each menuItems as it (it.id)}
               {#if it.type === "section"}
-          <li class="px-[calc(var(--spacing-sm)+var(--spacing-xs))] pt-[var(--spacing-sm)] mt-[calc(var(--spacing-sm)+var(--spacing-xs))] text-[var(--color-text-muted)] [font-size:var(--text-xs)] lowercase tracking-wide opacity-70">
+          <li class="px-[var(--spacing-sm)] pt-[var(--spacing-xs)] mt-[var(--spacing-sm)] text-[var(--color-text-muted)] [font-size:var(--text-xs)] lowercase tracking-wide opacity-70">
                   {it.label}
                 </li>
               {:else}
                 <li>
                   <button
                     type="button"
-              class="w-full text-left px-[calc(var(--spacing-sm)+var(--spacing-xs))] py-[var(--spacing-sm)] rounded-[var(--radius-md)] hover:bg-[var(--color-bg-hover)] focus:outline-[var(--border-color-focus)] focus:outline-2 transition-colors"
+              class="w-full text-left px-[var(--spacing-sm)] py-[var(--spacing-xs)] rounded-[var(--radius-md)] hover:bg-[var(--color-bg-hover)] focus:outline-[var(--border-color-focus)] focus:outline-2 transition-colors"
                     aria-current={activeItem === it.id ? "page" : undefined}
                     onclick={() => {
                       onSelect?.(it.id);
@@ -201,7 +201,7 @@
       </div>
 
       {#if footer}
-    <div class="p-[var(--spacing-md)] border-t border-[var(--border-color-default)]">
+    <div class="p-[var(--spacing-sm)] border-t border-[var(--border-color-default)]">
           {@render footer?.()}
         </div>
       {/if}

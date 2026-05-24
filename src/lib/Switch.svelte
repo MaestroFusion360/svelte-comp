@@ -103,7 +103,6 @@
       isDisabled
         ? "opacity-[var(--opacity-disabled)] cursor-not-allowed"
         : "cursor-pointer",
-      "[@media(pointer:coarse)]:min-h-11 [@media(pointer:coarse)]:min-w-11",
       justifyClass
     )
   );

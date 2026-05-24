@@ -115,7 +115,7 @@
   };
 
   const base =
-    "inline-flex items-center justify-center font-medium transition-colors duration-[var(--transition-fast)] focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:ring-offset-0 focus:outline-none disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed [@media(pointer:coarse)]:min-h-11";
+    "inline-flex items-center justify-center font-medium transition-colors duration-[var(--transition-fast)] focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)] focus-visible:ring-offset-0 focus:outline-none disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed";
 
   const variants = $derived({
     default: {

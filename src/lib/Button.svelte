@@ -70,7 +70,6 @@
     relative inline-flex items-center justify-center gap-2 rounded-[var(--radius-md)] border font-medium
     transition-all duration-[var(--transition-fast)] ease-[var(--timing-default)] whitespace-nowrap select-none
     focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-color-focus)]
-    [@media(pointer:coarse)]:min-h-11 [@media(pointer:coarse)]:min-w-11
     disabled:opacity-[var(--opacity-disabled)]
     disabled:cursor-not-allowed
     disabled:brightness-100
