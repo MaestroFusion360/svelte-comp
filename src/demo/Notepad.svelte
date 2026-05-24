@@ -68,7 +68,9 @@
   const editLabel = $derived(M.edit ?? MI.edit ?? "Edit");
   const viewLabel = $derived(M.view ?? MI.view ?? "View");
   const languageLabel = $derived(M.language ?? MI.language ?? "Language");
+  const languageShortLabel = $derived(M.languageShort ?? languageLabel);
   const helpLabel = $derived(M.help ?? MI.help ?? "Help");
+  const moreLabel = $derived(M.more ?? MI.more ?? "More");
   const settingsLabel = $derived(M.settings ?? MI.settings ?? "Settings");
   const statusBarLabel = $derived(A.statusBar ?? MI.statusBar ?? "Status bar");
   const aboutLabel = $derived(A.about ?? MI.about ?? "About");
@@ -203,6 +205,7 @@
         close: () => void;
       }
     | null = null;
+  let viewportWidth = $state(0);
 
   const charCount = $derived(textContent.length);
   const lineCount = $derived(
@@ -213,6 +216,26 @@
       ? textContent.trim().split(/\s+/).filter(Boolean).length
       : 0
   );
+  const compactChrome = $derived(viewportWidth > 0 && viewportWidth < 420);
+  const visibleMenus = $derived.by(() => {
+    if (!compactChrome) return menus;
+
+    const [fileMenu, editMenu, viewMenu, languageMenu] = menus;
+
+    return [
+      fileMenu,
+      editMenu,
+      viewMenu,
+      { ...languageMenu, name: languageShortLabel },
+      {
+        name: moreLabel,
+        actions: [
+          { id: "options", label: optionsLabel },
+          { id: "about", label: aboutLabel, shortcut: "F1" },
+        ],
+      },
+    ].filter(Boolean) as MenuItem[];
+  });
 
   function addToast(variant: ToastVariant, message: string, title?: string) {
     toasts = [...toasts, { id: toastId++, title, message, variant }];
@@ -624,17 +647,23 @@
   }
 </script>
 
-<svelte:window onkeydown={handleHotkeys} />
+<svelte:window bind:innerWidth={viewportWidth} onkeydown={handleHotkeys} />
 
 <div class={cx("flex flex-col w-full min-w-0 h-full", externalClass)}>
   <div
-    class="overflow-x-auto overflow-y-visible w-full min-w-full bg-[var(--color-bg-surface)] border-b border-[var(--border-color-default)]"
+    class="overflow-x-auto overflow-y-visible w-full min-w-full bg-[var(--color-bg-surface)]"
   >
     <Menu
-      class="block min-w-full bg-transparent border-0"
-      {menus}
+      class={cx(
+        "block min-w-full bg-transparent border-0 !pl-0 !gap-0",
+        compactChrome
+          ? "[&>div>button]:!h-7 [&>div>button]:!px-1.5"
+          : "[&>div>button]:!h-7 [&>div>button]:!px-2"
+      )}
+      menus={visibleMenus}
       onSelect={handleSelect}
       {sz}
+      activeValue={sz}
     />
   </div>
 
@@ -662,19 +691,26 @@
     <div
       class={cx(
         "rounded-xs border border-[var(--border-color-default)] bg-[var(--color-bg-muted)]",
-        "text-[var(--color-text-muted)] px-3 py-2",
-        "flex flex-wrap items-center justify-between gap-3",
-        TEXT[sz]
+        "text-[var(--color-text-muted)] px-2 py-1",
+        "flex items-center gap-2 overflow-x-auto whitespace-nowrap",
+        TEXT.xs
       )}
     >
-      <div class={cx("flex flex-wrap items-center gap-3")}>
-        <span>Ln {cursorLine}, Col {cursorColumn}</span>
-        <span>{lineCount} lines</span>
-        <span>{wordCount} words</span>
-        <span>{charCount} chars</span>
+      <div class={cx("flex shrink-0 items-center gap-2")}>
+        {#if compactChrome}
+          <span>{cursorLine}:{cursorColumn}</span>
+          <span>{lineCount}L</span>
+          <span>{wordCount}W</span>
+          <span>{charCount}C</span>
+        {:else}
+          <span>Ln {cursorLine}, Col {cursorColumn}</span>
+          <span>{lineCount} lines</span>
+          <span>{wordCount} words</span>
+          <span>{charCount} chars</span>
+        {/if}
       </div>
 
-      <div class={cx("flex flex-wrap items-center gap-3")}>
+      <div class={cx("flex shrink-0 items-center gap-2")}>
         <span>{lang.toUpperCase()}</span>
         <span>Size {sz.toUpperCase()}</span>
       </div>

@@ -154,6 +154,19 @@ describe("Menu", () => {
     expect(nav?.className).toContain("[font-size:var(--text-md)]");
   });
 
+  it("marks the active action with a dot", async () => {
+    const { getByText } = render(Menu, {
+      props: { menus, sz: "xs", activeValue: "md" },
+    });
+
+    await fireEvent.click(getByText("View"));
+
+    const activeButton = getByText("md").closest("button");
+    expect(
+      activeButton?.querySelector(".bg-\\[var\\(--color-text-default\\)\\]"),
+    ).toBeTruthy();
+  });
+
   it("ignores separators during interaction", async () => {
     const handle = vi.fn();
 

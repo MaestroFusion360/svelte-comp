@@ -3,7 +3,7 @@ import type { SelectOption } from "$lib/types";
 
 const enTexts = {
   app: {
-    version: "v1.3.6",
+    version: "v1.3.7",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     footerUrl: "https://github.com/MaestroFusion360",
@@ -180,7 +180,9 @@ const enTexts = {
       edit: "Edit",
       view: "View",
       language: "Language",
+      languageShort: "Lang",
       help: "Help",
+      more: "More",
       settings: "Settings",
     },
     actions: {
@@ -446,7 +448,7 @@ const enTexts = {
 
 const ruTexts = {
   app: {
-    version: "v1.3.6",
+    version: "v1.3.7",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     footerUrl: "https://github.com/MaestroFusion360",
@@ -624,7 +626,9 @@ const ruTexts = {
       edit: "Правка",
       view: "Вид",
       language: "Язык",
+      languageShort: "Язык",
       help: "Справка",
+      more: "Ещё",
       settings: "Настройки",
     },
     actions: {
@@ -891,7 +895,7 @@ const ruTexts = {
 
 const esTexts = {
   app: {
-    version: "v1.3.6",
+    version: "v1.3.7",
     title: "Svelte 5 UI Components",
     footer: "© 2025 MaestroFusion360",
     footerUrl: "https://github.com/MaestroFusion360",
@@ -1068,7 +1072,9 @@ const esTexts = {
       edit: "Editar",
       view: "Vista",
       language: "Idioma",
+      languageShort: "Idioma",
       help: "Ayuda",
+      more: "Más",
       settings: "Configuración",
     },
     actions: {

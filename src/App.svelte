@@ -204,8 +204,8 @@
 
 <!-- #region Snippets -->
 {#snippet burgerHeader()}
-  <div class={cx("p-2 flex flex-col items-center text-center")}>
-    <div class={cx("font-bold text-[var(--color-text-muted)]", TEXT.md)}>
+  <div class={cx("p-1 flex flex-col items-center text-center")}>
+    <div class={cx("font-bold text-[var(--color-text-muted)]", TEXT.sm)}>
       {L.app.title}
     </div>
     <div class={cx("text-[var(--color-text-muted)]", TEXT.xs)}>
@@ -215,10 +215,10 @@
 {/snippet}
 
 {#snippet burgerFooter()}
-  <div class={cx("text-center p-2 flex flex-col items-center gap-4")}>
+  <div class={cx("text-center p-1 flex flex-col items-center gap-2")}>
     <PrimaryColorSelect class="w-fit" />
     <Select
-      sz="sm"
+      sz="xs"
       label={L.app.language.label}
       options={L.app.language.options}
       bind:value={lang.value}
@@ -407,7 +407,10 @@
 
   <div
     class={cx(
-      "w-full max-w-[min(100%,760px)] min-h-[560px] mx-auto px-3 py-4 sm:px-4 md:p-6 lg:p-10",
+      "w-full mx-auto",
+      active === "notepad"
+        ? "max-w-none min-h-0 px-0 py-0 sm:px-0 md:p-4 lg:p-6"
+        : "max-w-[min(100%,760px)] min-h-[560px] px-3 py-4 sm:px-4 md:p-6 lg:p-10",
       "transition-[padding] duration-[var(--transition-normal)] ease-[var(--timing-default)]",
     )}
   >
@@ -649,7 +652,9 @@
           {/snippet}
         </PlayCard>
       {:else if active === "notepad"}
-        <div class="w-full h-[320px] md:h-[480px] overflow-x-auto">
+        <div
+          class="w-full h-[calc(100dvh-7rem)] min-h-[420px] md:h-[calc(100dvh-10rem)] md:min-h-[480px] overflow-x-auto"
+        >
           <Notepad {L} class="h-full min-w-0" />
         </div>
       {:else if active === "calculator"}

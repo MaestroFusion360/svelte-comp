@@ -102,7 +102,7 @@
   let menuPosition = $state<"top" | "bottom">("bottom");
 
   const base =
-    "relative w-full outline-none appearance-none cursor-pointer transition-colors duration-[var(--transition-fast)] ease-[var(--timing-default)] box-border rounded-[var(--radius-md)] border focus:border-[var(--border-color-focus)] focus:ring-2 focus:ring-[var(--border-color-focus)] [color:var(--color-text-default)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed [@media(pointer:coarse)]:min-h-11";
+    "relative w-full outline-none appearance-none cursor-pointer transition-colors duration-[var(--transition-fast)] ease-[var(--timing-default)] box-border rounded-[var(--radius-md)] border focus:border-[var(--border-color-focus)] focus:ring-2 focus:ring-[var(--border-color-focus)] [color:var(--color-text-default)] disabled:opacity-[var(--opacity-disabled)] disabled:cursor-not-allowed";
 
   const sizes: Record<SizeKey, string> = {
     xs: "px-2 pr-6 h-6",
@@ -152,7 +152,7 @@
 
   const itemBaseClass = $derived(
     cx(
-      "w-full text-left px-4 py-2 transition-colors duration-[var(--transition-fast)] cursor-pointer [@media(pointer:coarse)]:min-h-11",
+      "w-full text-left px-4 py-2 transition-colors duration-[var(--transition-fast)] cursor-pointer",
       TEXT[sz]
     )
   );
